@@ -1,2 +1,3 @@
 # PedEEG
-Repository for Alja's PhD processing
+
+Repository for Alja's PhD processing.
