@@ -45,14 +45,7 @@ ix_13 = ix_13(1);
 
 %% mean
 mean_fc = mean(fc.wpli_debiasedspctrm(:,:,ix_8:ix_13), 3);
-imagesc(mean_fc);
+%imagesc(mean_fc);
 
-%% load BCT
-addpath('D:/Work/EEG/2019_03_03_BCT')
-
-%% characteristic path
-% absolute
-cp_matrix = abs(mean_fc);
-
-cp_matrix(isnan(cp_matrix)) = 0;
-cp = charpath(cp_matrix);
+%% save
+save(strcat(directory, '/', subject, '_mean_fc.mat'), 'mean_fc');
