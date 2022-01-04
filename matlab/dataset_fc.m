@@ -3,7 +3,6 @@ addpath('D:/Work/EEG/eeglab2021.1')
 addpath('D:/Work/EEG/fieldtrip')
 run('D:/Work/EEG/eeglab2021.1/eeglab.m');
 ft_defaults
-addpath('D:/Work/EEG/2019_03_03_BCT')
 
 %% calculate fc
 % directories
@@ -13,6 +12,8 @@ study_root = 'D:/Work/EEG/';
 data_dir = strcat(study_root, 'dataset/');
 rest_dir = strcat(data_dir, 'rest/');
 fc_dir = strcat(data_dir, 'fc/');
+corr_dir = strcat(data_dir, 'fc_corr/');
+coh_dir = strcat(data_dir, 'fc_coh/');
 
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));
@@ -21,7 +22,7 @@ n = length(data_files);
 % iterate over all subjects
 for i = 1:n
     % report
-    disp(['Processing: ', num2str(i), '/', num2str(n)])
+    disp(['===> Processing: ', num2str(i), '/', num2str(n)])
     
     % get id
     [path, name, ext] = fileparts(data_files(i).name);
@@ -75,24 +76,39 @@ for i = 1:n
     cfg = [];
     cfg.method = 'mtmfft';
     cfg.output = 'fourier';
+    cfg.foilim = [8, 13];
     cfg.tapsmofrq = 1;
     cfg.pad = 'nextpow2';
     freq = ft_freqanalysis(cfg, data);
 
-    % connectome
+    % connectome wpli_debiased
     cfg = [];
     cfg.method = 'wpli_debiased';
     fc = ft_connectivityanalysis(cfg, freq);
-
-    % alpha frequencies only
-    ix_8 = find(fc.freq > 8);
-    ix_8 = ix_8(1);
-    ix_13 = find(fc.freq > 13);
-    ix_13 = ix_13(1);
-    
+       
     % mean
-    mean_fc = mean(fc.wpli_debiasedspctrm(:,:,ix_8:ix_13), 3);
+    mean_fc = mean(fc.wpli_debiasedspctrm, 3);
 
     % save the connectome
     save(strcat(fc_dir, name, '_mean_fc.mat'), 'mean_fc');
+    
+    % connectome correlation
+    cfg = [];
+    cfg.method = 'corr';
+    fc = ft_connectivityanalysis(cfg, data);
+    mean_fc = fc.corr;
+    
+    % save the connectome
+    save(strcat(corr_dir, name, '_mean_fc.mat'), 'mean_fc');
+    
+    % connectome coherence
+    cfg = [];
+    cfg.method = 'coh';
+    fc = ft_connectivityanalysis(cfg, freq);
+    
+    % mean
+    mean_fc = mean(fc.cohspctrm, 3);
+    
+    % save the connectome
+    save(strcat(coh_dir, name, '_mean_fc.mat'), 'mean_fc');
 end
