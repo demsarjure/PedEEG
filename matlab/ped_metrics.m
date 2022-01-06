@@ -16,9 +16,8 @@ names = strings(1,n);
 % n metrics
 n_metrics = 3;
 
+% metrics storage
 m = zeros(1,n_metrics);
-
-% all metics
 M = zeros(n,n_metrics);
 
 % iterate over all subjects

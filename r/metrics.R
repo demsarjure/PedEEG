@@ -14,19 +14,22 @@ df <- df %>% left_join(df_age)
 
 # OR load EEG dataset-----------------------------------------------------------
 df <- read.csv('../../dataset/csv/metrics.csv')
-colnames(df) <- c('ID', 'cp', 'mod')
+colnames(df) <- c('ID', 'cp', 'ge', 'cc')
+
+df_freq <- read.csv('../../dataset/csv/metrics_freq.csv')
+colnames(df_freq) <- c('ID', 'psd', 'ap_naive', 'ap')
 
 # add age
 df_age <- read.csv('../../dataset/MIPDB_PublicFile.csv')
 df_age <- df_age %>% select(ID, Age, Sex)
 df <- df %>% left_join(df_age)
+df <- df %>% left_join(df_freq)
 
+# plot -------------------------------------------------------------------------
 
-# to long ----------------------------------------------------------------------
-df <- df %>% pivot_longer(cols = cp:cc)
+# filter AP
+df <- df %>% filter(ap != -1)
 
-# plot
-ggplot(df, aes(x=Age, y=value)) +
-  geom_point() +
-  geom_smooth(method="lm") +
-  facet_grid(name ~ ., scales="free_y")
+ggplot(df, aes(x=Age, y=ap)) +
+  geom_jitter() +
+  geom_smooth(method="lm")
