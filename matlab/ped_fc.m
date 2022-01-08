@@ -23,8 +23,7 @@ for i = 1:n
     data = eeglab2fieldtrip(rest, 'raw', 'none');
 
     % recreate sample info
-    n_events = size(data.trialinfo.type,1);
-    % recreate sample info
+    n_events = 120;
     data.sampleinfo = zeros(n_events, 2);
     for j = 1:n_events
         frames = data.trialinfo.duration(j) * data.fsample;

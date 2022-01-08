@@ -19,7 +19,7 @@ n = length(data_files);
 names = strings(1,n);
 
 % n metrics
-n_metrics = 3;
+n_metrics = 5;
 
 % metrics storage
 m = zeros(1,n_metrics);
@@ -43,10 +43,16 @@ for i = 1:n
     % load data
     load(full_path);
     
-    % remove nans
+    % remove nan rows and columns
+    mean_fc = mean_fc(:,~all(isnan(mean_fc)));
+    mean_fc = mean_fc(~all(isnan(mean_fc), 2),:);
+    
+    % to positive numbers
     mean_fc = mean_fc + abs(min(min(mean_fc)));
-    mean_fc(isnan(mean_fc)) = 0;
-        
+     
+    % set diagonal to 0
+    mean_fc(1:1+size(mean_fc,1):end) = 0;
+    
     % calculate metrics
     % characteristic path
     m(1) = charpath(mean_fc);
@@ -56,6 +62,12 @@ for i = 1:n
     
     % clustering coefficient
     m(3) = mean(clustering_coef_wu(mean_fc));
+    
+    % modularity
+    m(4) = mean(modularity_und(mean_fc));
+    
+    % small worldness
+    [m(5), ~, ~] = small_world_ness(mean_fc, m(1), m(3), 1);
     
     % append
     M(i,:) = m;

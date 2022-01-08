@@ -63,7 +63,7 @@ for i = 1:n
     m(1) = mean(mean(fq.powspctrm));
     
     % AP
-    freq = 7:0.5:13;
+    freq = 7:0.5:14;
     cfg = [];
     cfg.output = 'pow';
     cfg.method = 'mtmfft';

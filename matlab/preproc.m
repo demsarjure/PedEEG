@@ -52,27 +52,27 @@ rest = pop_resample(rest, frequency);
 rest = pop_reref(rest, []);
 
 %% create dummy events
-n_events = 125;
-event_duration = 2;
+n_events = 250;
+event_duration = 1;
 event = struct([]);
 for i = 1:n_events
     event(i).type = i;
-    event(i).duration = 2;
+    event(i).duration = event_duration;
     event(i).timestamp = [];
-    event(i).latency = i * event_duration * 250;
+    event(i).latency = (i - 1) * event_duration * frequency + 1;
     event(i).urevent = 1;
 end
 rest.event = event;
 
 %% epoching
 % create dummy epochs
-rest = pop_epoch(rest, { }, [0  2]);
+rest = pop_epoch(rest, { }, [0  event_duration]);
 
 %% manual inspection for picking good epochs
 pop_eegplot(rest, 1, 1, 1);
 
-%% use only 60 good
-good_epochs = [];
+%% use only 120 good
+good_epochs = [16:23, 32:43, 62:69, 72:75, 78:101, 116:131, 138:145, 152:157, 168:171, 174:177, 188:193, 196:201, 214:215, 228:233, 244:249];
 
 %% filter good epochs
 rest = pop_select(rest, 'trial', good_epochs);

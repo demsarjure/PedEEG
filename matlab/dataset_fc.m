@@ -37,19 +37,18 @@ for i = 1:n
     frequency = 250;
     EEG = pop_resample(EEG, frequency);
 
-    % cut out 60x2 events
-    n_events = 60;
-    event_duration = 2;
+    % cut out 120x1 events
+    n_events = 120;
+    event_duration = 1;
     start = EEG.event(1).latency;
     stop = start + ((n_events + 1) * event_duration * frequency) + 1;
     EEG = eeg_eegrej(EEG, [1 start; stop EEG.pnts]);
 
     % epoching
-    event_duration = 2;
     event = struct([]);
     for j = 1:(n_events+1)
         event(j).type = j;
-        event(j).duration = 2;
+        event(j).duration = event_duration;
         event(j).timestamp = [];
         event(j).latency = (j - 1) * event_duration * 250;
         event(j).urevent = j;
@@ -57,7 +56,7 @@ for i = 1:n
     EEG.event = event;
 
     % create dummy epochs
-    EEG = pop_epoch(EEG, { }, [0  2]);
+    EEG = pop_epoch(EEG, { }, [0  event_duration]);
 
     % EEGlab to fieldtrip
     data = eeglab2fieldtrip(EEG, 'raw', 'none');

@@ -1,5 +1,6 @@
 %% load BCT
 addpath('D:/Work/EEG/2019_03_03_BCT')
+addpath('D:/Work/EEG/SmallWorldNess')
 
 %% iterater over subjects
 subject_suffix = ''; % use T_ for test
@@ -14,7 +15,7 @@ csv_dir = strcat(study_root, 'csv/');
 names = strings(1,n);
 
 % n metrics
-n_metrics = 3;
+n_metrics = 5;
 
 % metrics storage
 m = zeros(1,n_metrics);
@@ -33,11 +34,12 @@ for i = 1:n
     names(i) = subject;
     
     % load data
-    full_path = strcat(data_files(i).folder, '\', + data_files(i).name);
     load(strcat(directory, '/', subject, '_mean_fc', suffix, '.mat'));
     
-    % remove nans
+    % to positive numbers
     mean_fc = mean_fc + abs(min(min(mean_fc)));
+    
+    % remove nans
     mean_fc(isnan(mean_fc)) = 0;
         
     % calculate metrics
@@ -49,6 +51,12 @@ for i = 1:n
     
     % clustering coefficient
     m(3) = mean(clustering_coef_wu(mean_fc));
+    
+    % modularity
+    m(4) = mean(modularity_und(mean_fc));
+    
+    % small worldness
+    [m(5), ~, ~] = small_world_ness(mean_fc, m(1), m(3), 1);
     
     % append
     M(i,:) = m;
