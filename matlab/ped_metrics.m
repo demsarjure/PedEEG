@@ -15,7 +15,7 @@ csv_dir = strcat(study_root, 'csv/');
 names = strings(1,n);
 
 % n metrics
-n_metrics = 5;
+n_metrics = 4;
 
 % metrics storage
 m = zeros(1,n_metrics);
@@ -52,11 +52,8 @@ for i = 1:n
     % clustering coefficient
     m(3) = mean(clustering_coef_wu(mean_fc));
     
-    % modularity
-    m(4) = mean(modularity_und(mean_fc));
-    
     % small worldness
-    [m(5), ~, ~] = small_world_ness(mean_fc, m(1), m(3), 1);
+    [m(4), ~, ~] = small_world_ness(mean_fc, m(1), m(3), 1);
     
     % append
     M(i,:) = m;

@@ -80,16 +80,14 @@ for i = 1:n
         data.sampleinfo(j, 2) = end_t;
     end
     
-    % PSD
-    freq = 8:0.5:13;
-    cfg = [];
-    cfg.output = 'pow';
-    cfg.method = 'mtmfft';
-    cfg.foi = freq;
-    cfg.tapsmofrq = 1;
-    fq = ft_freqanalysis(cfg, data);
-    
-    m(1) = mean(mean(fq.powspctrm));
+    % psd
+    ps = pop_spectopo(rest, 1, [0  300000], 'EEG' , 'percent', 50, 'freqrange', [8 13], 'electrodes', 'off');
+    Fs = rest.srate;
+    N = size(ps, 2);
+    psd = (1/(Fs*N)) * abs(ps).^2;
+    psd(2:end-1) = 2*psd(2:end-1);
+
+    m(1) = mean(mean(psd));
     
     % AP
     freq = 7:0.5:14;
