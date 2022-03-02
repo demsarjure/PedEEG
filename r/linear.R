@@ -56,8 +56,7 @@ stan_data <- list(n=nrow(df), x=df$Age, y=df$cp)
 # fit
 fit_cp <- model$sample(
   data = stan_data,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -97,8 +96,7 @@ stan_data <- list(n=nrow(df), x=df$Age, y=df$ge)
 # fit
 fit_ge <- model$sample(
   data = stan_data,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -138,8 +136,7 @@ stan_data <- list(n=nrow(df), x=df$Age, y=df$cc)
 # fit
 fit_cc <- model$sample(
   data = stan_data,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -179,8 +176,7 @@ stan_data <- list(n=nrow(df), x=df$Age, y=df$sw)
 # fit
 fit_sw <- model$sample(
   data = stan_data,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -221,8 +217,7 @@ stan_data <- list(n=nrow(df_ap_plot), x=df_ap_plot$Age, y=df_ap_plot$ap)
 # fit
 fit_ap <- model$sample(
   data = stan_data,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -272,8 +267,7 @@ stan_data <- list(n=nrow(df), x=df$Age, y=df$total_ihs)
 # fit
 fit_tihs <- model$sample(
   data = stan_data,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot

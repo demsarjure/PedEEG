@@ -43,8 +43,7 @@ stan_data_f <- list(n=nrow(df_f), y=df_f$cp)
 # fit male
 fit_cp_m <- model$sample(
   data = stan_data_m,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -59,8 +58,7 @@ df_cp_m <- as_draws_df(fit_cp_m$draws())
 # fit
 fit_cp_f <- model$sample(
   data = stan_data_f,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -95,8 +93,7 @@ stan_data_f <- list(n=nrow(df_f), y=df_f$ge)
 # fit male
 fit_ge_m <- model$sample(
   data = stan_data_m,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -111,8 +108,7 @@ df_ge_m <- as_draws_df(fit_ge_m$draws())
 # fit
 fit_ge_f <- model$sample(
   data = stan_data_f,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -148,8 +144,7 @@ stan_data_f <- list(n=nrow(df_f), y=df_f$cc)
 # fit male
 fit_cc_m <- model$sample(
   data = stan_data_m,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -164,8 +159,7 @@ df_cc_m <- as_draws_df(fit_cc_m$draws())
 # fit
 fit_cc_f <- model$sample(
   data = stan_data_f,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -201,8 +195,7 @@ stan_data_f <- list(n=nrow(df_f), y=df_f$sw)
 # fit male
 fit_sw_m <- model$sample(
   data = stan_data_m,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -217,8 +210,7 @@ df_sw_m <- as_draws_df(fit_sw_m$draws())
 # fit
 fit_sw_f <- model$sample(
   data = stan_data_f,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -256,8 +248,7 @@ stan_data_f <- list(n=nrow(df_ap_filter_f), y=df_ap_filter_f$ap)
 # fit male
 fit_ap_m <- model$sample(
   data = stan_data_m,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -272,8 +263,7 @@ df_ap_m <- as_draws_df(fit_ap_m$draws())
 # fit
 fit_ap_f <- model$sample(
   data = stan_data_f,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -309,8 +299,7 @@ stan_data_f <- list(n=nrow(df_f), y=df_f$total_ihs)
 # fit male
 fit_tihs_m <- model$sample(
   data = stan_data_m,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
@@ -325,8 +314,7 @@ df_tihs_m <- as_draws_df(fit_tihs_m$draws())
 # fit
 fit_tihs_f <- model$sample(
   data = stan_data_f,
-  parallel_chains = 4,
-  seed = 1
+  parallel_chains = 4
 )
 
 # traceplot
