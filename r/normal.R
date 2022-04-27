@@ -7,10 +7,8 @@ library(posterior)
 library(tidyverse)
 library(mcmcse)
 
-# set suffix -------------------------------------------------------------------
-suffix <- "_laplace"
-
 # load EEG dataset ----------------------------------------------------------
+suffix <- ""
 df <- read.csv(paste0("../../dataset/csv/metrics", suffix, ".csv"))
 colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
 

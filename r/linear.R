@@ -8,10 +8,8 @@ library(posterior)
 library(tidyverse)
 library(mcmcse)
 
-# set suffix -------------------------------------------------------------------
-suffix <- "_laplace"
-
 # load PED data ----------------------------------------------------------------
+suffix <- "_laplace"
 dataset <- "ped"
 df <- read.csv(paste0("../../csv/metrics", suffix, ".csv"))
 colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
@@ -30,6 +28,7 @@ df <- df %>% left_join(df_freq)
 df <- df %>% left_join(df_nihs)
 
 # OR load EEG dataset ----------------------------------------------------------
+suffix <- ""
 dataset <- "dataset"
 df <- read.csv(paste0("../../dataset/csv/metrics", suffix, ".csv"))
 colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
