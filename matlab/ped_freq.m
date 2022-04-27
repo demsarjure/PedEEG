@@ -1,7 +1,7 @@
 %% init
-addpath('D:/Work/EEG/eeglab2021.1')
+addpath('D:/Work/EEG/eeglab2022.0')
 addpath('D:/Work/EEG/fieldtrip')
-run('D:/Work/EEG/eeglab2021.1/eeglab.m');
+run('D:/Work/EEG/eeglab2022.0/eeglab.m');
 ft_defaults
 
 %% iterater over subjects
@@ -39,8 +39,9 @@ for i = 1:n
     rest = pop_loadset(cleaned_set, directory);
     data = eeglab2fieldtrip(rest, 'raw', 'none');
 
-    % recreate sample info
+    % n_events
     n_events = size(data.trialinfo.type,1);
+    
     % recreate sample info
     data.sampleinfo = zeros(n_events, 2);
     for j = 1:n_events

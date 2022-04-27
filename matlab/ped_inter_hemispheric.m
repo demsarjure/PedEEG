@@ -1,6 +1,6 @@
 %% init
-addpath('D:/Work/EEG/eeglab2021.1')
-run('D:/Work/EEG/eeglab2021.1/eeglab.m');
+addpath('D:/Work/EEG/eeglab2022.0')
+run('D:/Work/EEG/eeglab2022.0/eeglab.m');
 
 %% load the data and electrode locations from subject 1
 EEG = pop_fileio(strcat('D:/Work/EEG/PED_01/PED_01.vhdr'), 'dataformat', 'auto');
@@ -17,7 +17,7 @@ right = find(y_electrodes < -epsilon);
 %% iterater over subjects
 subject_suffix = ''; % use T_ for test
 n = 21; % use X for test
-suffix = ''; % '', '_coh' or '_corr'
+suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
 
 % dir
 study_root = 'D:/Work/EEG/';

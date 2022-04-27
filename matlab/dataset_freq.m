@@ -1,7 +1,7 @@
 %% init
-addpath('D:/Work/EEG/eeglab2021.1')
+addpath('D:/Work/EEG/eeglab2022.0')
 addpath('D:/Work/EEG/fieldtrip')
-run('D:/Work/EEG/eeglab2021.1/eeglab.m');
+run('D:/Work/EEG/eeglab2022.0/eeglab.m');
 ft_defaults
 
 %% iterate over subjects

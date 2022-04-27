@@ -5,7 +5,7 @@ addpath('D:/Work/EEG/SmallWorldNess')
 %% iterater over subjects
 subject_suffix = ''; % use T_ for test
 n = 21;
-suffix = ''; % '', '_coh' or '_corr'
+suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
 
 % dir
 study_root = 'D:/Work/EEG/';

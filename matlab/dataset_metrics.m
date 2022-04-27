@@ -6,13 +6,14 @@ addpath('D:/Work/EEG/2019_03_03_BCT')
 study_root = 'D:/Work/EEG/';
 
 % data dir
-suffix = ''; % '', '_coh' or '_corr'
+dir_suffix = ''; % '', '_coh' or '_corr'
+file_suffix = '_laplace' ; % '' or '_laplace'
 data_dir = strcat(study_root, 'dataset/');
-fc_dir = strcat(data_dir, 'fc', suffix, '/');
+fc_dir = strcat(data_dir, 'fc', dir_suffix, '/');
 csv_dir = strcat(data_dir, 'csv/');
 
 % get files
-data_files = dir(fullfile(fc_dir, '*.mat'));
+data_files = dir(fullfile(fc_dir, strcat('*', file_suffix, '.mat')));
 n = length(data_files);
 
 % storages
@@ -72,4 +73,4 @@ end
 
 % merge
 metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, 'metrics', suffix, '.csv'));
+writetable(metrics, strcat(csv_dir, 'metrics', dir_suffix, file_suffix, '.csv'));

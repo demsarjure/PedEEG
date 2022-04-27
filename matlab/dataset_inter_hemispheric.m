@@ -1,6 +1,6 @@
 %% init
-addpath('D:/Work/EEG/eeglab2021.1')
-run('D:/Work/EEG/eeglab2021.1/eeglab.m');
+addpath('D:/Work/EEG/eeglab2022.0')
+run('D:/Work/EEG/eeglab2022.0/eeglab.m');
 
 %% calculate fc
 % directories
@@ -14,7 +14,8 @@ csv_dir = strcat(data_dir, 'csv/');
 
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));
-fc_files = dir(fullfile(fc_dir, '*.mat'));
+fc_suffix = '_laplace'; % '' or '_laplace'
+fc_files = dir(fullfile(fc_dir, '*', fc_suffix, '.mat'));
 n = length(data_files);
 
 % n metrics
@@ -103,4 +104,4 @@ end
 
 % save
 metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, 'metrics_inter.csv'));
+writetable(metrics, strcat(csv_dir, 'metrics_inter', fc_suffix, '.csv'));
