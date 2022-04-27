@@ -38,7 +38,7 @@ matrix_plot <- function(filename, title = "", legend = FALSE) {
     theme(plot.title = element_text(hjust = 0.5))
 
   if (!legend) {
-    plot <- plot + ggplot::theme(legend.position = "none")
+    plot <- plot + theme(legend.position = "none")
   }
 
   plot
@@ -53,8 +53,15 @@ matrix_plot("../../csv/fc/PED_15.csv")
 matrix_plot("../../csv/fc/PED_16.csv")
 matrix_plot("../../csv/fc/PED_17.csv")
 
-p1 <- matrixPlot("../../csv/fc/PED_13.csv", title = "7 years old")
-p2 <- matrixPlot("../../csv/fc/PED_11.csv", title = "12 years old")
-p3 <- matrixPlot("../../csv/fc/PED_19.csv", title = "17 years old")
+p1 <- matrix_plot("../../csv/fc/PED_13.csv", title = "7 years old")
+p2 <- matrix_plot("../../csv/fc/PED_11.csv", title = "12 years old")
+p3 <- matrix_plot("../../csv/fc/PED_19.csv", title = "17 years old")
 
-plot_grid(p1, p2, p3, ncol = 3, scale = 0.95)
+plot_grid(p1, p2, p3, ncol = 3, scale = 0.95) +
+  theme(plot.background = element_rect(fill = "white", color = NA))
+
+ggsave(paste0("fc_plot.png"),
+       width = 3840,
+       height = 1400,
+       dpi = 300,
+       units = "px")

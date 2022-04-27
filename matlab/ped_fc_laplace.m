@@ -18,7 +18,7 @@ for i = 1:n
     directory = strcat('D:/Work/EEG/', subject);
 
     % convert
-    cleaned_set = strcat(subject, '_rest_cleaned.set');
+    cleaned_set = strcat(subject, '_rest_cleaned_laplace.set');
     rest = pop_loadset(cleaned_set, directory);
     data = eeglab2fieldtrip(rest, 'raw', 'none');
 

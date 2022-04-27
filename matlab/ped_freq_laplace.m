@@ -35,7 +35,7 @@ for i = 1:n
     names(i) = subject;
     
     % convert
-    cleaned_set = strcat(subject, '_rest_cleaned.set');
+    cleaned_set = strcat(subject, '_rest_cleaned_laplace.set');
     rest = pop_loadset(cleaned_set, directory);
     data = eeglab2fieldtrip(rest, 'raw', 'none');
 
