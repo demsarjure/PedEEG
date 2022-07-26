@@ -5,7 +5,7 @@ n = 21;
 suffix = ''; % '', '_coh' or '_corr'
 
 % dir
-study_root = 'D:/Work/EEG/';
+study_root = '../';
 csv_dir = strcat(study_root, 'csv/fc/');
 
 % storages
@@ -18,7 +18,7 @@ for i = 1:n
     
     % set subject
     subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
-    directory = strcat('D:/Work/EEG/', subject);
+    directory = strcat('../', subject);
 
     % store name
     names(i) = subject;

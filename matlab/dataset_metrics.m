@@ -1,9 +1,9 @@
 %% init
-addpath('D:/Work/EEG/2019_03_03_BCT')
+addpath('../2019_03_03_BCT')
 
 %% calculate metrics
 % directories
-study_root = 'D:/Work/EEG/';
+study_root = '../';
 
 % data dir
 dir_suffix = ''; % '', '_coh' or '_corr'

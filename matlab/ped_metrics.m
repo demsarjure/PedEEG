@@ -1,6 +1,6 @@
 %% load BCT
-addpath('D:/Work/EEG/2019_03_03_BCT')
-addpath('D:/Work/EEG/SmallWorldNess')
+addpath('../2019_03_03_BCT')
+addpath('../SmallWorldNess')
 
 %% iterater over subjects
 subject_suffix = ''; % use T_ for test
@@ -8,7 +8,7 @@ n = 21;
 suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
 
 % dir
-study_root = 'D:/Work/EEG/';
+study_root = '../';
 csv_dir = strcat(study_root, 'csv/');
 
 % storages
@@ -28,7 +28,7 @@ for i = 1:n
     
     % set subject
     subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
-    directory = strcat('D:/Work/EEG/', subject);
+    directory = strcat('../', subject);
 
     % store name
     names(i) = subject;

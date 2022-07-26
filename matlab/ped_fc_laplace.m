@@ -1,7 +1,7 @@
 %% init
-addpath('D:/Work/EEG/eeglab2022.0')
-addpath('D:/Work/EEG/fieldtrip')
-run('D:/Work/EEG/eeglab2022.0/eeglab.m');
+addpath('../eeglab2022.0')
+addpath('../fieldtrip')
+run('../eeglab2022.0/eeglab.m');
 ft_defaults
 
 %% iterater over subjects
@@ -15,7 +15,7 @@ for i = 1:n
     
     % set subject
     subject = strcat('PED_', suffix, num2str(i, '%02.f'));
-    directory = strcat('D:/Work/EEG/', subject);
+    directory = strcat('../', subject);
 
     % convert
     cleaned_set = strcat(subject, '_rest_cleaned_laplace.set');

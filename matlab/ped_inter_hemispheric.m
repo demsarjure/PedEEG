@@ -1,10 +1,10 @@
 %% init
-addpath('D:/Work/EEG/eeglab2022.0')
-run('D:/Work/EEG/eeglab2022.0/eeglab.m');
+addpath('../eeglab2022.0')
+run('../eeglab2022.0/eeglab.m');
 
 %% load the data and electrode locations from subject 1
-EEG = pop_fileio(strcat('D:/Work/EEG/PED_01/PED_01.vhdr'), 'dataformat', 'auto');
-EEG = pop_editset(EEG, 'run', [], 'chanlocs', 'D:/Work/EEG/64BPMR+ref.ced');
+EEG = pop_fileio(strcat('../PED_01/PED_01.vhdr'), 'dataformat', 'auto');
+EEG = pop_editset(EEG, 'run', [], 'chanlocs', '../64BPMR+ref.ced');
 
 %% electrodes
 y_electrodes = [EEG.chanlocs.Y];
@@ -20,7 +20,7 @@ n = 21; % use X for test
 suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
 
 % dir
-study_root = 'D:/Work/EEG/';
+study_root = '../';
 csv_dir = strcat(study_root, 'csv/');
 
 % n metrics
@@ -38,7 +38,7 @@ for i = 1:n
     
     % set subject
     subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
-    directory = strcat('D:/Work/EEG/', subject);
+    directory = strcat('../', subject);
 
     % store name
     names(i) = subject;

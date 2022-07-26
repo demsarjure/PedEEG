@@ -1,10 +1,10 @@
 %% init
-addpath('D:/Work/EEG/eeglab2022.0')
-run('D:/Work/EEG/eeglab2022.0/eeglab.m');
+addpath('../eeglab2022.0')
+run('../eeglab2022.0/eeglab.m');
 
 %% calculate fc
 % directories
-study_root = 'D:/Work/EEG/';
+study_root = '../';
 
 % data dir
 data_dir = strcat(study_root, 'dataset/');

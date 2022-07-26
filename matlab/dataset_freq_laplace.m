@@ -1,12 +1,12 @@
 %% init
-addpath('D:/Work/EEG/eeglab2022.0')
-addpath('D:/Work/EEG/fieldtrip')
-run('D:/Work/EEG/eeglab2022.0/eeglab.m');
+addpath('../eeglab2022.0')
+addpath('../fieldtrip')
+run('../eeglab2022.0/eeglab.m');
 ft_defaults
 
 %% iterate over subjects
 % directories
-study_root = 'D:/Work/EEG/';
+study_root = '../';
 
 % data dir
 data_dir = strcat(study_root, 'dataset/');
