@@ -6,7 +6,7 @@ ft_defaults
 
 %% set subject
 suffix = '_laplace';
-subject = 'PED_T_05';
+subject = 'PED_T_20';
 disp(['Subject: ', subject])
 
 %% load the data
@@ -32,7 +32,7 @@ pop_eegplot(rest_raw, 1, 1, 1);
 figure; pop_spectopo(rest_raw, 1, [0  360000], 'EEG' , 'percent', 50, 'freqrange', [2 25], 'electrodes', 'off');
 
 %% remove bad electrodes
-bad_electrodes = [2, 3, 4, 6, 7, 17, 24, 26, 29, 33, 34, 36, 37, 48, 52, 62, 63, 64];
+bad_electrodes = [2, 3, 6, 7, 10, 33, 36, 37, 62, 63, 64];
 rest = pop_select(rest_raw, 'nochannel', bad_electrodes);
 rest.setname = 'rest_cleaned';
 
@@ -73,7 +73,7 @@ rest = pop_epoch(rest, { }, [0  event_duration]);
 pop_eegplot(rest, 1, 1, 1);
 
 %% use only 120 good
-good_epochs = [22:37, 50:59, 74:89, 110:117, 146:155, 170:178, 188:203, 216:250];
+good_epochs = [8:19, 26:32, 37:42, 78:102, 118:127, 137:164, 180:191, 196:201, 235:241, 244:250];
 
 %% filter good epochs
 rest = pop_select(rest, 'trial', good_epochs);

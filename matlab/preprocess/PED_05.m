@@ -1,7 +1,7 @@
 %% init
-addpath('../eeglab2022.0')
-addpath('../fieldtrip')
-run('../eeglab2022.0/eeglab.m');
+addpath('../../../eeglab2022.0')
+addpath('../../../fieldtrip')
+run('../../../eeglab2022.0/eeglab.m');
 ft_defaults
 
 %% set subject
@@ -10,11 +10,11 @@ subject = 'PED_05';
 disp(['Subject: ', subject])
 
 %% load the data
-raw = pop_fileio(strcat('../', subject, '/', subject, '.vhdr'), 'dataformat', 'auto');
+raw = pop_fileio(strcat('../../../', subject, '/', subject, '.vhdr'), 'dataformat', 'auto');
 raw.setname = 'raw';
 
 %% load electrode locations
-raw = pop_editset(raw, 'run', [], 'chanlocs', '../64BPMR+ref.ced');
+raw = pop_editset(raw, 'run', [], 'chanlocs', '../../../64BPMR+ref.ced');
 
 %% extract data with eyes closed
 start = raw.event(7).latency;
@@ -79,4 +79,4 @@ good_epochs = [6:7, 10:11, 16:35, 38:47, 56:61, 64:67, 70:75, 78:79, 82:85, 98:1
 rest = pop_select(rest, 'trial', good_epochs);
 
 %% save
-pop_saveset(rest, 'filename', strcat(subject, '_rest_cleaned', suffix, '.set'), 'filepath', strcat('../', subject, '/'));
+pop_saveset(rest, 'filename', strcat(subject, '_rest_cleaned', suffix, '.set'), 'filepath', strcat('../../../', subject, '/'));
