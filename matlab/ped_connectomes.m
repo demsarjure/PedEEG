@@ -1,11 +1,11 @@
 
 %% iterater over subjects
 subject_suffix = ''; % use T_ for test
-n = 21;
-suffix = ''; % '', '_coh' or '_corr'
+n = 25; % use 29 for test
+suffix = '_laplace'; % '', '_laplace', '_coh' or '_corr'
 
 % dir
-study_root = '../';
+study_root = '../../';
 csv_dir = strcat(study_root, 'csv/fc/');
 
 % storages
@@ -18,7 +18,7 @@ for i = 1:n
     
     % set subject
     subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
-    directory = strcat('../', subject);
+    directory = strcat('../../', subject);
 
     % store name
     names(i) = subject;

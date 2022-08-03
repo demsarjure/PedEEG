@@ -1,21 +1,22 @@
 %% load BCT
-addpath('../2019_03_03_BCT')
-addpath('../SmallWorldNess')
+addpath('../../2019_03_03_BCT')
+addpath('../../SmallWorldNess')
 
 %% iterater over subjects
 subject_suffix = ''; % use T_ for test
-n = 21;
+group_suffix = ''; % use _T for test
+n = 25;
 suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
 
 % dir
-study_root = '../';
+study_root = '../../';
 csv_dir = strcat(study_root, 'csv/');
 
 % storages
 names = strings(1,n);
 
 % n metrics
-n_metrics = 4;
+n_metrics = 7;
 
 % metrics storage
 m = zeros(1,n_metrics);
@@ -28,7 +29,7 @@ for i = 1:n
     
     % set subject
     subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
-    directory = strcat('../', subject);
+    directory = strcat('../../', subject);
 
     % store name
     names(i) = subject;
@@ -55,10 +56,19 @@ for i = 1:n
     % small worldness
     [m(4), ~, ~] = small_world_ness(mean_fc, m(1), m(3), 1);
     
+    % assortativity
+    m(5) = assortativity_wei(mean_fc, 0);
+
+    % betweenness centrality
+    m(6) = mean(betweenness_wei(mean_fc));
+
+    % degree distribution
+    m(7) = mean(degrees_wei(mean_fc));
+
     % append
     M(i,:) = m;
 end
 
 % merge
 metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, 'metrics', suffix, '.csv'));
+writetable(metrics, strcat(csv_dir, 'metrics', group_suffix, suffix, '.csv'));

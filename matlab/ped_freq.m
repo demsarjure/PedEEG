@@ -1,15 +1,16 @@
 %% init
-addpath('../eeglab2022.0')
-addpath('../fieldtrip')
-run('../eeglab2022.0/eeglab.m');
+addpath('../../eeglab2022.0')
+addpath('../../fieldtrip')
+run('../../eeglab2022.0/eeglab.m');
 ft_defaults
 
 %% iterater over subjects
 suffix = ''; % use T_ for test
-n = 21; % use X for test
+fc_suffix = '_laplace'; % use '' for no surface laplacian
+n = 25; % use 29 for test
 
 % dir
-study_root = '../';
+study_root = '../../';
 csv_dir = strcat(study_root, 'csv/');
 
 % storages
@@ -29,13 +30,13 @@ for i = 1:n
     
     % set subject
     subject = strcat('PED_', suffix, num2str(i, '%02.f'));
-    directory = strcat('../', subject);
+    directory = strcat('../../', subject);
 
     % store name
     names(i) = subject;
     
     % convert
-    cleaned_set = strcat(subject, '_rest_cleaned.set');
+    cleaned_set = strcat(subject, '_rest_cleaned', fc_suffix, '.set');
     rest = pop_loadset(cleaned_set, directory);
     data = eeglab2fieldtrip(rest, 'raw', 'none');
 
@@ -101,4 +102,4 @@ end
 
 % merge
 metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, 'metrics_freq.csv'));
+writetable(metrics, strcat(csv_dir, strcat('metrics_freq', suffix, fc_suffix, '.csv')));

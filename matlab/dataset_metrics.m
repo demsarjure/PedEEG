@@ -1,9 +1,9 @@
 %% init
-addpath('../2019_03_03_BCT')
+addpath('../../2019_03_03_BCT')
 
 %% calculate metrics
 % directories
-study_root = '../';
+study_root = '../../';
 
 % data dir
 dir_suffix = ''; % '', '_coh' or '_corr'
@@ -39,7 +39,7 @@ for i = 1:n
     names(i) = split_name(1);
     
     % get full path
-    full_path = strcat(data_files(i).folder, '\', + data_files(i).name);
+    full_path = strcat(data_files(i).folder, '/', + data_files(i).name);
     
     % load data
     load(full_path);

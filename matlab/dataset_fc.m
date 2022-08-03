@@ -1,12 +1,12 @@
 %% init
-addpath('../eeglab2022.0')
-addpath('../fieldtrip')
-run('../eeglab2022.0/eeglab.m');
+addpath('../../eeglab2022.0')
+addpath('../../fieldtrip')
+run('../../eeglab2022.0/eeglab.m');
 ft_defaults
 
 %% calculate fc
 % directories
-study_root = '../';
+study_root = '../../';
 
 % data dir
 data_dir = strcat(study_root, 'dataset/');

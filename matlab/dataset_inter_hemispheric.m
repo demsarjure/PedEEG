@@ -1,10 +1,10 @@
 %% init
-addpath('../eeglab2022.0')
-run('../eeglab2022.0/eeglab.m');
+addpath('../../eeglab2022.0')
+run('../../eeglab2022.0/eeglab.m');
 
 %% calculate fc
 % directories
-study_root = '../';
+study_root = '../../';
 
 % data dir
 data_dir = strcat(study_root, 'dataset/');
@@ -15,7 +15,7 @@ csv_dir = strcat(data_dir, 'csv/');
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));
 fc_suffix = '_laplace'; % '' or '_laplace'
-fc_files = dir(fullfile(fc_dir, '*', fc_suffix, '.mat'));
+fc_files = dir(fullfile(fc_dir, strcat('*', fc_suffix, '.mat')));
 n = length(data_files);
 
 % n metrics
@@ -39,7 +39,7 @@ for i = 1:n
     names(i) = split_name(1);
     
     % get full path
-    full_path = strcat(data_files(i).folder, '\', + data_files(i).name);
+    full_path = strcat(data_files(i).folder, '/', + data_files(i).name);
     
     % load data
     load(full_path);
@@ -53,7 +53,7 @@ for i = 1:n
     right = find(y_electrodes < -epsilon);
     
     % load fc
-    fc_path = strcat(fc_files(i).folder, '\', + fc_files(i).name);
+    fc_path = strcat(fc_files(i).folder, '/', + fc_files(i).name);
     load(fc_path);
     
     % to positive numbers
