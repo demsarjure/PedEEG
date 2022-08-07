@@ -11,21 +11,31 @@ library(mcmcse)
 # load PED data ----------------------------------------------------------------
 suffix <- "_laplace"
 dataset <- "ped"
-df <- read.csv(paste0("../../csv/metrics", suffix, ".csv"))
-colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
 
-df_freq <- read.csv(paste0("../../csv/metrics_freq", suffix, ".csv"))
-colnames(df_freq) <- c("ID", "psd", "ap_naive", "ap")
+columns_metrics <- c("ID", "cp", "ge", "cc", "sw", "bc")
+columns_freq <- c("ID", "psd", "ap_naive", "ap")
+columns_inter <- c("ID", "normalized_ihs", "total_ihs",
+                   "cp_l", "ge_l", "cc_l", "sw_l", "bc_l",
+                   "cp_r", "ge_r", "cc_r", "sw_r", "bc_r")
 
-df_nihs <- read.csv(paste0("../../csv/metrics_inter", suffix, ".csv"))
-colnames(df_nihs) <- c("ID", "nihs", "total_ihs", "mean_ihs", "max_ihs")
+df <- read.csv(paste0("../data/", dataset, "/metrics", suffix, ".csv"))
+colnames(df) <- columns_metrics
+
+df_freq <- read.csv(paste0("../data/", dataset,
+                           "/metrics_freq", suffix, ".csv"))
+colnames(df_freq) <- columns_freq
+
+df_nihs <- read.csv(paste0("../data/", dataset,
+                           "/metrics_inter", suffix, ".csv"))
+colnames(df_nihs) <- columns_inter
 
 # add age
-df_age <- read.csv("../../csv/demographics.csv")
+df_age <- read.csv("../data/ped/demographics.csv")
 df_age <- df_age %>% select(ID, Age, Sex)
 df <- df %>% left_join(df_age)
 df <- df %>% left_join(df_freq)
 df <- df %>% left_join(df_nihs)
+df <- df %>% drop_na()
 
 # OR load EEG dataset ----------------------------------------------------------
 suffix <- ""

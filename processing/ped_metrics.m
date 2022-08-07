@@ -5,18 +5,18 @@ addpath('../../SmallWorldNess')
 %% iterater over subjects
 subject_suffix = ''; % use T_ for test
 group_suffix = ''; % use _T for test
-n = 25;
+n = 25; % use 29 for test 25 for control
 suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
 
 % dir
 study_root = '../../';
-csv_dir = strcat(study_root, 'PedEEG/data/ped/csv/');
+csv_dir = strcat(study_root, 'PedEEG/data/ped/');
 
 % storages
 names = strings(1,n);
 
 % n metrics
-n_metrics = 7;
+n_metrics = 5;
 
 % metrics storage
 m = zeros(1,n_metrics);
@@ -40,30 +40,25 @@ for i = 1:n
     % to positive numbers
     mean_fc = mean_fc + abs(min(min(mean_fc)));
     
-    % remove nans
-    mean_fc(isnan(mean_fc)) = 0;
-        
+    % set diagonal to 0
+    nodes = size(mean_fc, 1);
+    mean_fc(1:nodes+1:end) = 0;
+
     % calculate metrics
     % characteristic path
     m(1) = charpath(mean_fc);
-    
+
     % global efficiency
     m(2) = efficiency_wei(mean_fc);
-    
+
     % clustering coefficient
     m(3) = mean(clustering_coef_wu(mean_fc));
     
     % small worldness
     [m(4), ~, ~] = small_world_ness(mean_fc, m(1), m(3), 1);
-    
-    % assortativity
-    m(5) = assortativity_wei(mean_fc, 0);
 
     % betweenness centrality
-    m(6) = mean(betweenness_wei(mean_fc));
-
-    % degree distribution
-    m(7) = mean(degrees_wei(mean_fc));
+    m(5) = mean(betweenness_wei(mean_fc));
 
     % append
     M(i,:) = m;

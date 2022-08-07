@@ -1,6 +1,8 @@
 %% init
 addpath('../../eeglab2022.0')
 run('../../eeglab2022.0/eeglab.m');
+addpath('../../2019_03_03_BCT')
+addpath('../../SmallWorldNess')
 
 %% load the data and electrode locations from subject 1
 EEG = pop_fileio(strcat('../../PED_01/PED_01.vhdr'), 'dataformat', 'auto');
@@ -15,17 +17,17 @@ middle = find(y_electrodes < epsilon & y_electrodes >- epsilon);
 right = find(y_electrodes < -epsilon);
 
 %% iterater over subjects
-subject_suffix = 'T_'; % use T_ for test
-group_suffix = '_T'; % use _T for test
-n = 29; % use 29 for test
+subject_suffix = ''; % use T_ for test
+group_suffix = ''; % use _T for test
+n = 25; % use 29 for test 25 for control
 suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
 
 % dir
 study_root = '../../';
-csv_dir = strcat(study_root, 'PedEEG/data/ped/csv/');
+csv_dir = strcat(study_root, 'PedEEG/data/ped/');
 
 % n metrics
-n_metrics = 18;
+n_metrics = 12;
 
 % storages
 names = strings(1,n);
@@ -48,10 +50,12 @@ for i = 1:n
     load(strcat(directory, '/', subject, '_mean_fc', suffix, '.mat'));
     
     % to positive numbers
-    mean_fc = mean_fc + abs(min(min(mean_fc)));
+    epsilon = 0.0001;
+    mean_fc = mean_fc + abs(min(min(mean_fc))) + epsilon;
     
-    % remove nans
-    mean_fc(isnan(mean_fc)) = 0;
+    % set diagonal to 0
+    nodes = size(mean_fc, 1);
+    mean_fc(1:nodes+1:end) = 0;
 
     % set all connections with middle electrodes to 0
     mean_fc(middle,:) = 0;
@@ -85,12 +89,6 @@ for i = 1:n
     % total interhemispheric
     m(2) = sum(i_mean_fc, 'all');
     
-    % mean
-    m(3) = mean(i_mean_fc, 'all');
-    
-    % max
-    m(4) = max(i_mean_fc, [], 'all');
-    
     % create left and right connectomes
     mean_fc_left = zeros(n_electrodes);
     mean_fc_right = zeros(n_electrodes);
@@ -100,12 +98,12 @@ for i = 1:n
             % if both left add to left
             if (any(left == x) && any(left == y))
                 mean_fc_left(x,y) = mean_fc(x,y);
-                mean_fc_left(y,x) = mean_fc(y,x);
+                mean_fc_left(y,x) = mean_fc(x,y);
             end
             % if both right add to right
             if (any(right == x) && any(right == y))
                 mean_fc_right(x,y) = mean_fc(x,y);
-                mean_fc_right(y,x) = mean_fc(y,x);
+                mean_fc_right(y,x) = mean_fc(x,y);
             end
         end
     end
@@ -119,22 +117,18 @@ for i = 1:n
     mean_fc_right = mean_fc_right(keep_rows,keep_columns);
 
     % left
-    m(5) = charpath(mean_fc_left);
-    m(6) = efficiency_wei(mean_fc_left);
-    m(7) = mean(clustering_coef_wu(mean_fc_left));
-    [m(8), ~, ~] = small_world_ness(mean_fc_left, m(1), m(3), 1);
-    m(9) = assortativity_wei(mean_fc_left, 0);
-    m(10) = mean(betweenness_wei(mean_fc_left));
-    m(11) = mean(degrees_wei(mean_fc_left));
+    m(3) = charpath(mean_fc_left);
+    m(4) = efficiency_wei(mean_fc);
+    m(5) = mean(clustering_coef_wu(mean_fc_left));
+    [m(6), ~, ~] = small_world_ness(mean_fc_left, m(1), m(3), 1);
+    m(7) = mean(betweenness_wei(mean_fc_left));
 
     % right
-    m(12) = charpath(mean_fc_left);
-    m(13) = efficiency_wei(mean_fc_left);
-    m(14) = mean(clustering_coef_wu(mean_fc_left));
-    [m(15), ~, ~] = small_world_ness(mean_fc_left, m(1), m(3), 1);
-    m(16) = assortativity_wei(mean_fc_left, 0);
-    m(17) = mean(betweenness_wei(mean_fc_left));
-    m(18) = mean(degrees_wei(mean_fc_left));
+    m(8) = charpath(mean_fc_right);
+    m(9) = efficiency_wei(mean_fc);
+    m(10) = mean(clustering_coef_wu(mean_fc_right));
+    [m(11), ~, ~] = small_world_ness(mean_fc_right, m(1), m(3), 1);
+    m(12) = mean(betweenness_wei(mean_fc_right));
 
     % append
     M(i,:) = m;

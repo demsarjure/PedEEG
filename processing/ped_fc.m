@@ -7,7 +7,7 @@ ft_defaults
 %% iterater over subjects
 subject_suffix = ''; % use T_ for test
 fc_suffix = '_laplace'; % use '' for no surface laplacian
-n = 25; % use 29 for test
+n = 25; % use 29 for test 25 for control
 
 % iterate over all subjects
 for i = 1:n

@@ -1,7 +1,7 @@
 
 %% iterater over subjects
 subject_suffix = ''; % use T_ for test
-n = 25; % use 29 for test
+n = 25; % use 29 for test 25 for control
 suffix = '_laplace'; % '', '_laplace', '_coh' or '_corr'
 
 % dir

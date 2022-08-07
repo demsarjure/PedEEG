@@ -1,120 +1,56 @@
-# Script for global metrics comparisons between the test and the control group
+# Global metrics comparisons between the test and the control group.
 
 # libraries
 library(tidyverse)
 
 # load data and models ---------------------------------------------------------
 source("./utils/normal.R")
-
-columns <- c("ID", "cp", "ge", "cc", "sw", "as", "bc", "dd")
-
-df_control <- read.csv("../data/ped/metrics_laplace.csv")
-colnames(df_control) <- columns
-
-df_test <- read.csv("../data/ped/metrics_T_laplace.csv")
-colnames(df_test) <- columns
-
+source("data.R")
 
 # compare cp -------------------------------------------------------------------
-# control
-cp_control <- fit_normal(df_control$cp)
-
-# test
-cp_test <- fit_normal(df_test$cp)
-
-# compare
-compare_normal(cp_control, "Control", cp_test, "Test")
-# --------------------------------------------------
-# P(Control > Test) = 21.68 +/- 0.7%
-# P(Control < Test) = 78.33 +/- 0.7%
-# --------------------------------------------------
-
+cp_fit <- fit_normal(df_diff$cp)
+compare_normal(cp_fit, label1 = "control", label2 = "test")
+# P(control > test) = 16.8 +/- 0.9%
+# P(control < test) = 83.2 +/- 0.9%
 
 # compare ge -------------------------------------------------------------------
-# control
-ge_control <- fit_normal(df_control$ge)
-
-# test
-ge_test <- fit_normal(df_test$ge)
-
-# compare
-compare_normal(ge_control, "Control", ge_test, "Test")
-# --------------------------------------------------
-# Control > Test: 0.34025 +/- 0.00846696721336751
-# Control < Test: 0.65975 +/- 0.00846696721336751
-# --------------------------------------------------
-
+ge_fit <- fit_normal(df_diff$ge)
+compare_normal(ge_fit, label1 = "control", label2 = "test")
+# P(control > test) = 30.28 +/- 0.9%
+# P(control < test) = 69.73 +/- 0.9%
 
 # compare cc -------------------------------------------------------------------
-# control
-cc_control <- fit_normal(df_control$cc)
-
-# test
-cc_test <- fit_normal(df_test$cc)
-
-# compare
-compare_normal(cc_control, "Control", cc_test, "Test")
-# --------------------------------------------------
-# Control > Test: 0.20575 +/- 0.00703263779587425
-# Control < Test: 0.79425 +/- 0.00703263779587425
-# --------------------------------------------------
-
+cc_fit <- fit_normal(df_diff$cc)
+compare_normal(cc_fit, label1 = "control", label2 = "test")
+# P(control > test) = 13.65 +/- 0.8%
+# P(control < test) = 86.35 +/- 0.8%
 
 # compare sw -------------------------------------------------------------------
-# control
-sw_control <- fit_normal(df_control$sw)
-
-# test
-sw_test <- fit_normal(df_test$sw)
-
-# compare
-compare_normal(sw_control, "Control", sw_test, "Test")
-# --------------------------------------------------
-# Control > Test: 0.23225 +/- 0.00713606059817744
-# Control < Test: 0.76775 +/- 0.00713606059817744
-# --------------------------------------------------
-
-
-# compare as -------------------------------------------------------------------
-# control
-as_control <- fit_normal(df_control$as)
-
-# test
-as_test <- fit_normal(df_test$as)
-
-# compare
-compare_normal(as_control, "Control", as_test, "Test")
-# --------------------------------------------------
-# Control > Test: 0.214 +/- 0.00673294109180718
-# Control < Test: 0.7855 +/- 0.00673958790455676
-# --------------------------------------------------
-
+sw_fit <- fit_normal(df_diff$sw)
+compare_normal(sw_fit, label1 = "control", label2 = "test")
+# P(control > test) = 20.75 +/- 0.9%
+# P(control < test) = 79.25 +/- 0.9%
 
 # compare bc -------------------------------------------------------------------
-# control
-bc_control <- fit_normal(df_control$bc)
+bc_fit <- fit_normal(df_diff$bc)
+compare_normal(bc_fit, label1 = "control", label2 = "test")
+# P(control > test) = 16.9 +/- 0.8%
+# P(control < test) = 83.1 +/- 0.8%
 
-# test
-bc_test <- fit_normal(df_test$bc)
+# compare ap -------------------------------------------------------------------
+ap_fit <- fit_normal(df_diff$ap)
+compare_normal(ap_fit, label1 = "control", label2 = "test")
+# P(control > test) = 98.7 +/- 0.2%
+# P(control < test) = 1.3 +/- 0.2%
 
-# compare
-compare_normal(bc_control, "Control", bc_test, "Test")
-# --------------------------------------------------
-# Control > Test: 0.02625 +/- 0.00302598557779062
-# Control < Test: 0.97375 +/- 0.00302598557779063
-# --------------------------------------------------
+# compare normalized_ihs -------------------------------------------------------
+normalized_ihs_fit <- fit_normal(df_diff$normalized_ihs)
+compare_normal(normalized_ihs_fit, label1 = "control", label2 = "test")
+# P(control > test) = 71.45 +/- 0.9%
+# P(control < test) = 28.55 +/- 0.9%
 
-
-# compare dd -------------------------------------------------------------------
-# control
-dd_control <- fit_normal(df_control$dd)
-
-# test
-dd_test <- fit_normal(df_test$dd)
-
-# compare
-compare_normal(dd_control, "Control", dd_test, "Test")
-# --------------------------------------------------
-# Control > Test: 0.217 +/- 0.00713809782439887
-# Control < Test: 0.783 +/- 0.00713809782439887
-# --------------------------------------------------
+# compare total_ihs -------------------------------------------------------
+total_ihs_fit <- fit_normal(df_diff$total_ihs)
+compare_normal(total_ihs_fit, label1 = "control", label2 = "test")
+# P(control > test) = 19.35 +/- 0.8%
+# P(control < test) = 80.65 +/- 0.8%

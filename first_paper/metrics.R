@@ -6,14 +6,22 @@ library(tidyverse)
 suffix <- "_laplace"
 
 # load PED data ----------------------------------------------------------------
-df <- read.csv(paste0("../../csv/metrics", suffix, ".csv"))
-colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
+columns_metrics <- c("ID", "cp", "ge", "cc", "sw", "as", "bc", "dd")
+columns_freq <- c("ID", "psd", "ap_naive", "ap")
+columns_inter <- c("ID", "nihs", "total_ihs", "mean_ihs", "max_ihs",
+                   "cp_l", "ge_l", "cc_l", "sw_l", "as_l", "bc_l", "dd_l",
+                   "cp_r", "ge_r", "cc_r", "sw_r", "as_r", "bc_r", "dd_r")
 
-df_freq <- read.csv(paste0("../../csv/metrics_freq", suffix, ".csv"))
-colnames(df_freq) <- c("ID", "psd", "ap_naive", "ap")
+df <- read.csv(paste0("../data/", dataset, "/metrics", suffix, ".csv"))
+colnames(df) <- columns_metrics
 
-df_nihs <- read.csv(paste0("../../csv/metrics_inter", suffix, ".csv"))
-colnames(df_nihs) <- c("ID", "nihs", "total_ihs", "mean_ihs", "max_ihs")
+df_freq <- read.csv(paste0("../data/", dataset,
+                           "/metrics_freq", suffix, ".csv"))
+colnames(df_freq) <- columns_freq
+
+df_nihs <- read.csv(paste0("../data/", dataset,
+                           "/metrics_inter", suffix, ".csv"))
+colnames(df_nihs) <- columns_inter
 
 # add age
 df_age <- read.csv("../../csv/demographics.csv")

@@ -5,13 +5,14 @@ run('../../eeglab2022.0/eeglab.m');
 ft_defaults
 
 %% iterater over subjects
-suffix = ''; % use T_ for test
-fc_suffix = '_laplace'; % use '' for no surface laplacian
-n = 25; % use 29 for test
+subject_suffix = 'T_'; % use T_ for test
+group_suffix = '_T'; % use _T for test
+n = 29; % use 29 for test 25 for control
+suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
 
 % dir
 study_root = '../../';
-csv_dir = strcat(study_root, 'PedEEG/data/ped/csv/');
+csv_dir = strcat(study_root, 'PedEEG/data/ped/');
 
 % storages
 names = strings(1,n);
@@ -29,14 +30,14 @@ for i = 1:n
     disp(['===> Processing: ', num2str(i), '/', num2str(n)])
     
     % set subject
-    subject = strcat('PED_', suffix, num2str(i, '%02.f'));
+    subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
     directory = strcat('../../', subject);
 
     % store name
     names(i) = subject;
     
     % convert
-    cleaned_set = strcat(subject, '_rest_cleaned', fc_suffix, '.set');
+    cleaned_set = strcat(subject, '_rest_cleaned', suffix, '.set');
     rest = pop_loadset(cleaned_set, directory);
     data = eeglab2fieldtrip(rest, 'raw', 'none');
 
@@ -102,4 +103,4 @@ end
 
 % merge
 metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, strcat('metrics_freq', suffix, fc_suffix, '.csv')));
+writetable(metrics, strcat(csv_dir, strcat('metrics_freq', group_suffix, fc_suffix, '.csv')));
