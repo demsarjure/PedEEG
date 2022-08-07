@@ -17,9 +17,9 @@ middle = find(y_electrodes < epsilon & y_electrodes >- epsilon);
 right = find(y_electrodes < -epsilon);
 
 %% iterater over subjects
-subject_suffix = ''; % use T_ for test
-group_suffix = ''; % use _T for test
-n = 25; % use 29 for test 25 for control
+subject_suffix = 'T_'; % use T_ for test
+group_suffix = '_T'; % use _T for test
+n = 29; % use 29 for test 25 for control
 suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
 
 % dir
@@ -49,10 +49,9 @@ for i = 1:n
     % load data
     load(strcat(directory, '/', subject, '_mean_fc', suffix, '.mat'));
     
-    % to positive numbers
-    epsilon = 0.0001;
-    mean_fc = mean_fc + abs(min(min(mean_fc))) + epsilon;
-    
+    % magnitude
+    mean_fc = abs(mean_fc);
+
     % set diagonal to 0
     nodes = size(mean_fc, 1);
     mean_fc(1:nodes+1:end) = 0;

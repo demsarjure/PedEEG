@@ -3,9 +3,9 @@ addpath('../../2019_03_03_BCT')
 addpath('../../SmallWorldNess')
 
 %% iterater over subjects
-subject_suffix = ''; % use T_ for test
-group_suffix = ''; % use _T for test
-n = 25; % use 29 for test 25 for control
+subject_suffix = 'T_'; % use T_ for test
+group_suffix = '_T'; % use _T for test
+n = 29; % use 29 for test 25 for control
 suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
 
 % dir
@@ -37,8 +37,8 @@ for i = 1:n
     % load data
     load(strcat(directory, '/', subject, '_mean_fc', suffix, '.mat'));
     
-    % to positive numbers
-    mean_fc = mean_fc + abs(min(min(mean_fc)));
+    % magnitude
+    mean_fc = abs(mean_fc);
     
     % set diagonal to 0
     nodes = size(mean_fc, 1);
@@ -59,6 +59,8 @@ for i = 1:n
 
     % betweenness centrality
     m(5) = mean(betweenness_wei(mean_fc));
+
+    as = 
 
     % append
     M(i,:) = m;

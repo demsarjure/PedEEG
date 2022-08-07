@@ -55,11 +55,12 @@ for i = 1:n
     fc_path = strcat(fc_files(i).folder, '/', + fc_files(i).name);
     load(fc_path);
     
-    % to positive numbers
-    mean_fc = mean_fc + abs(min(min(mean_fc)));
-    
-    % remove nans
-    mean_fc(isnan(mean_fc)) = 0;
+    % magnitude
+    mean_fc = abs(mean_fc);
+
+    % set diagonal to 0
+    nodes = size(mean_fc, 1);
+    mean_fc(1:nodes+1:end) = 0;
         
     % calculate inter hemispheric   
     i_mean_fc = mean_fc;

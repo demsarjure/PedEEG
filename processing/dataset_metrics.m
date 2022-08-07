@@ -47,11 +47,12 @@ for i = 1:n
     mean_fc = mean_fc(:,~all(isnan(mean_fc)));
     mean_fc = mean_fc(~all(isnan(mean_fc), 2),:);
     
-    % to positive numbers
-    mean_fc = mean_fc + abs(min(min(mean_fc)));
-     
+    % magnitude
+    mean_fc = abs(mean_fc);
+
     % set diagonal to 0
-    mean_fc(1:1+size(mean_fc,1):end) = 0;
+    nodes = size(mean_fc, 1);
+    mean_fc(1:nodes+1:end) = 0;
     
     % calculate metrics
     % characteristic path
