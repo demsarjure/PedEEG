@@ -9,9 +9,13 @@ library(tidyverse)
 
 
 # fit the normal model ---------------------------------------------------------
-fit_normal <- function(y) {
+fit_normal <- function(y, robust = FALSE) {
   # load the model
-  model <- cmdstan_model("./models/normal.stan")
+  if (!robust) {
+    model <- cmdstan_model("./models/normal.stan")
+  } else {
+    model <- cmdstan_model("./models/cauchy.stan")
+  }
 
   # prep data
   stan_data <- list(n = length(y),
