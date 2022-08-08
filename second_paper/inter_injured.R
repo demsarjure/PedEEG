@@ -16,40 +16,40 @@ dv_fit <- fit_normal(df_diff_injured$dv)
 
 # compare cp -------------------------------------------------------------------
 compare_normal(cp_fit, label1 = "healthy", label2 = "injured")
-# P(control > test) = 29.9 +/- 1%
-# P(control < test) = 70.1 +/- 1%
+# P(healthy > injured) = 19.02 +/- 0.8%
+# P(healthy < injured) = 80.97 +/- 0.8%
 
 # compare ge -------------------------------------------------------------------
 compare_normal(ge_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 77.42 +/- 0.8%
-# P(healthy < injured) = 22.58 +/- 0.8%
+# P(healthy > injured) = 66.85 +/- 1%
+# P(healthy < injured) = 33.15 +/- 1%
 
 # compare cc -------------------------------------------------------------------
 compare_normal(cc_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 60.52 +/- 0.8%
-# P(healthy < injured) = 39.48 +/- 0.8%
+# P(healthy > injured) = 59.42 +/- 0.8%
+# P(healthy < injured) = 40.58 +/- 0.8%
 
 # compare sw -------------------------------------------------------------------
 compare_normal(sw_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 74.2 +/- 0.8%
-# P(healthy < injured) = 25.8 +/- 0.8%
+# P(healthy > injured) = 66.03 +/- 0.8%
+# P(healthy < injured) = 33.98 +/- 0.8%
 
 # compare bc -------------------------------------------------------------------
 compare_normal(bc_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 65.72 +/- 0.9%
-# P(healthy < injured) = 34.27 +/- 0.9%
+# P(healthy > injured) = 56.35 +/- 0.9%
+# P(healthy < injured) = 43.65 +/- 0.9%
 
 # compare mod ------------------------------------------------------------------
 compare_normal(mod_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 47.85 +/- 0.9%
-# P(healthy < injured) = 52.15 +/- 0.9%
+# P(healthy > injured) = 56.95 +/- 0.8%
+# P(healthy < injured) = 43.05 +/- 0.8%
 
 # compare hcr ------------------------------------------------------------------
 compare_normal(hcr_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 16.8 +/- 0.7%
-# P(healthy < injured) = 83.2 +/- 0.7%
+# P(healthy > injured) = 45.9 +/- 0.8%
+# P(healthy < injured) = 54.1 +/- 0.8%
 
 # compare dv -------------------------------------------------------------------
 compare_normal(dv_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 62.2 +/- 0.9%
-# P(healthy < injured) = 37.8 +/- 0.9%
+# P(healthy > injured) = 90.85 +/- 0.8%
+# P(healthy < injured) = 9.15 +/- 0.8%

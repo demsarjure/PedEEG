@@ -22,28 +22,28 @@ total_ihs_fit <- fit_normal(df_diff$total_ihs)
 
 # compare cp -------------------------------------------------------------------
 compare_normal(cp_fit, label1 = "control", label2 = "test")
-# P(control > test) = 19.55 +/- 0.9%
-# P(control < test) = 80.45 +/- 0.9%
+# P(control > test) = 19.02 +/- 0.8%
+# P(control < test) = 80.97 +/- 0.8%
 
 # compare ge -------------------------------------------------------------------
 compare_normal(ge_fit, label1 = "control", label2 = "test")
-# P(control > test) = 32.6 +/- 0.9%
-# P(control < test) = 67.4 +/- 0.9%
+# P(control > test) = 31.4 +/- 0.9%
+# P(control < test) = 68.6 +/- 0.9%
 
 # compare cc -------------------------------------------------------------------
 compare_normal(cc_fit, label1 = "control", label2 = "test")
-# P(control > test) = 16.78 +/- 0.8%
-# P(control < test) = 83.23 +/- 0.8%
+# P(control > test) = 15.45 +/- 0.8%
+# P(control < test) = 84.55 +/- 0.8%
 
 # compare sw -------------------------------------------------------------------
 compare_normal(sw_fit, label1 = "control", label2 = "test")
-# P(control > test) = 23.12 +/- 0.9%
-# P(control < test) = 76.88 +/- 0.9%
+# P(control > test) = 24.18 +/- 0.9%
+# P(control < test) = 75.83 +/- 0.9%
 
 # compare bc -------------------------------------------------------------------
 compare_normal(bc_fit, label1 = "control", label2 = "test")
-# P(control > test) = 16.2 +/- 0.9%
-# P(control < test) = 83.8 +/- 0.9%
+# P(control > test) = 16.62 +/- 0.8%
+# P(control < test) = 83.38 +/- 0.8%
 
 # compare mod ------------------------------------------------------------------
 compare_normal(mod_fit, label1 = "control", label2 = "test")
