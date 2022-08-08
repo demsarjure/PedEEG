@@ -5,6 +5,7 @@ library(ggplot2)
 library(ggdist)
 library(mcmcse)
 library(posterior)
+library(tidyverse)
 
 
 # fit the normal model ---------------------------------------------------------

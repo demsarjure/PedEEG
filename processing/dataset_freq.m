@@ -86,8 +86,8 @@ for i = 1:n
     end
     
     % psd
-    ps = pop_spectopo(rest, 1, [0  300000], 'EEG' , 'percent', 50, 'freqrange', [8 13], 'electrodes', 'off');
-    Fs = rest.srate;
+    ps = pop_spectopo(EEG, 1, [0  300000], 'EEG' , 'percent', 50, 'freqrange', [8 13], 'electrodes', 'off');
+    Fs = EEG.srate;
     N = size(ps, 2);
     psd = (1/(Fs*N)) * abs(ps).^2;
     psd(2:end-1) = 2*psd(2:end-1);

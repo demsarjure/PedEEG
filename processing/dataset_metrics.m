@@ -39,10 +39,6 @@ for i = 1:n
     % load data
     load(full_path);
     
-    % remove nan rows and columns
-    mean_fc = mean_fc(:,~all(isnan(mean_fc)));
-    mean_fc = mean_fc(~all(isnan(mean_fc), 2),:);
-    
     % calculate metrics
     % characteristic path
     m(1) = charpath(mean_fc);

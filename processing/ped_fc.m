@@ -67,8 +67,15 @@ for g = 1:2
         % mean
         mean_fc = mean(fc.wpli_debiasedspctrm, 3);
         
-        % set negative values to 0
-        mean_fc = max(mean_fc,0);
+        % remove nan rows and columns
+        mean_fc = mean_fc(:,~all(isnan(mean_fc)));
+        mean_fc = mean_fc(~all(isnan(mean_fc), 2),:);
+        
+        % to positive numbers
+        mean_fc = mean_fc + abs(min(min(mean_fc)));
+         
+        % set diagonal to 0
+        mean_fc(1:1+size(mean_fc,1):end) = 0;
 
         % save the connectome
         save(strcat(fc_dir, '/', subject, '_mean_fc.mat'), 'mean_fc');

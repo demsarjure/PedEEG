@@ -22,55 +22,55 @@ total_ihs_fit <- fit_normal(df_diff$total_ihs)
 
 # compare cp -------------------------------------------------------------------
 compare_normal(cp_fit, label1 = "control", label2 = "test")
-# P(control > test) = 29.9 +/- 1%
-# P(control < test) = 70.1 +/- 1%
+# P(control > test) = 19.55 +/- 0.9%
+# P(control < test) = 80.45 +/- 0.9%
 
 # compare ge -------------------------------------------------------------------
 compare_normal(ge_fit, label1 = "control", label2 = "test")
-# P(control > test) = 41.52 +/- 0.9%
-# P(control < test) = 58.48 +/- 0.9%
+# P(control > test) = 32.6 +/- 0.9%
+# P(control < test) = 67.4 +/- 0.9%
 
 # compare cc -------------------------------------------------------------------
 compare_normal(cc_fit, label1 = "control", label2 = "test")
-# P(control > test) = 27.15 +/- 0.8%
-# P(control < test) = 72.85 +/- 0.8%
+# P(control > test) = 16.78 +/- 0.8%
+# P(control < test) = 83.23 +/- 0.8%
 
 # compare sw -------------------------------------------------------------------
 compare_normal(sw_fit, label1 = "control", label2 = "test")
-# P(control > test) = 36.98 +/- 0.8%
-# P(control < test) = 63.02 +/- 0.8%
+# P(control > test) = 23.12 +/- 0.9%
+# P(control < test) = 76.88 +/- 0.9%
 
 # compare bc -------------------------------------------------------------------
 compare_normal(bc_fit, label1 = "control", label2 = "test")
-# P(control > test) = 31.05 +/- 0.8%
-# P(control < test) = 68.95 +/- 0.8%
+# P(control > test) = 16.2 +/- 0.9%
+# P(control < test) = 83.8 +/- 0.9%
 
 # compare mod ------------------------------------------------------------------
 compare_normal(mod_fit, label1 = "control", label2 = "test")
-# P(control > test) = 57.45 +/- 0.9%
-# P(control < test) = 42.55 +/- 0.9%
+# P(control > test) = 92.47 +/- 0.5%
+# P(control < test) = 7.52 +/- 0.5%
 
 # compare hcr ------------------------------------------------------------------
 compare_normal(hcr_fit, label1 = "control", label2 = "test")
-# P(control > test) = 4.72 +/- 0.4%
-# P(control < test) = 95.28 +/- 0.4%
+# P(control > test) = 13.25 +/- 0.7%
+# P(control < test) = 86.75 +/- 0.7%
 
 # compare dv -------------------------------------------------------------------
 compare_normal(dv_fit, label1 = "control", label2 = "test")
-# P(control > test) = 43.12 +/- 0.9%
-# P(control < test) = 56.88 +/- 0.9%
+# P(control > test) = 41.1 +/- 0.8%
+# P(control < test) = 58.9 +/- 0.8%
 
 # compare ap -------------------------------------------------------------------
 compare_normal(ap_fit, label1 = "control", label2 = "test")
-# P(control > test) = 91.83 +/- 0.8%
-# P(control < test) = 8.18 +/- 0.8%
+# P(control > test) = 90.75 +/- 0.7%
+# P(control < test) = 9.25 +/- 0.7%
 
 # compare normalized_ihs -------------------------------------------------------
 compare_normal(normalized_ihs_fit, label1 = "control", label2 = "test")
-# P(control > test) = 60.82 +/- 0.8%
-# P(control < test) = 39.17 +/- 0.8%
+# P(control > test) = 71.83 +/- 0.8%
+# P(control < test) = 28.18 +/- 0.8%
 
 # compare total_ihs ------------------------------------------------------------
 compare_normal(total_ihs_fit, label1 = "control", label2 = "test")
-# P(control > test) = 29.42 +/- 0.9%
-# P(control < test) = 70.58 +/- 0.9%
+# P(control > test) = 21.62 +/- 0.9%
+# P(control < test) = 78.38 +/- 0.9%

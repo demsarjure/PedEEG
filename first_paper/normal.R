@@ -8,21 +8,21 @@ library(tidyverse)
 library(mcmcse)
 
 # load EEG dataset ----------------------------------------------------------
-df <- read.csv(paste0("../../dataset/csv/metrics.csv"))
+df <- read.csv(paste0("../data/dataset/metrics.csv"))
 colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
 
-df_freq <- read.csv(paste0("../../dataset/csv/metrics_freq.csv"))
+df_freq <- read.csv(paste0("../data/dataset/metrics_freq.csv"))
 colnames(df_freq) <- c("ID", "psd", "ap_naive", "ap")
 
-df_nihs <- read.csv(paste0("../../dataset/csv/metrics_inter.csv"))
-colnames(df_nihs) <- c("ID", "nihs", "total_ihs", "mean_ihs", "max_ihs")
+df_normalized_ihs <- read.csv(paste0("../data/dataset/metrics_inter.csv"))
+colnames(df_normalized_ihs) <- c("ID", "normalized_ihs", "total_ihs")
 
 # add age
 df_age <- read.csv("../../dataset/MIPDB_PublicFile.csv")
 df_age <- df_age %>% select(ID, Age, Sex)
 df <- df %>% left_join(df_age)
 df <- df %>% left_join(df_freq)
-df <- df %>% left_join(df_nihs)
+df <- df %>% left_join(df_normalized_ihs)
 
 # split into male and female ---------------------------------------------------
 df_m <- df %>% filter(Sex == 1)

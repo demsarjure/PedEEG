@@ -9,6 +9,7 @@ library(tidyverse)
 library(mcmcse)
 
 # load PED data ----------------------------------------------------------------
+dataset <- "ped"
 columns_metrics <- c("ID", "cp", "ge", "cc", "sw", "bc", "mod", "hcr", "dv")
 columns_freq <- c("ID", "psd", "ap_naive", "ap")
 columns_inter <- c(
@@ -36,13 +37,13 @@ df <- df %>% drop_na()
 
 # OR load EEG dataset ----------------------------------------------------------
 dataset <- "dataset"
-df <- read.csv(paste0("../../dataset/csv/metrics.csv"))
+df <- read.csv(paste0("../data/dataset/metrics.csv"))
 colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
 
-df_freq <- read.csv(paste0("../../dataset/csv/metrics_freq.csv"))
+df_freq <- read.csv(paste0("../data/dataset/metrics_freq.csv"))
 colnames(df_freq) <- c("ID", "psd", "ap_naive", "ap")
 
-df_ihs <- read.csv(paste0("../../dataset/csv/metrics_inter.csv"))
+df_ihs <- read.csv(paste0("../data/dataset/metrics_inter.csv"))
 colnames(df_ihs) <- c("ID", "normalized_ihs", "total_ihs")
 
 # add age
