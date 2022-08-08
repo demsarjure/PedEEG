@@ -1,7 +1,7 @@
 test,control,location,volume
 PED_T_01,PED_15,r,2
 PED_T_03,PED_16,r,6.5
-PED_T_05,PED_04,b,
+PED_T_05,PED_04,l,3.5
 PED_T_08,PED_03,l,24
 PED_T_14,PED_23,r,60.5
 PED_T_17,PED_07,r,6.5

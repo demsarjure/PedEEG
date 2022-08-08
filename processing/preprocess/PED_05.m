@@ -5,7 +5,6 @@ run('../../../eeglab2022.0/eeglab.m');
 ft_defaults
 
 %% set subject
-suffix = '_laplace';
 subject = 'PED_05';
 disp(['Subject: ', subject])
 
@@ -79,4 +78,4 @@ good_epochs = [6:7, 10:11, 16:35, 38:47, 56:61, 64:67, 70:75, 78:79, 82:85, 98:1
 rest = pop_select(rest, 'trial', good_epochs);
 
 %% save
-pop_saveset(rest, 'filename', strcat(subject, '_rest_cleaned', suffix, '.set'), 'filepath', strcat('../../../', subject, '/'));
+pop_saveset(rest, 'filename', strcat(subject, '_rest_cleaned.set'), 'filepath', strcat('../../../', subject, '/'));

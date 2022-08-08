@@ -69,6 +69,12 @@ for i = 1:n
     % EEGlab to fieldtrip
     data = eeglab2fieldtrip(EEG, 'raw', 'none');
     
+    % surface laplacian
+    cfg = [];
+    cfg.method = 'finite';
+    cfg.trials = 'all';
+    data = ft_scalpcurrentdensity(cfg, data);
+    
     % recreate sample info
     data.sampleinfo = zeros(n_events, 2);
     for j = 1:n_events

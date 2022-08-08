@@ -1,0 +1,10 @@
+Global:
+  - HCR control < test: 95%
+  - AP control > test: 92%
+  
+Within subject hemispheres:
+  - HCR healthy < injured: 83%
+
+Test vs control hemispheres:
+  - HCR zdrave hemisphere ni razlik
+  - HCR control < injured: 99%

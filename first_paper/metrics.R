@@ -2,9 +2,6 @@
 library(ggplot2)
 library(tidyverse)
 
-# set suffix -------------------------------------------------------------------
-suffix <- "_laplace"
-
 # load PED data ----------------------------------------------------------------
 columns_metrics <- c("ID", "cp", "ge", "cc", "sw", "as", "bc", "dd")
 columns_freq <- c("ID", "psd", "ap_naive", "ap")
@@ -12,15 +9,15 @@ columns_inter <- c("ID", "nihs", "total_ihs", "mean_ihs", "max_ihs",
                    "cp_l", "ge_l", "cc_l", "sw_l", "as_l", "bc_l", "dd_l",
                    "cp_r", "ge_r", "cc_r", "sw_r", "as_r", "bc_r", "dd_r")
 
-df <- read.csv(paste0("../data/", dataset, "/metrics", suffix, ".csv"))
+df <- read.csv(paste0("../data/", dataset, "/metrics.csv"))
 colnames(df) <- columns_metrics
 
 df_freq <- read.csv(paste0("../data/", dataset,
-                           "/metrics_freq", suffix, ".csv"))
+                           "/metrics_freq.csv"))
 colnames(df_freq) <- columns_freq
 
 df_nihs <- read.csv(paste0("../data/", dataset,
-                           "/metrics_inter", suffix, ".csv"))
+                           "/metrics_inter.csv"))
 colnames(df_nihs) <- columns_inter
 
 # add age
@@ -31,13 +28,13 @@ df <- df %>% left_join(df_freq)
 df <- df %>% left_join(df_nihs)
 
 # OR load EEG dataset ----------------------------------------------------------
-df <- read.csv(paste0("../../dataset/csv/metrics", suffix, ".csv"))
+df <- read.csv(paste0("../../dataset/csv/metrics.csv"))
 colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
 
-df_freq <- read.csv(paste0("../../dataset/csv/metrics_freq", suffix, ".csv"))
+df_freq <- read.csv(paste0("../../dataset/csv/metrics_freq.csv"))
 colnames(df_freq) <- c("ID", "psd", "ap_naive", "ap")
 
-df_nihs <- read.csv(paste0("../../dataset/csv/metrics_inter", suffix, ".csv"))
+df_nihs <- read.csv(paste0("../../dataset/csv/metrics_inter.csv"))
 colnames(df_nihs) <- c("ID", "nihs", "total_ihs", "mean_ihs", "max_ihs")
 
 # add age

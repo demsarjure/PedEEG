@@ -12,8 +12,6 @@ study_root = '../../';
 data_dir = strcat(study_root, 'dataset/');
 rest_dir = strcat(data_dir, 'rest/');
 fc_dir = strcat(data_dir, 'fc/');
-corr_dir = strcat(data_dir, 'fc_corr/');
-coh_dir = strcat(data_dir, 'fc_coh/');
 
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));
@@ -61,6 +59,12 @@ for i = 1:n
     % EEGlab to fieldtrip
     data = eeglab2fieldtrip(EEG, 'raw', 'none');
     
+    % surface laplacian
+    cfg = [];
+    cfg.method = 'finite';
+    cfg.trials = 'all';
+    data = ft_scalpcurrentdensity(cfg, data);
+
     % recreate sample info
     data.sampleinfo = zeros(n_events, 2);
     for j = 1:n_events
@@ -90,24 +94,4 @@ for i = 1:n
 
     % save the connectome
     save(strcat(fc_dir, name, '_mean_fc.mat'), 'mean_fc');
-    
-    % connectome correlation
-    cfg = [];
-    cfg.method = 'corr';
-    fc = ft_connectivityanalysis(cfg, data);
-    mean_fc = fc.corr;
-    
-    % save the connectome
-    save(strcat(corr_dir, name, '_mean_fc.mat'), 'mean_fc');
-    
-    % connectome coherence
-    cfg = [];
-    cfg.method = 'coh';
-    fc = ft_connectivityanalysis(cfg, freq);
-    
-    % mean
-    mean_fc = mean(fc.cohspctrm, 3);
-    
-    % save the connectome
-    save(strcat(coh_dir, name, '_mean_fc.mat'), 'mean_fc');
 end

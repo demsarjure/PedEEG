@@ -13,8 +13,7 @@ csv_dir = strcat(study_root, 'PedEEG/data/dataset/csv/');
 
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));
-fc_suffix = '_laplace'; % '' or '_laplace'
-fc_files = dir(fullfile(fc_dir, strcat('*', fc_suffix, '.mat')));
+fc_files = dir(fullfile(fc_dir, strcat('*.mat')));
 n = length(data_files);
 
 % n metrics
@@ -104,4 +103,4 @@ end
 
 % save
 metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, 'metrics_inter', fc_suffix, '.csv'));
+writetable(metrics, strcat(csv_dir, 'metrics_inter.csv'));

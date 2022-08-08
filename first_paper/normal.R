@@ -7,17 +7,14 @@ library(posterior)
 library(tidyverse)
 library(mcmcse)
 
-# set suffix -------------------------------------------------------------------
-suffix <- "_laplace"
-
 # load EEG dataset ----------------------------------------------------------
-df <- read.csv(paste0("../../dataset/csv/metrics", suffix, ".csv"))
+df <- read.csv(paste0("../../dataset/csv/metrics.csv"))
 colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
 
-df_freq <- read.csv(paste0("../../dataset/csv/metrics_freq", suffix, ".csv"))
+df_freq <- read.csv(paste0("../../dataset/csv/metrics_freq.csv"))
 colnames(df_freq) <- c("ID", "psd", "ap_naive", "ap")
 
-df_nihs <- read.csv(paste0("../../dataset/csv/metrics_inter", suffix, ".csv"))
+df_nihs <- read.csv(paste0("../../dataset/csv/metrics_inter.csv"))
 colnames(df_nihs) <- c("ID", "nihs", "total_ihs", "mean_ihs", "max_ihs")
 
 # add age

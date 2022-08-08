@@ -3,69 +3,75 @@ addpath('../../2019_03_03_BCT')
 addpath('../../SmallWorldNess')
 
 %% iterater over subjects
-subject_suffix = 'T_'; % use T_ for test
-group_suffix = '_T'; % use _T for test
-n = 29; % use 29 for test 25 for control
-suffix = '_laplace'; % '', '_coh', '_corr', '_laplace', '_coh_laplace' or '_corr_laplace'
-
 % dir
 study_root = '../../';
 csv_dir = strcat(study_root, 'PedEEG/data/ped/');
 
-% storages
-names = strings(1,n);
-
 % n metrics
-n_metrics = 5;
+n_metrics = 8;
 
-% metrics storage
-m = zeros(1,n_metrics);
-M = zeros(n,n_metrics);
-
-% iterate over all subjects
-for i = 1:n
-    % report
-    disp(['===> Processing: ', num2str(i), '/', num2str(n)])
+% iterate over both groups
+for g = 1:2
+    if g == 1
+        subject_suffix = '';
+        group_suffix = '';
+        n = 25;
+    else
+        subject_suffix = 'T_';
+        group_suffix = '_T';
+        n = 29;
+    end
     
-    % set subject
-    subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
-    directory = strcat('../../', subject);
-
-    % store name
-    names(i) = subject;
+    % storages
+    names = strings(1,n);
+    m = zeros(1,n_metrics);
+    M = zeros(n,n_metrics);
     
-    % load data
-    load(strcat(directory, '/', subject, '_mean_fc', suffix, '.mat'));
+    % iterate over all subjects
+    for i = 1:n
+        % report
+        disp(['===> Processing: ', num2str(i), '/', num2str(n)])
+        
+        % set subject
+        subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
+        directory = strcat('../../', subject);
     
-    % magnitude
-    mean_fc = abs(mean_fc);
+        % store name
+        names(i) = subject;
+        
+        % load data
+        load(strcat(directory, '/', subject, '_mean_fc.mat'));
     
-    % set diagonal to 0
-    nodes = size(mean_fc, 1);
-    mean_fc(1:nodes+1:end) = 0;
-
-    % calculate metrics
-    % characteristic path
-    m(1) = charpath(mean_fc);
-
-    % global efficiency
-    m(2) = efficiency_wei(mean_fc);
-
-    % clustering coefficient
-    m(3) = mean(clustering_coef_wu(mean_fc));
+        % calculate metrics
+        % characteristic path
+        m(1) = charpath(mean_fc);
     
-    % small worldness
-    [m(4), ~, ~] = small_world_ness(mean_fc, m(1), m(3), 1);
-
-    % betweenness centrality
-    m(5) = mean(betweenness_wei(mean_fc));
-
-    as = 
-
-    % append
-    M(i,:) = m;
+        % global efficiency
+        m(2) = efficiency_wei(mean_fc);
+    
+        % clustering coefficient
+        m(3) = mean(clustering_coef_wu(mean_fc));
+        
+        % small worldness
+        [m(4), ~, ~] = small_world_ness(mean_fc, m(1), m(3), 1);
+    
+        % betweenness centrality
+        m(5) = mean(betweenness_wei(mean_fc));
+    
+        % modularity
+        [~, m(6)] = modularity_und(mean_fc);
+    
+        % hierarchical coefficient of regression
+        m(7) = hcr(mean_fc);
+    
+        % degree variance
+        m(8) = var(degrees_wei(mean_fc));
+    
+        % append
+        M(i,:) = m;
+    end
+    
+    % merge
+    metrics = table(names', M);
+    writetable(metrics, strcat(csv_dir, 'metrics', group_suffix, '.csv'));
 end
-
-% merge
-metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, 'metrics', group_suffix, suffix, '.csv'));

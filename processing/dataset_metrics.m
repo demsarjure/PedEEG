@@ -6,8 +6,6 @@ addpath('../../2019_03_03_BCT')
 study_root = '../../';
 
 % data dir
-dir_suffix = ''; % '', '_coh' or '_corr'
-file_suffix = '_laplace' ; % '' or '_laplace'
 fc_dir = strcat(study_root, 'PedEEG/data/dataset/fc/');
 csv_dir = strcat(study_root, 'PedEEG/data/dataset/csv/');
 
@@ -73,4 +71,4 @@ end
 
 % merge
 metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, 'metrics', dir_suffix, file_suffix, '.csv'));
+writetable(metrics, strcat(csv_dir, 'metrics.csv'));
