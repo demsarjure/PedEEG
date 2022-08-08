@@ -5,6 +5,11 @@ run('../../eeglab2022.0/eeglab.m');
 ft_defaults
 
 %% functional connectome calculation
+% directories
+data_dir = '../data/ped/';
+eeg_dir = strcat(data_dir, 'eeg');
+fc_dir = strcat(data_dir, 'fc');
+
 % iterate over both groups
 for g = 1:2
     if g == 1
@@ -22,11 +27,10 @@ for g = 1:2
         
         % set subject
         subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
-        directory = strcat('../../', subject);
     
         % convert
         cleaned_set = strcat(subject, '_rest_cleaned.set');
-        rest = pop_loadset(cleaned_set, directory);
+        rest = pop_loadset(cleaned_set, eeg_dir);
         data = eeglab2fieldtrip(rest, 'raw', 'none');
     
         % surface laplacian
@@ -67,6 +71,6 @@ for g = 1:2
         mean_fc = max(mean_fc,0);
 
         % save the connectome
-        save(strcat(directory, '/', subject, '_mean_fc.mat'), 'mean_fc');
+        save(strcat(fc_dir, '/', subject, '_mean_fc.mat'), 'mean_fc');
     end
 end

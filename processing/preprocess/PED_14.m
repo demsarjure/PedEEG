@@ -78,4 +78,4 @@ good_epochs = [1:11, 20:25, 50:55, 66:81, 102:105, 120:127, 138:181, 202:209, 22
 rest = pop_select(rest, 'trial', good_epochs);
 
 %% save
-pop_saveset(rest, 'filename', strcat(subject, '_rest_cleaned.set'), 'filepath', strcat('../../../', subject, '/'));
+pop_saveset(rest, 'filename', strcat(subject, '_rest_cleaned.set'), 'filepath', '../../data/ped/eeg/');

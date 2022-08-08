@@ -4,8 +4,8 @@ addpath('../../SmallWorldNess')
 
 %% iterater over subjects
 % dir
-study_root = '../../';
-csv_dir = strcat(study_root, 'PedEEG/data/ped/');
+data_dir = '../data/ped/';
+fc_dir = strcat(data_dir, 'fc');
 
 % n metrics
 n_metrics = 8;
@@ -34,13 +34,12 @@ for g = 1:2
         
         % set subject
         subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
-        directory = strcat('../../', subject);
-    
+
         % store name
         names(i) = subject;
         
         % load data
-        load(strcat(directory, '/', subject, '_mean_fc.mat'));
+        load(strcat(fc_dir, '/', subject, '_mean_fc.mat'));
     
         % calculate metrics
         % characteristic path
@@ -73,5 +72,5 @@ for g = 1:2
     
     % merge
     metrics = table(names', M);
-    writetable(metrics, strcat(csv_dir, 'metrics', group_suffix, '.csv'));
+    writetable(metrics, strcat(data_dir, 'metrics', group_suffix, '.csv'));
 end

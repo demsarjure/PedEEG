@@ -1,16 +1,14 @@
 %% init
 addpath('../../2019_03_03_BCT')
+addpath('../../SmallWorldNess')
 
 %% calculate metrics
 % directories
-study_root = '../../';
-
-% data dir
-fc_dir = strcat(study_root, 'PedEEG/data/dataset/fc/');
-csv_dir = strcat(study_root, 'PedEEG/data/dataset/csv/');
+data_dir = '../data/dataset/';
+fc_dir = strcat(data_dir, 'fc');
 
 % get files
-data_files = dir(fullfile(fc_dir, strcat('*', file_suffix, '.mat')));
+data_files = dir(fullfile(fc_dir, strcat('*.mat')));
 n = length(data_files);
 
 % storages
@@ -45,13 +43,6 @@ for i = 1:n
     mean_fc = mean_fc(:,~all(isnan(mean_fc)));
     mean_fc = mean_fc(~all(isnan(mean_fc), 2),:);
     
-    % magnitude
-    mean_fc = abs(mean_fc);
-
-    % set diagonal to 0
-    nodes = size(mean_fc, 1);
-    mean_fc(1:nodes+1:end) = 0;
-    
     % calculate metrics
     % characteristic path
     m(1) = charpath(mean_fc);
@@ -71,4 +62,4 @@ end
 
 % merge
 metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, 'metrics.csv'));
+writetable(metrics, strcat(data_dir, 'metrics.csv'));

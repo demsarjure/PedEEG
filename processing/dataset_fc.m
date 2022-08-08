@@ -9,9 +9,8 @@ ft_defaults
 study_root = '../../';
 
 % data dir
-data_dir = strcat(study_root, 'dataset/');
-rest_dir = strcat(data_dir, 'rest/');
-fc_dir = strcat(data_dir, 'fc/');
+rest_dir = strcat(study_root, 'dataset/rest/');
+fc_dir = '../data/dataset/fc/';
 
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));
@@ -26,7 +25,7 @@ for i = 1:n
     [path, name, ext] = fileparts(data_files(i).name);
     
     % get full path
-    full_path = strcat(data_files(i).folder, '\', + data_files(i).name);
+    full_path = strcat(data_files(i).folder, '/', + data_files(i).name);
     
     % load data
     load(full_path);
@@ -91,6 +90,9 @@ for i = 1:n
        
     % mean
     mean_fc = mean(fc.wpli_debiasedspctrm, 3);
+
+    % set negative values to 0
+    mean_fc = max(mean_fc,0);
 
     % save the connectome
     save(strcat(fc_dir, name, '_mean_fc.mat'), 'mean_fc');

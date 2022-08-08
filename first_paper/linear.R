@@ -9,31 +9,29 @@ library(tidyverse)
 library(mcmcse)
 
 # load PED data ----------------------------------------------------------------
-dataset <- "ped"
-
-columns_metrics <- c("ID", "cp", "ge", "cc", "sw", "bc")
+columns_metrics <- c("ID", "cp", "ge", "cc", "sw", "bc", "mod", "hcr", "dv")
 columns_freq <- c("ID", "psd", "ap_naive", "ap")
-columns_inter <- c("ID", "normalized_ihs", "total_ihs",
-                   "cp_l", "ge_l", "cc_l", "sw_l", "bc_l",
-                   "cp_r", "ge_r", "cc_r", "sw_r", "bc_r")
+columns_inter <- c(
+  "ID", "normalized_ihs", "total_ihs",
+  "cp_l", "ge_l", "cc_l", "sw_l", "bc_l", "mod_l", "hcr_l", "dv_l",
+  "cp_r", "ge_r", "cc_r", "sw_r", "bc_r", "mod_r", "hcr_r", "dv_r"
+)
 
-df <- read.csv(paste0("../data/", dataset, "/metrics.csv"))
+df <- read.csv(paste0("../data/ped/metrics.csv"))
 colnames(df) <- columns_metrics
 
-df_freq <- read.csv(paste0("../data/", dataset,
-                           "/metrics_freq.csv"))
+df_freq <- read.csv(paste0("../data/ped/metrics_freq.csv"))
 colnames(df_freq) <- columns_freq
 
-df_nihs <- read.csv(paste0("../data/", dataset,
-                           "/metrics_inter.csv"))
-colnames(df_nihs) <- columns_inter
+df_ihs <- read.csv(paste0("../data/ped/metrics_inter.csv"))
+colnames(df_ihs) <- columns_inter
 
 # add age
 df_age <- read.csv("../data/ped/demographics.csv")
 df_age <- df_age %>% select(ID, Age, Sex)
 df <- df %>% left_join(df_age)
 df <- df %>% left_join(df_freq)
-df <- df %>% left_join(df_nihs)
+df <- df %>% left_join(df_ihs)
 df <- df %>% drop_na()
 
 # OR load EEG dataset ----------------------------------------------------------
@@ -44,15 +42,15 @@ colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
 df_freq <- read.csv(paste0("../../dataset/csv/metrics_freq.csv"))
 colnames(df_freq) <- c("ID", "psd", "ap_naive", "ap")
 
-df_nihs <- read.csv(paste0("../../dataset/csv/metrics_inter.csv"))
-colnames(df_nihs) <- c("ID", "nihs", "total_ihs", "mean_ihs", "max_ihs")
+df_ihs <- read.csv(paste0("../../dataset/csv/metrics_inter.csv"))
+colnames(df_ihs) <- c("ID", "normalized_ihs", "total_ihs")
 
 # add age
 df_age <- read.csv("../../dataset/MIPDB_PublicFile.csv")
 df_age <- df_age %>% select(ID, Age, Sex)
 df <- df %>% left_join(df_age)
 df <- df %>% left_join(df_freq)
-df <- df %>% left_join(df_nihs)
+df <- df %>% left_join(df_ihs)
 
 # compile the model ------------------------------------------------------------
 model <- cmdstan_model("linear_robust.stan")

@@ -1,6 +1,6 @@
 %% init
 addpath('../../../eeglab2022.0')
-addpath('../../../fieldtrip')
+addpath('../../../fieldtrip')bk
 run('../../../eeglab2022.0/eeglab.m');
 ft_defaults
 
@@ -78,4 +78,4 @@ good_epochs = [2:5, 10:17, 48:61, 68:69, 78:93, 98:115, 120:141, 144:147, 150:15
 rest = pop_select(rest, 'trial', good_epochs);
 
 %% save
-pop_saveset(rest, 'filename', strcat(subject, '_rest_cleaned.set'), 'filepath', strcat('../../../', subject, '/'));
+pop_saveset(rest, 'filename', strcat(subject, '_rest_cleaned.set'), 'filepath', '../../data/ped/eeg/');

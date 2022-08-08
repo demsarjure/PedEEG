@@ -10,7 +10,7 @@ study_root = '../../';
 
 % data dir
 rest_dir = strcat(study_root, 'dataset/rest/');
-csv_dir = strcat(study_root, 'PedEEG/data/dataset/csv/');
+data_dir = '../data/dataset/';
 
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));
@@ -35,7 +35,7 @@ for i = 1:n
     names(i) = split_name(1);
     
     % get full path
-    full_path = strcat(data_files(i).folder, '\', + data_files(i).name);
+    full_path = strcat(data_files(i).folder, '/', + data_files(i).name);
     
     % load data
     load(full_path);
@@ -134,4 +134,4 @@ end
 
 % merge
 metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, 'metrics_freq.csv'));
+writetable(metrics, strcat(data_dir, 'metrics_freq.csv'));

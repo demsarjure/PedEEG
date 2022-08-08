@@ -8,8 +8,8 @@ study_root = '../../';
 
 % data dir
 rest_dir = strcat(study_root, 'dataset/rest/');
-fc_dir = strcat(study_root, 'PedEEG/data/dataset/fc');
-csv_dir = strcat(study_root, 'PedEEG/data/dataset/csv/');
+data_dir = '../data/dataset/';
+fc_dir = strcat(data_dir, 'fc');
 
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));
@@ -17,7 +17,7 @@ fc_files = dir(fullfile(fc_dir, strcat('*.mat')));
 n = length(data_files);
 
 % n metrics
-n_metrics = 4;
+n_metrics = 2;
 
 % storages
 names = strings(1,n);
@@ -53,13 +53,6 @@ for i = 1:n
     % load fc
     fc_path = strcat(fc_files(i).folder, '/', + fc_files(i).name);
     load(fc_path);
-    
-    % magnitude
-    mean_fc = abs(mean_fc);
-
-    % set diagonal to 0
-    nodes = size(mean_fc, 1);
-    mean_fc(1:nodes+1:end) = 0;
         
     % calculate inter hemispheric   
     i_mean_fc = mean_fc;
@@ -90,17 +83,11 @@ for i = 1:n
     
     % total interhemispheric
     m(2) = sum(i_mean_fc, 'all');
-    
-    % mean
-    m(3) = mean(i_mean_fc, 'all');
-    
-    % max
-    m(4) = max(i_mean_fc, [], 'all');
-    
+
     % append
     M(i,:) = m;
 end
 
 % save
 metrics = table(names', M);
-writetable(metrics, strcat(csv_dir, 'metrics_inter.csv'));
+writetable(metrics, strcat(data_dir, 'metrics_inter.csv'));

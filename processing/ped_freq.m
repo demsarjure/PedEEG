@@ -4,9 +4,9 @@ addpath('../../fieldtrip')
 run('../../eeglab2022.0/eeglab.m');
 ft_defaults
 
-% dir
-study_root = '../../';
-csv_dir = strcat(study_root, 'PedEEG/data/ped/');
+% directories
+data_dir = '../data/ped/';
+eeg_dir = strcat(data_dir, 'eeg');
 
 % iterate over both groups
 for g = 1:2
@@ -37,14 +37,13 @@ for g = 1:2
         
         % set subject
         subject = strcat('PED_', subject_suffix, num2str(i, '%02.f'));
-        directory = strcat('../../', subject);
     
         % store name
         names(i) = subject;
         
         % convert
         cleaned_set = strcat(subject, '_rest_cleaned.set');
-        rest = pop_loadset(cleaned_set, directory);
+        rest = pop_loadset(cleaned_set, eeg_dir);
         data = eeglab2fieldtrip(rest, 'raw', 'none');
 
         % surface laplacian
@@ -115,5 +114,5 @@ for g = 1:2
     
     % merge
     metrics = table(names', M);
-    writetable(metrics, strcat(csv_dir, strcat('metrics_freq', group_suffix, '.csv')));
+    writetable(metrics, strcat(data_dir, strcat('metrics_freq', group_suffix, '.csv')));
 end
