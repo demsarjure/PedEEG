@@ -45,23 +45,11 @@ matrix_plot <- function(filename, title = "", legend = FALSE) {
 }
 
 # connectome plots
-matrix_plot("../data/ped/fc_csv/PED_05.csv")
-matrix_plot("../data/ped/fc_csv/PED_14.csv")
-matrix_plot("../data/ped/fc_csv/PED_03.csv")
-matrix_plot("../data/ped/fc_csv/PED_13.csv")
-matrix_plot("../data/ped/fc_csv/PED_15.csv")
-matrix_plot("../data/ped/fc_csv/PED_16.csv")
-matrix_plot("../data/ped/fc_csv/PED_17.csv")
+matrix_plot("../data/ped/fc_csv/PED_01.csv", legend = TRUE)
 
-p1 <- matrix_plot("../data/ped/fc_csv/PED_13.csv", title = "7 years old")
-p2 <- matrix_plot("../data/ped/fc_csv/PED_11.csv", title = "12 years old")
-p3 <- matrix_plot("../data/ped/fc_csv/PED_19.csv", title = "17 years old")
-
-plot_grid(p1, p2, p3, ncol = 3, scale = 0.95) +
-  theme(plot.background = element_rect(fill = "white", color = NA))
-
-ggsave(paste0("fc_plot.png"),
-       width = 3840,
-       height = 1400,
-       dpi = 300,
-       units = "px")
+ggsave(paste0("./figs/fc_plot.png"),
+       width = 1100,
+       height = 900,
+       dpi = 200,
+       units = "px",
+       bg = "white")
