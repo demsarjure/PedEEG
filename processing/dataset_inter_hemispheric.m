@@ -78,7 +78,7 @@ for i = 1:n
         end
     end
 
-    % interhemispheric metric
+    % normalized interhemispheric
     m(1) = sum(i_mean_fc, 'all') / sum(mean_fc, 'all');
     
     % total interhemispheric

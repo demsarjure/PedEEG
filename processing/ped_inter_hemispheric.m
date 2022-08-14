@@ -22,7 +22,7 @@ data_dir = '../data/ped/';
 fc_dir = strcat(data_dir, 'fc');
 
 % n metrics
-n_metrics = 18;
+n_metrics = 14;
 
 % iterate over both groups
 for g = 1:2
@@ -81,7 +81,7 @@ for g = 1:2
             end
         end
     
-        % interhemispheric metric
+        % normalized interhemispheric
         m(1) = sum(i_mean_fc, 'all') / sum(mean_fc, 'all');
         
         % total interhemispheric
@@ -119,20 +119,16 @@ for g = 1:2
         m(4) = efficiency_wei(mean_fc_left);
         m(5) = mean(clustering_coef_wu(mean_fc_left));
         [m(6), ~, ~] = small_world_ness(mean_fc_left, m(3), m(5), 1);
-        m(7) = mean(betweenness_wei(mean_fc_left));
-        [~, m(8)] = modularity_und(mean_fc_left);
-        m(9) = hcr(mean_fc_left);
-        m(10) = var(degrees_wei(mean_fc_left));
+        [~, m(7)] = modularity_und(mean_fc_left);
+        m(8) = var(degrees_wei(mean_fc_left));
     
         % right
-        m(11) = charpath(mean_fc_right);
-        m(12) = efficiency_wei(mean_fc_right);
-        m(13) = mean(clustering_coef_wu(mean_fc_right));
-        [m(14), ~, ~] = small_world_ness(mean_fc_right, m(11), m(13), 1);
-        m(15) = mean(betweenness_wei(mean_fc_right));
-        [~, m(16)] = modularity_und(mean_fc_right);
-        m(17) = hcr(mean_fc_right);
-        m(18) = var(degrees_wei(mean_fc_right));
+        m(9) = charpath(mean_fc_right);
+        m(10) = efficiency_wei(mean_fc_right);
+        m(11) = mean(clustering_coef_wu(mean_fc_right));
+        [m(12), ~, ~] = small_world_ness(mean_fc_right, m(9), m(11), 1);
+        [~, m(13)] = modularity_und(mean_fc_right);
+        m(14) = var(degrees_wei(mean_fc_right));
     
         % append
         M(i,:) = m;

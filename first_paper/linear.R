@@ -10,12 +10,12 @@ library(mcmcse)
 
 # load PED data ----------------------------------------------------------------
 dataset <- "ped"
-columns_metrics <- c("ID", "cp", "ge", "cc", "sw", "bc", "mod", "hcr", "dv")
-columns_freq <- c("ID", "psd", "ap_naive", "ap")
+columns_metrics <- c("id", "cp", "ge", "cc", "sw", "mod", "dv")
+columns_freq <- c("id", "ap")
 columns_inter <- c(
-  "ID", "normalized_ihs", "total_ihs",
-  "cp_l", "ge_l", "cc_l", "sw_l", "bc_l", "mod_l", "hcr_l", "dv_l",
-  "cp_r", "ge_r", "cc_r", "sw_r", "bc_r", "mod_r", "hcr_r", "dv_r"
+  "id", "nihs", "tihs",
+  "cp_l", "ge_l", "cc_l", "sw_l", "mod_l", "dv_l",
+  "cp_r", "ge_r", "cc_r", "sw_r", "mod_r", "dv_r"
 )
 
 df <- read.csv(paste0("../data/ped/metrics.csv"))
@@ -28,8 +28,8 @@ df_ihs <- read.csv(paste0("../data/ped/metrics_inter.csv"))
 colnames(df_ihs) <- columns_inter
 
 # add age
-df_age <- read.csv("../data/ped/demographics.csv")
-df_age <- df_age %>% select(ID, Age, Sex)
+df_age <- read.csv("../data/ped/demographics_control.csv")
+df_age <- df_age %>% select(id, age, sex)
 df <- df %>% left_join(df_age)
 df <- df %>% left_join(df_freq)
 df <- df %>% left_join(df_ihs)
@@ -38,17 +38,17 @@ df <- df %>% drop_na()
 # OR load EEG dataset ----------------------------------------------------------
 dataset <- "dataset"
 df <- read.csv(paste0("../data/dataset/metrics.csv"))
-colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
+colnames(df) <- c("id", "cp", "ge", "cc", "sw")
 
 df_freq <- read.csv(paste0("../data/dataset/metrics_freq.csv"))
-colnames(df_freq) <- c("ID", "psd", "ap_naive", "ap")
+colnames(df_freq) <- c("id", "psd", "ap_naive", "ap")
 
 df_ihs <- read.csv(paste0("../data/dataset/metrics_inter.csv"))
-colnames(df_ihs) <- c("ID", "normalized_ihs", "total_ihs")
+colnames(df_ihs) <- c("id", "nihs", "tihs")
 
 # add age
 df_age <- read.csv("../../dataset/MIPDB_PublicFile.csv")
-df_age <- df_age %>% select(ID, Age, Sex)
+df_age <- df_age %>% select(id, age, sex)
 df <- df %>% left_join(df_age)
 df <- df %>% left_join(df_freq)
 df <- df %>% left_join(df_ihs)
@@ -58,7 +58,7 @@ model <- cmdstan_model("linear_robust.stan")
 
 # characteristic path ----------------------------------------------------------
 # prep the data
-stan_data <- list(n = nrow(df), x = df$Age, y = df$cp)
+stan_data <- list(n = nrow(df), x = df$age, y = df$cp)
 
 # fit
 fit_cp <- model$sample(
@@ -89,19 +89,19 @@ df_plot <- df_plot %>% unnest(c(x, y))
 p1 <- ggplot(data = df_plot, aes(x = x, y = y)) +
   stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
   geom_point(data = df,
-             aes(x = Age, y = cp),
+             aes(x = age, y = cp),
              color = "grey25",
              alpha = 0.5,
              shape = 16) +
   scale_fill_manual(values = c("grey75")) +
   ggtitle("Characteristic path") +
-  xlab("Age") +
+  xlab("age") +
   ylab("Value") +
   theme(legend.position = "none")
 
 # global efficiency coefficient ------------------------------------------------
 # prep the data
-stan_data <- list(n = nrow(df), x = df$Age, y = df$ge)
+stan_data <- list(n = nrow(df), x = df$age, y = df$ge)
 
 # fit
 fit_ge <- model$sample(
@@ -132,19 +132,19 @@ df_plot <- df_plot %>% unnest(c(x, y))
 p2 <- ggplot(data = df_plot, aes(x = x, y = y)) +
   stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
   geom_point(data = df,
-             aes(x = Age, y = ge),
+             aes(x = age, y = ge),
              color = "grey25",
              alpha = 0.5,
              shape = 16) +
   scale_fill_manual(values = c("grey75")) +
   ggtitle("Global efficiency") +
-  xlab("Age") +
+  xlab("age") +
   ylab("Value") +
   theme(legend.position = "none")
 
 # clustering coefficient -------------------------------------------------------
 # prep the data
-stan_data <- list(n = nrow(df), x = df$Age, y = df$cc)
+stan_data <- list(n = nrow(df), x = df$age, y = df$cc)
 
 # fit
 fit_cc <- model$sample(
@@ -175,19 +175,19 @@ df_plot <- df_plot %>% unnest(c(x, y))
 p3 <- ggplot(data = df_plot, aes(x = x, y = y)) +
   stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
   geom_point(data = df,
-             aes(x = Age, y = cc),
+             aes(x = age, y = cc),
              color = "grey25",
              alpha = 0.5,
              shape = 16) +
   scale_fill_manual(values = c("grey75")) +
   ggtitle("Clustering coefficient") +
-  xlab("Age") +
+  xlab("age") +
   ylab("Value") +
   theme(legend.position = "none")
 
 # small worldness --------------------------------------------------------------
 # prep the data
-stan_data <- list(n = nrow(df), x = df$Age, y = df$sw)
+stan_data <- list(n = nrow(df), x = df$age, y = df$sw)
 
 # fit
 fit_sw <- model$sample(
@@ -218,13 +218,13 @@ df_plot <- df_plot %>% unnest(c(x, y))
 p4 <- ggplot(data = df_plot, aes(x = x, y = y)) +
   stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
   geom_point(data = df,
-             aes(x = Age, y = sw),
+             aes(x = age, y = sw),
              color = "grey25",
              alpha = 0.5,
              shape = 16) +
   scale_fill_manual(values = c("grey75")) +
   ggtitle("Small worldness") +
-  xlab("Age") +
+  xlab("age") +
   ylab("Value") +
   theme(legend.position = "none")
 
@@ -232,7 +232,7 @@ p4 <- ggplot(data = df_plot, aes(x = x, y = y)) +
 # prep the data
 df_ap_plot <- df %>% filter(ap != -1)
 stan_data <- list(n = nrow(df_ap_plot),
-                  x = df_ap_plot$Age,
+                  x = df_ap_plot$age,
                   y = df_ap_plot$ap)
 
 # fit
@@ -265,13 +265,13 @@ df_plot <- df_plot %>% unnest(c(x, y))
 p5 <- ggplot(data = df_plot, aes(x = x, y = y)) +
   stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
   geom_point(data = df_ap_plot,
-             aes(x = Age, y = ap),
+             aes(x = age, y = ap),
              color = "grey25",
              alpha = 0.5,
              shape = 16) +
   scale_fill_manual(values = c("grey75")) +
   ggtitle("Individual alpha frequency") +
-  xlab("Age") +
+  xlab("age") +
   ylab("Value") +
   theme(legend.position = "none")
 
@@ -286,7 +286,7 @@ quantile(df_18$y, probs = c(0.025, 0.975))
 
 # interhemispheric strength ----------------------------------------------------
 # prep the data
-stan_data <- list(n = nrow(df), x = df$Age, y = df$total_ihs)
+stan_data <- list(n = nrow(df), x = df$age, y = df$tihs)
 
 # fit
 fit_tihs <- model$sample(
@@ -317,13 +317,13 @@ df_plot <- df_plot %>% unnest(c(x, y))
 p6 <- ggplot(data = df_plot, aes(x = x, y = y)) +
   stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
   geom_point(data = df,
-             aes(x = Age, y = total_ihs),
+             aes(x = age, y = tihs),
             color = "grey25",
             alpha = 0.5,
             shape = 16) +
   scale_fill_manual(values = c("grey75")) +
   ggtitle("Interhemispheric strength") +
-  xlab("Age") +
+  xlab("age") +
   ylab("Value") +
   theme(legend.position = "none")
 

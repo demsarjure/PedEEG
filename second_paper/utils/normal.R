@@ -7,7 +7,6 @@ library(mcmcse)
 library(posterior)
 library(tidyverse)
 
-
 # fit the normal model ---------------------------------------------------------
 fit_normal <- function(y, robust = FALSE) {
   # load the model
@@ -34,9 +33,8 @@ fit_normal <- function(y, robust = FALSE) {
   return(fit)
 }
 
-
 # compare two normal fits ------------------------------------------------------
-compare_normal <- function(fit1, label1, fit2, label2) {
+compare_two_normal <- function(fit1, label1, fit2, label2) {
   # extract
   df_samples_1 <- as_draws_df(fit1$draws())
   df_samples_2 <- as_draws_df(fit2$draws())
@@ -57,9 +55,8 @@ compare_normal <- function(fit1, label1, fit2, label2) {
              smaller_prob, " +/- ", smaller_se, "%"))
 }
 
-
 # plot comparison between two normal fits --------------------------------------
-plot_comparison_normal <- function(fit1, label1, fit2, label2) {
+plot_comparison_two_normal <- function(fit1, label1, fit2, label2) {
   # extract
   df_samples_1 <- as_draws_df(fit1$draws())
   df_samples_2 <- as_draws_df(fit2$draws())
@@ -77,7 +74,6 @@ plot_comparison_normal <- function(fit1, label1, fit2, label2) {
 
   return(p)
 }
-
 
 # compare a normal fit with a constant -----------------------------------------
 compare_normal <- function(fit, constant = 0, label1 = "", label2 = "") {
@@ -105,7 +101,6 @@ compare_normal <- function(fit, constant = 0, label1 = "", label2 = "") {
   cat(paste0("# P(", label1, " < ", label2, ") = ",
              smaller_prob, " +/- ", smaller_se, "%"))
 }
-
 
 # plot comparison between a normal fit and a constant --------------------------
 plot_comparison_normal <- function(fit, constant = 0) {

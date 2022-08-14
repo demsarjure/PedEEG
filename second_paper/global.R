@@ -6,71 +6,44 @@ source("data.R")
 
 # fit --------------------------------------------------------------------------
 cp_fit <- fit_normal(df_diff$cp)
-ge_fit <- fit_normal(df_diff$ge)
 cc_fit <- fit_normal(df_diff$cc)
 sw_fit <- fit_normal(df_diff$sw)
-bc_fit <- fit_normal(df_diff$bc)
 mod_fit <- fit_normal(df_diff$mod)
-hcr_fit <- fit_normal(df_diff$hcr)
 dv_fit <- fit_normal(df_diff$dv)
-
-df_non_na <- df_diff %>% drop_na()
-ap_fit <- fit_normal(df_non_na$ap)
-
-normalized_ihs_fit <- fit_normal(df_diff$normalized_ihs)
-total_ihs_fit <- fit_normal(df_diff$total_ihs)
+nihs_fit <- fit_normal(df_diff$nihs)
+tihs_fit <- fit_normal(df_diff$tihs)
 
 # compare cp -------------------------------------------------------------------
 compare_normal(cp_fit, label1 = "control", label2 = "test")
-# P(control > test) = 19.02 +/- 0.8%
-# P(control < test) = 80.97 +/- 0.8%
-
-# compare ge -------------------------------------------------------------------
-compare_normal(ge_fit, label1 = "control", label2 = "test")
-# P(control > test) = 31.4 +/- 0.9%
-# P(control < test) = 68.6 +/- 0.9%
+# P(control > test) = 7.82 +/- 0.5%
+# P(control < test) = 92.17 +/- 0.5%
 
 # compare cc -------------------------------------------------------------------
 compare_normal(cc_fit, label1 = "control", label2 = "test")
-# P(control > test) = 15.45 +/- 0.8%
-# P(control < test) = 84.55 +/- 0.8%
+# P(control > test) = 10.38 +/- 0.7%
+# P(control < test) = 89.62 +/- 0.7%
 
 # compare sw -------------------------------------------------------------------
 compare_normal(sw_fit, label1 = "control", label2 = "test")
-# P(control > test) = 24.18 +/- 0.9%
-# P(control < test) = 75.83 +/- 0.9%
-
-# compare bc -------------------------------------------------------------------
-compare_normal(bc_fit, label1 = "control", label2 = "test")
-# P(control > test) = 16.62 +/- 0.8%
-# P(control < test) = 83.38 +/- 0.8%
+# P(control > test) = 7.4 +/- 0.5%
+# P(control < test) = 92.6 +/- 0.5%
 
 # compare mod ------------------------------------------------------------------
 compare_normal(mod_fit, label1 = "control", label2 = "test")
-# P(control > test) = 92.47 +/- 0.5%
-# P(control < test) = 7.52 +/- 0.5%
-
-# compare hcr ------------------------------------------------------------------
-compare_normal(hcr_fit, label1 = "control", label2 = "test")
-# P(control > test) = 13.25 +/- 0.7%
-# P(control < test) = 86.75 +/- 0.7%
+# P(control > test) = 82.03 +/- 0.8%
+# P(control < test) = 17.97 +/- 0.8%
 
 # compare dv -------------------------------------------------------------------
 compare_normal(dv_fit, label1 = "control", label2 = "test")
-# P(control > test) = 41.1 +/- 0.8%
-# P(control < test) = 58.9 +/- 0.8%
+# P(control > test) = 5.03 +/- 0.4%
+# P(control < test) = 94.97 +/- 0.4%
 
-# compare ap -------------------------------------------------------------------
-compare_normal(ap_fit, label1 = "control", label2 = "test")
-# P(control > test) = 90.75 +/- 0.7%
-# P(control < test) = 9.25 +/- 0.7%
+# compare nihs -------------------------------------------------------
+compare_normal(nihs_fit, label1 = "control", label2 = "test")
+# P(control > test) = 76.98 +/- 0.7%
+# P(control < test) = 23.03 +/- 0.7%
 
-# compare normalized_ihs -------------------------------------------------------
-compare_normal(normalized_ihs_fit, label1 = "control", label2 = "test")
-# P(control > test) = 71.83 +/- 0.8%
-# P(control < test) = 28.18 +/- 0.8%
-
-# compare total_ihs ------------------------------------------------------------
-compare_normal(total_ihs_fit, label1 = "control", label2 = "test")
-# P(control > test) = 21.62 +/- 0.9%
-# P(control < test) = 78.38 +/- 0.9%
+# compare tihs ------------------------------------------------------------
+compare_normal(tihs_fit, label1 = "control", label2 = "test")
+# P(control > test) = 9.4 +/- 0.7%
+# P(control < test) = 90.6 +/- 0.7%

@@ -8,7 +8,7 @@ data_dir = '../data/ped/';
 fc_dir = strcat(data_dir, 'fc');
 
 % n metrics
-n_metrics = 8;
+n_metrics = 6;
 
 % iterate over both groups
 for g = 1:2
@@ -47,24 +47,18 @@ for g = 1:2
     
         % global efficiency
         m(2) = efficiency_wei(mean_fc);
-    
+
         % clustering coefficient
         m(3) = mean(clustering_coef_wu(mean_fc));
-        
+     
         % small worldness
         [m(4), ~, ~] = small_world_ness(mean_fc, m(1), m(3), 1);
-    
-        % betweenness centrality
-        m(5) = mean(betweenness_wei(mean_fc));
-    
+
         % modularity
-        [~, m(6)] = modularity_und(mean_fc);
-    
-        % hierarchical coefficient of regression
-        m(7) = hcr(mean_fc);
-    
+        [~, m(5)] = modularity_und(mean_fc);
+
         % degree variance
-        m(8) = var(degrees_wei(mean_fc));
+        m(6) = var(degrees_wei(mean_fc));
     
         % append
         M(i,:) = m;

@@ -15,5 +15,5 @@ model {
   b ~ cauchy(0, 2.5);
   
   // model
-  y ~ cauchy(a + x * b, sigma);
+  y ~ normal(a + x * b, sigma);
 }

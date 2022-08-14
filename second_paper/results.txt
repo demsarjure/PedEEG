@@ -1,21 +1,38 @@
 Global:
-  - CP: P(control < test) = 80.97 +/- 0.8%
-  - CC: P(control < test) = 84.12 +/- 0.8%
-  - BC: P(control < test) = 83.38 +/- 0.8%
-  - MOD: P(control > test) = 92.47 +/- 0.5%
-  - HCR: P(control < test) = 86.75 +/- 0.7%
-  - AP: P(control > test) = 90.75 +/- 0.7%
+  - CP: P(control < test) = 92.17 +/- 0.5%
+  - CC: P(control < test) = 89.62 +/- 0.7%
+  - SW: P(control < test) = 92.6 +/- 0.5%
+  - MOD: P(control > test) = 82.03 +/- 0.8%
+  - DV: P(control < test) = 94.97 +/- 0.4%
+  - NIHS: P(control > test) = 76.98 +/- 0.7%
+  - TIHS: P(control < test) = 90.6 +/- 0.7%
 
 Within subject hemispheres:
-  - CP: P(healthy < injured) = 80.97 +/- 0.8%
-  - DV: P(healthy > injured) = 90.85 +/- 0.8%
+  - CP: P(healthy > injured) = 63.2 +/- 0.9%
+  - CC: P(healthy > injured) = 57.5 +/- 0.8%
+  - SW: P(healthy > injured) = 66.2 +/- 0.8%
+  - MOD: P(healthy > injured) = 57.88 +/- 0.8%
+  - DV: P(healthy > injured) = 90.45 +/- 0.8%
 
-# _i means injured hemisphere
-# _h means healthy hemisphere
+# _h means comparison of healthy hemispheres
+# _i means comparison of injured hemispheres
 Test vs control hemispheres:
-  - CP_i: P(control < test) = 83.03 +/- 0.8%
-  - CC_i: P(control < test) = 87.95 +/- 0.7%
-  - SW_i: P(control < test) = 82.27 +/- 0.7%
-  - MOD_h: P(control > test) = 90.7 +/- 0.6%
-  - MOD_i: P(control > test) = 82.3 +/- 0.8%
-  - HCR_i: P(control < test) = 85.55 +/- 0.7%
+  - CP_h: P(control < test) = 95.45 +/- 0.4%
+  - CP_i: P(control < test) = 91.22 +/- 0.6%
+  - CC_h: P(control < test) = 92.83 +/- 0.6%
+  - CC_i: P(control < test) = 88.17 +/- 0.7%
+  - SW_h: P(control < test) = 95.9 +/- 0.4%
+  - SW_i: P(control < test) = 91.83 +/- 0.6%
+  - MOD_h: P(control > test) = 64.6 +/- 0.9%
+  - MOD_i: P(control > test) = 81.92 +/- 0.8%
+  - DV_h: P(control < test) = 97.38 +/- 0.4%
+  - DV_i: P(control < test) = 94.2 +/- 0.6%
+
+Linear:
+  - CP: P(β > 0) = 78.05 +/- 0.8%
+  - CC: P(β > 0) = 68.5 +/- 0.8%
+  - SW: P(β > 0) = 81.62 +/- 0.8%
+  - MOD: P(β > 0) = 81.27 +/- 0.8%
+  - DV: P(β > 0) = 85.67 +/- 0.7%
+  - NIHS: P(β > 0) = 45.45 +/- 0.9%
+  - TIHS: P(β > 0) = 71.95 +/- 1%

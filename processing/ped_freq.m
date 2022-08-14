@@ -23,12 +23,9 @@ for g = 1:2
     % storages
     names = strings(1,n);
     
-    % n metrics
-    n_metrics = 3;
-    
     % metrics storage
-    m = zeros(1,n_metrics);
-    M = zeros(n,n_metrics);
+    m = 0;
+    M = zeros(n,1);
     
     % iterate over all subjects
     for i = 1:n
@@ -65,15 +62,6 @@ for g = 1:2
             data.sampleinfo(j, 2) = end_t;
         end
     
-        % psd
-        ps = pop_spectopo(rest, 1, [0  300000], 'EEG' , 'percent', 50, 'freqrange', [8 13], 'electrodes', 'off');
-        Fs = rest.srate;
-        N = size(ps, 2);
-        psd = (1/(Fs*N)) * abs(ps).^2;
-        psd(2:end-1) = 2*psd(2:end-1);
-    
-        m(1) = mean(mean(psd));
-    
         % AP
         freq = 7:0.5:14;
         cfg = [];
@@ -83,25 +71,21 @@ for g = 1:2
         cfg.tapsmofrq = 1;
         fq = ft_freqanalysis(cfg, data);
         
-        % naive method
-        [m, ix] = max(mean(fq.powspctrm));
-        m(2) = fq.freq(ix);
-        
         % find peaks
         mean_ps = mean(fq.powspctrm);
         pks = findpeaks(mean_ps);
         
         % find max power
         if isempty(pks)
-            m(3) = NaN;
+            m = NaN;
         else
             max_p = pks(1);
             ix = find(mean_ps == max_p);
-            m(3) = fq.freq(ix);
+            m = fq.freq(ix);
             for p = pks
                 if (p > max_p)
                     ix = find(mean_ps == p);
-                    m(3) = fq.freq(ix);
+                    m = fq.freq(ix);
                     max_p = p;
                 end
             end

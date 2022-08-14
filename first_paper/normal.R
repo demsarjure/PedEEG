@@ -9,24 +9,24 @@ library(mcmcse)
 
 # load EEG dataset ----------------------------------------------------------
 df <- read.csv(paste0("../data/dataset/metrics.csv"))
-colnames(df) <- c("ID", "cp", "ge", "cc", "sw")
+colnames(df) <- c("id", "cp", "ge", "cc", "sw")
 
 df_freq <- read.csv(paste0("../data/dataset/metrics_freq.csv"))
-colnames(df_freq) <- c("ID", "psd", "ap_naive", "ap")
+colnames(df_freq) <- c("id", "ap")
 
-df_normalized_ihs <- read.csv(paste0("../data/dataset/metrics_inter.csv"))
-colnames(df_normalized_ihs) <- c("ID", "normalized_ihs", "total_ihs")
+df_nihs <- read.csv(paste0("../data/dataset/metrics_inter.csv"))
+colnames(df_nihs) <- c("id", "nihs", "tihs")
 
 # add age
 df_age <- read.csv("../../dataset/MIPDB_PublicFile.csv")
-df_age <- df_age %>% select(ID, Age, Sex)
+df_age <- df_age %>% select(id, age, sex)
 df <- df %>% left_join(df_age)
 df <- df %>% left_join(df_freq)
-df <- df %>% left_join(df_normalized_ihs)
+df <- df %>% left_join(df_nihs)
 
 # split into male and female ---------------------------------------------------
-df_m <- df %>% filter(Sex == 1)
-df_f <- df %>% filter(Sex == 2)
+df_m <- df %>% filter(sex == 1)
+df_f <- df %>% filter(sex == 2)
 
 # compile the model ------------------------------------------------------------
 model <- cmdstan_model("normal.stan")
@@ -71,12 +71,12 @@ mcse(df_cp_f$mu > df_cp_m$mu)
 
 # merge
 df_stats <- data.frame(Value = df_cp_m$mu,
-                       Sex = "M",
+                       sex = "M",
                        Metric = "Characteristic path")
 
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_cp_f$mu,
-                     Sex = "F",
+                     sex = "F",
                      Metric = "Characteristic path"))
 
 
@@ -121,12 +121,12 @@ mcse(df_ge_f$mu > df_ge_m$mu)
 # merge
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_ge_m$mu,
-                     Sex = "M",
+                     sex = "M",
                      Metric = "Global efficiency"))
 
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_ge_f$mu,
-                     Sex = "F",
+                     sex = "F",
                      Metric = "Global efficiency"))
 
 
@@ -171,12 +171,12 @@ mcse(df_cc_f$mu > df_cc_m$mu)
 # merge
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_cc_m$mu,
-                     Sex = "M",
+                     sex = "M",
                      Metric = "Clustering coefficient"))
 
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_cc_f$mu,
-                     Sex = "F",
+                     sex = "F",
                      Metric = "Clustering coefficient"))
 
 
@@ -221,12 +221,12 @@ mcse(df_sw_f$mu > df_sw_m$mu)
 # merge
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_sw_m$mu,
-                     Sex = "M",
+                     sex = "M",
                      Metric = "Small worldness"))
 
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_sw_f$mu,
-                     Sex = "F",
+                     sex = "F",
                      Metric = "Small worldness"))
 
 
@@ -273,19 +273,19 @@ mcse(df_ap_f$mu > df_ap_m$mu)
 # merge
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_ap_m$mu,
-                     Sex = "M",
+                     sex = "M",
                      Metric = "Individual alpha frequency"))
 
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_ap_f$mu,
-                     Sex = "F",
+                     sex = "F",
                      Metric = "Individual alpha frequency"))
 
 
 # interhemispheric strength ----------------------------------------------------
 # prep the data
-stan_data_m <- list(n = nrow(df_m), y = df_m$total_ihs)
-stan_data_f <- list(n = nrow(df_f), y = df_f$total_ihs)
+stan_data_m <- list(n = nrow(df_m), y = df_m$tihs)
+stan_data_f <- list(n = nrow(df_f), y = df_f$tihs)
 
 # fit male
 fit_tihs_m <- model$sample(
@@ -323,12 +323,12 @@ mcse(df_tihs_f$mu > df_tihs_m$mu)
 # merge
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_tihs_m$mu,
-                     Sex = "M",
+                     sex = "M",
                      Metric = "Interhemispheric strength"))
 
 df_stats <- df_stats %>%
   add_row(data.frame(Value = df_tihs_f$mu,
-                     Sex = "F",
+                     sex = "F",
                      Metric = "Interhemispheric strength"))
 
 
@@ -343,7 +343,7 @@ df_stats$Metric <-
                     "Individual alpha frequency",
                     "Interhemispheric strength")) # no lint
 
-ggplot(data = df_stats, aes(x = Value, y = Sex)) +
+ggplot(data = df_stats, aes(x = Value, y = sex)) +
   stat_pointinterval(fill = "skyblue", alpha = 0.75, .width = c(.5, .95)) +
   facet_wrap(. ~ Metric, scales = "free", ncol = 3) +
   theme(panel.spacing = unit(2, "lines"))
