@@ -16,7 +16,6 @@ df_control_inter <- read.csv("../data/ped/metrics_inter.csv")
 colnames(df_control_inter) <- columns_inter
 
 df_control <- df_control %>%
-  inner_join(df_control_freq) %>%
   inner_join(df_control_inter)
 
 df_test <- read.csv("../data/ped/metrics_T.csv")
@@ -26,7 +25,6 @@ df_test_inter <- read.csv("../data/ped/metrics_inter_T.csv")
 colnames(df_test_inter) <- columns_inter
 
 df_test <- df_test %>%
-  inner_join(df_test_freq) %>%
   inner_join(df_test_inter)
 
 df_pairs <- read.csv("../data/ped/pairs.csv")
