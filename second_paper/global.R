@@ -1,5 +1,7 @@
 # Global metrics comparisons between the test and the control group.
 
+library(cowplot)
+
 # load data and models ---------------------------------------------------------
 source("./utils/normal.R")
 source("data.R")
@@ -38,12 +40,40 @@ compare_normal(dv_fit, label1 = "control", label2 = "test")
 # P(control > test) = 5.03 +/- 0.4%
 # P(control < test) = 94.97 +/- 0.4%
 
-# compare nihs -------------------------------------------------------
-compare_normal(nihs_fit, label1 = "control", label2 = "test")
-# P(control > test) = 76.98 +/- 0.7%
-# P(control < test) = 23.03 +/- 0.7%
-
-# compare tihs ------------------------------------------------------------
+# compare tihs -----------------------------------------------------------------
 compare_normal(tihs_fit, label1 = "control", label2 = "test")
 # P(control > test) = 9.4 +/- 0.7%
 # P(control < test) = 90.6 +/- 0.7%
+
+# plot -------------------------------------------------------------------------
+p1 <- plot_comparison_normal(cp_fit, ci = 0.9) +
+        ggtitle("Characteristic path") +
+        xlim(-0.06, 0.06) +
+        xlab("Mean difference")
+
+p2 <- plot_comparison_normal(cc_fit, ci = 0.9) +
+        ggtitle("Clustering coefficient") +
+        xlim(-0.06, 0.06) +
+        xlab("Mean difference")
+
+p3 <- plot_comparison_normal(sw_fit, ci = 0.9) +
+        ggtitle("Small-worldness") +
+        xlim(-0.04, 0.04) +
+        xlab("Mean difference")
+
+p4 <- plot_comparison_normal(mod_fit, ci = 0.1) +
+        ggtitle("Modularity") +
+        xlim(-0.04, 0.04) +
+        xlab("Mean difference")
+
+p5 <- plot_comparison_normal(dv_fit, ci = 0.9) +
+        ggtitle("Degree variance") +
+        xlim(-5, 5) +
+        xlab("Mean difference")
+
+p6 <- plot_comparison_normal(dv_fit, ci = 0.9) +
+        ggtitle("Total interhemisperhic strength") +
+        xlim(-5, 5) +
+        xlab("Mean difference")
+
+plot_grid(p1, p2, p3, p4, p5, p6, ncol = 2, scale = 0.95)

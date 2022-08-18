@@ -103,7 +103,7 @@ compare_normal <- function(fit, constant = 0, label1 = "", label2 = "") {
 }
 
 # plot comparison between a normal fit and a constant --------------------------
-plot_comparison_normal <- function(fit, constant = 0) {
+plot_comparison_normal <- function(fit, constant = 0, ci = NULL) {
   # extract
   df_samples <- as_draws_df(fit$draws())
 
@@ -111,12 +111,29 @@ plot_comparison_normal <- function(fit, constant = 0) {
   df_comparison <- data.frame(mu = df_samples$mu)
 
   # plot
-  p <- ggplot(data = df_comparison, aes(x = mu)) +
-    stat_halfeye(fill = "skyblue", alpha = 0.75) +
+  p <- ggplot(data = df_comparison, aes(x = mu))
+
+  if (is.null(ci)) {
+    p <- p +
+      stat_halfeye(fill = "skyblue", alpha = 0.75)
+  }
+  else if (ci > 0.5) {
+    q <- quantile(df_comparison$mu, ci)
+    p <- p +
+      stat_slab(aes(fill = stat(x < q)), alpha = 0.75, show.legend = FALSE)
+  } else {
+    q <- quantile(df_comparison$mu, ci)
+    p <- p +
+      stat_slab(aes(fill = stat(x > q)), alpha = 0.75, show.legend = FALSE)
+  }
+
+  p <- p +
+    xlab("Mean") +
+    ylab("") +
+    scale_fill_manual(values = c("grey90", "skyblue")) +
     geom_vline(xintercept = constant, linetype = "dashed",
                color = "grey50", size = 1) +
-    xlab("Mean") +
-    ylab("")
+    theme_minimal()
 
   return(p)
 }
