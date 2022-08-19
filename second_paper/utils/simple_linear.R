@@ -34,7 +34,7 @@ fit_simple_linear <- function(x, y, robust = FALSE) {
   return(fit)
 }
 
-# compare the simple_lienear fit with a constant -------------------------------
+# compare the simple_linear fit with a constant -------------------------------
 compare_simple_linear <- function(fit, constant = 0) {
   # extract
   df_samples <- as_draws_df(fit$draws())
@@ -54,4 +54,33 @@ compare_simple_linear <- function(fit, constant = 0) {
              bigger_prob, " +/- ", bigger_se, "%\n"))
   cat(paste0("# P(β < ", constant, ") = ",
              smaller_prob, " +/- ", smaller_se, "%"))
+}
+
+# plot the simple_linear-------------------------------
+plot_simple_linear <- function(fit, min_x, max_x) {
+  # get samples
+  df_samples <- as_draws_df(fit$draws())
+
+  # get mean averages
+  a <- df_samples$a
+  b <- df_samples$b
+
+  # number of samples
+  n <- length(a)
+
+  df <- tibble(
+    draw = 1:n,
+    x = list(min_x:max_x),
+    y = map2(a, b, ~ .x + .y * min_x:max_x)
+  ) %>% unnest(c(x, y))
+
+  p <- df %>%
+    group_by(x) %>%
+    median_qi(y, .width = c(.50, .90)) %>%
+    ggplot(aes(x = x, y = y, ymin = .lower, ymax = .upper)) +
+    geom_lineribbon(show.legend = FALSE, size = 0.5) +
+    scale_fill_brewer() +
+    theme_minimal()
+
+  return(p)
 }

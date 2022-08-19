@@ -47,7 +47,6 @@ df_diff <- data.frame(
   sw = numeric(),
   mod = numeric(),
   dv = numeric(),
-  nihs = numeric(),
   tihs = numeric()
 )
 
@@ -66,7 +65,6 @@ for (i in seq_len(nrow(df_pairs))) {
       sw = c$sw - t$sw,
       mod = c$mod - t$mod,
       dv = c$dv - t$dv,
-      nihs = c$nihs - t$nihs,
       tihs = c$tihs - t$tihs
     ))
   }

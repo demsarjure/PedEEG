@@ -4,7 +4,6 @@ Global:
   - SW: P(control < test) = 92.6 +/- 0.5%
   - MOD: P(control > test) = 82.03 +/- 0.8%
   - DV: P(control < test) = 94.97 +/- 0.4%
-  - NIHS: P(control > test) = 76.98 +/- 0.7%
   - TIHS: P(control < test) = 90.6 +/- 0.7%
 
 Within subject hemispheres:
@@ -34,5 +33,4 @@ Linear:
   - SW: P(β > 0) = 81.62 +/- 0.8%
   - MOD: P(β > 0) = 81.27 +/- 0.8%
   - DV: P(β > 0) = 85.67 +/- 0.7%
-  - NIHS: P(β > 0) = 45.45 +/- 0.9%
   - TIHS: P(β > 0) = 71.95 +/- 1%

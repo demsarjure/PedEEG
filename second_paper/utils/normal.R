@@ -137,3 +137,30 @@ plot_comparison_normal <- function(fit, constant = 0, ci = NULL) {
 
   return(p)
 }
+
+# plot comparison between two normal fits and a constant -----------------------
+plot_comparison_normal <- function(fit1, label1 = "Group 1",
+                                   fit2, label2 = "Group 2",
+                                   constant = 0, ci = c(0.66, 0.95)) {
+
+  # extract
+  df_samples <- data.frame(
+      value = as_draws_df(fit1$draws())$mu,
+      group = label1
+  )
+  df_samples <- df_samples %>% add_row(
+      value = as_draws_df(fit2$draws())$mu,
+      group = label2
+  )
+
+  # plot
+  p <- ggplot(data = df_samples, aes(x = value, y = group)) +
+        stat_pointinterval(.width = ci) +
+        xlab("Mean") +
+        ylab("") +
+        geom_vline(xintercept = 0, linetype = "dashed",
+                  color = "grey50", size = 1) +
+        theme_minimal()
+
+  return(p)
+}
