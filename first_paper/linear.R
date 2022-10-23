@@ -8,330 +8,354 @@ library(posterior)
 library(tidyverse)
 library(mcmcse)
 
-# load PED data ----------------------------------------------------------------
-dataset <- "ped"
-columns_metrics <- c("id", "cp", "ge", "cc", "sw", "mod", "dv")
-columns_freq <- c("id", "ap")
-columns_inter <- c(
-  "id", "nihs", "tihs",
-  "cp_l", "ge_l", "cc_l", "sw_l", "mod_l", "dv_l",
-  "cp_r", "ge_r", "cc_r", "sw_r", "mod_r", "dv_r"
-)
-
-df <- read.csv(paste0("../data/ped/metrics.csv"))
-colnames(df) <- columns_metrics
-
-df_freq <- read.csv(paste0("../data/ped/metrics_freq.csv"))
-colnames(df_freq) <- columns_freq
-
-df_ihs <- read.csv(paste0("../data/ped/metrics_inter.csv"))
-colnames(df_ihs) <- columns_inter
-
-# add age
-df_age <- read.csv("../data/ped/demographics_control.csv")
-df_age <- df_age %>% select(id, age, sex)
-df <- df %>% left_join(df_age)
-df <- df %>% left_join(df_freq)
-df <- df %>% left_join(df_ihs)
-df <- df %>% drop_na()
-
-# OR load EEG dataset ----------------------------------------------------------
-dataset <- "dataset"
-df <- read.csv(paste0("../data/dataset/metrics.csv"))
-colnames(df) <- c("id", "cp", "ge", "cc", "sw")
-
-df_freq <- read.csv(paste0("../data/dataset/metrics_freq.csv"))
-colnames(df_freq) <- c("id", "psd", "ap_naive", "ap")
-
-df_ihs <- read.csv(paste0("../data/dataset/metrics_inter.csv"))
-colnames(df_ihs) <- c("id", "nihs", "tihs")
-
-# add age
-df_age <- read.csv("../../dataset/MIPDB_PublicFile.csv")
-df_age <- df_age %>% select(id, age, sex)
-df <- df %>% left_join(df_age)
-df <- df %>% left_join(df_freq)
-df <- df %>% left_join(df_ihs)
-
 # compile the model ------------------------------------------------------------
-model <- cmdstan_model("linear_robust.stan")
+model <- cmdstan_model("./models/linear_robust.stan")
 
-# characteristic path ----------------------------------------------------------
-# prep the data
-stan_data <- list(n = nrow(df), x = df$age, y = df$cp)
+# analysis ---------------------------------------------------------------------
+datasets <- c("ped", "dataset")
+bands <- c("delta", "theta", "alpha", "beta")
+df_results <- data.frame(dataset = character(),
+                         band = character(),
+                         metric = character(),
+                         probability = numeric(),
+                         mcse = numeric())
 
-# fit
-fit_cp <- model$sample(
-  data = stan_data,
-  parallel_chains = 4
-)
+for (data in datasets) {
+  for (band in bands) {
+    # load the data
+    if (data == "ped") {
+      source("data_ped.R")
+    } else {
+      source("data_dataset.R")
+    }
 
-# traceplot
-mcmc_trace(fit_cp$draws())
+    # characteristic path ------------------------------------------------------
+    # prep the data
+    stan_data <- list(n = nrow(df), x = df$age, y = df$cp)
 
-# summary
-fit_cp$summary()
+    # fit
+    fit_cp <- model$sample(
+      data = stan_data,
+      parallel_chains = 4
+    )
 
-# extract
-df_cp <- as_draws_df(fit_cp$draws())
-mcse(df_cp$b > 0)
+    # traceplot
+    #mcmc_trace(fit_cp$draws())
+    # summary
+    #fit_cp$summary()
 
-# plot
-df_plot <- tibble(
-    .draw = df_cp$.draw,
-    intercept = df_cp$a,
-    slope = df_cp$b,
-    x = list(5:18),
-    y = map2(intercept, slope, ~ .x + .y * 5:18)
-)
-df_plot <- df_plot %>% unnest(c(x, y))
+    # extract
+    df_cp <- as_draws_df(fit_cp$draws())
 
-p1 <- ggplot(data = df_plot, aes(x = x, y = y)) +
-  stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
-  geom_point(data = df,
-             aes(x = age, y = cp),
-             color = "grey25",
-             alpha = 0.5,
-             shape = 16) +
-  scale_fill_manual(values = c("grey75")) +
-  ggtitle("Characteristic path") +
-  xlab("age") +
-  ylab("Value") +
-  theme(legend.position = "none")
+    # store result
+    res_cp <- mcse(df_cp$b > 0)
+    df_results <- df_results %>%
+      add_row(data.frame(dataset = data,
+                         band = band,
+                         metric = "cp",
+                         probability = round(res_cp[[1]] * 100, 1),
+                         mcse = round(res_cp[[2]] * 100, 1)))
 
-# global efficiency coefficient ------------------------------------------------
-# prep the data
-stan_data <- list(n = nrow(df), x = df$age, y = df$ge)
+    # plot
+    df_plot <- tibble(
+        .draw = df_cp$.draw,
+        intercept = df_cp$a,
+        slope = df_cp$b,
+        x = list(5:18),
+        y = map2(intercept, slope, ~ .x + .y * 5:18)
+    )
+    df_plot <- df_plot %>% unnest(c(x, y))
 
-# fit
-fit_ge <- model$sample(
-  data = stan_data,
-  parallel_chains = 4
-)
+    p1 <- ggplot(data = df_plot, aes(x = x, y = y)) +
+      stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
+      geom_point(data = df,
+                aes(x = age, y = cp),
+                color = "grey25",
+                alpha = 0.5,
+                shape = 16) +
+      scale_fill_manual(values = c("grey75")) +
+      ggtitle("Characteristic path") +
+      xlab("age") +
+      ylab("Value") +
+      theme(legend.position = "none")
 
-# traceplot
-mcmc_trace(fit_ge$draws())
+    # global efficiency coefficient --------------------------------------------
+    # prep the data
+    stan_data <- list(n = nrow(df), x = df$age, y = df$ge)
 
-# summary
-fit_ge$summary()
+    # fit
+    fit_ge <- model$sample(
+      data = stan_data,
+      parallel_chains = 4
+    )
 
-# extract
-df_ge <- as_draws_df(fit_ge$draws())
-mcse(df_ge$b > 0)
+    # traceplot
+    #mcmc_trace(fit_ge$draws())
+    # summary
+    #fit_ge$summary()
 
-# plot
-df_plot <- tibble(
-  .draw = df_ge$.draw,
-  intercept = df_ge$a,
-  slope = df_ge$b,
-  x = list(5:18),
-  y = map2(intercept, slope, ~ .x + .y * 5:18)
-)
-df_plot <- df_plot %>% unnest(c(x, y))
+    # extract
+    df_ge <- as_draws_df(fit_ge$draws())
 
-p2 <- ggplot(data = df_plot, aes(x = x, y = y)) +
-  stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
-  geom_point(data = df,
-             aes(x = age, y = ge),
-             color = "grey25",
-             alpha = 0.5,
-             shape = 16) +
-  scale_fill_manual(values = c("grey75")) +
-  ggtitle("Global efficiency") +
-  xlab("age") +
-  ylab("Value") +
-  theme(legend.position = "none")
+    # store result
+    res_ge <- mcse(df_ge$b > 0)
+    df_results <- df_results %>%
+      add_row(data.frame(dataset = data,
+                         band = band,
+                         metric = "ge",
+                         probability = round(res_ge[[1]] * 100, 1),
+                         mcse = round(res_ge[[2]] * 100, 1)))
 
-# clustering coefficient -------------------------------------------------------
-# prep the data
-stan_data <- list(n = nrow(df), x = df$age, y = df$cc)
+    # plot
+    df_plot <- tibble(
+      .draw = df_ge$.draw,
+      intercept = df_ge$a,
+      slope = df_ge$b,
+      x = list(5:18),
+      y = map2(intercept, slope, ~ .x + .y * 5:18)
+    )
+    df_plot <- df_plot %>% unnest(c(x, y))
 
-# fit
-fit_cc <- model$sample(
-  data = stan_data,
-  parallel_chains = 4
-)
+    p2 <- ggplot(data = df_plot, aes(x = x, y = y)) +
+      stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
+      geom_point(data = df,
+                aes(x = age, y = ge),
+                color = "grey25",
+                alpha = 0.5,
+                shape = 16) +
+      scale_fill_manual(values = c("grey75")) +
+      ggtitle("Global efficiency") +
+      xlab("age") +
+      ylab("Value") +
+      theme(legend.position = "none")
 
-# traceplot
-mcmc_trace(fit_cc$draws())
+    # clustering coefficient ---------------------------------------------------
+    # prep the data
+    stan_data <- list(n = nrow(df), x = df$age, y = df$cc)
 
-# summary
-fit_cc$summary()
+    # fit
+    fit_cc <- model$sample(
+      data = stan_data,
+      parallel_chains = 4
+    )
 
-# extract
-df_cc <- as_draws_df(fit_cc$draws())
-mcse(df_cc$b > 0)
+    # traceplot
+    #mcmc_trace(fit_cc$draws())
+    # summary
+    #fit_cc$summary()
 
-# plot
-df_plot <- tibble(
-  .draw = df_cc$.draw,
-  intercept = df_cc$a,
-  slope = df_cc$b,
-  x = list(5:18),
-  y = map2(intercept, slope, ~ .x + .y * 5:18)
-)
-df_plot <- df_plot %>% unnest(c(x, y))
+    # extract
+    df_cc <- as_draws_df(fit_cc$draws())
 
-p3 <- ggplot(data = df_plot, aes(x = x, y = y)) +
-  stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
-  geom_point(data = df,
-             aes(x = age, y = cc),
-             color = "grey25",
-             alpha = 0.5,
-             shape = 16) +
-  scale_fill_manual(values = c("grey75")) +
-  ggtitle("Clustering coefficient") +
-  xlab("age") +
-  ylab("Value") +
-  theme(legend.position = "none")
+    # store result
+    res_cc <- mcse(df_cc$b > 0)
+    df_results <- df_results %>%
+      add_row(data.frame(dataset = data,
+                         band = band,
+                         metric = "cc",
+                         probability = round(res_cc[[1]] * 100, 1),
+                         mcse = round(res_cc[[2]] * 100, 1)))
 
-# small worldness --------------------------------------------------------------
-# prep the data
-stan_data <- list(n = nrow(df), x = df$age, y = df$sw)
+    # plot
+    df_plot <- tibble(
+      .draw = df_cc$.draw,
+      intercept = df_cc$a,
+      slope = df_cc$b,
+      x = list(5:18),
+      y = map2(intercept, slope, ~ .x + .y * 5:18)
+    )
+    df_plot <- df_plot %>% unnest(c(x, y))
 
-# fit
-fit_sw <- model$sample(
-  data = stan_data,
-  parallel_chains = 4
-)
+    p3 <- ggplot(data = df_plot, aes(x = x, y = y)) +
+      stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
+      geom_point(data = df,
+                aes(x = age, y = cc),
+                color = "grey25",
+                alpha = 0.5,
+                shape = 16) +
+      scale_fill_manual(values = c("grey75")) +
+      ggtitle("Clustering coefficient") +
+      xlab("age") +
+      ylab("Value") +
+      theme(legend.position = "none")
 
-# traceplot
-mcmc_trace(fit_sw$draws())
+    # small worldness ----------------------------------------------------------
+    # prep the data
+    stan_data <- list(n = nrow(df), x = df$age, y = df$sw)
 
-# summary
-fit_sw$summary()
+    # fit
+    fit_sw <- model$sample(
+      data = stan_data,
+      parallel_chains = 4
+    )
 
-# extract
-df_sw <- as_draws_df(fit_sw$draws())
-mcse(df_sw$b > 0)
+    # traceplot
+    #mcmc_trace(fit_sw$draws())
+    # summary
+    #fit_sw$summary()
 
-# plot
-df_plot <- tibble(
-  .draw = df_sw$.draw,
-  intercept = df_sw$a,
-  slope = df_sw$b,
-  x = list(5:18),
-  y = map2(intercept, slope, ~ .x + .y * 5:18)
-)
-df_plot <- df_plot %>% unnest(c(x, y))
+    # extract
+    df_sw <- as_draws_df(fit_sw$draws())
 
-p4 <- ggplot(data = df_plot, aes(x = x, y = y)) +
-  stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
-  geom_point(data = df,
-             aes(x = age, y = sw),
-             color = "grey25",
-             alpha = 0.5,
-             shape = 16) +
-  scale_fill_manual(values = c("grey75")) +
-  ggtitle("Small worldness") +
-  xlab("age") +
-  ylab("Value") +
-  theme(legend.position = "none")
+    # store result
+    res_sw <- mcse(df_sw$b > 0)
+    df_results <- df_results %>%
+      add_row(data.frame(dataset = data,
+                         band = band,
+                         metric = "sw",
+                         probability = round(res_sw[[1]] * 100, 1),
+                         mcse = round(res_sw[[2]] * 100, 1)))
 
-# alpha peak -------------------------------------------------------------------
-# prep the data
-df_ap_plot <- df %>% filter(ap != -1)
-stan_data <- list(n = nrow(df_ap_plot),
-                  x = df_ap_plot$age,
-                  y = df_ap_plot$ap)
+    # plot
+    df_plot <- tibble(
+      .draw = df_sw$.draw,
+      intercept = df_sw$a,
+      slope = df_sw$b,
+      x = list(5:18),
+      y = map2(intercept, slope, ~ .x + .y * 5:18)
+    )
+    df_plot <- df_plot %>% unnest(c(x, y))
 
-# fit
-fit_ap <- model$sample(
-  data = stan_data,
-  parallel_chains = 4
-)
+    p4 <- ggplot(data = df_plot, aes(x = x, y = y)) +
+      stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
+      geom_point(data = df,
+                aes(x = age, y = sw),
+                color = "grey25",
+                alpha = 0.5,
+                shape = 16) +
+      scale_fill_manual(values = c("grey75")) +
+      ggtitle("Small worldness") +
+      xlab("age") +
+      ylab("Value") +
+      theme(legend.position = "none")
 
-# traceplot
-mcmc_trace(fit_ap$draws())
+    # interhemispheric strength ------------------------------------------------
+    # prep the data
+    stan_data <- list(n = nrow(df), x = df$age, y = df$tihs)
 
-# summary
-fit_ap$summary()
+    # fit
+    fit_tihs <- model$sample(
+      data = stan_data,
+      parallel_chains = 4
+    )
 
-# extract
-df_ap <- as_draws_df(fit_ap$draws())
-mcse(df_ap$b > 0)
+    # traceplot
+    #mcmc_trace(fit_tihs$draws())
+    # summary
+    #fit_tihs$summary()
 
-# plot
-df_plot <- tibble(
-  .draw = df_ap$.draw,
-  intercept = df_ap$a,
-  slope = df_ap$b,
-  x = list(5:18),
-  y = map2(intercept, slope, ~ .x + .y * 5:18)
-)
-df_plot <- df_plot %>% unnest(c(x, y))
+    # extract
+    df_tihs <- as_draws_df(fit_tihs$draws())
 
-# df_ap_plot
-p5 <- ggplot(data = df_plot, aes(x = x, y = y)) +
-  stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
-  geom_point(data = df_ap_plot,
-             aes(x = age, y = ap),
-             color = "grey25",
-             alpha = 0.5,
-             shape = 16) +
-  scale_fill_manual(values = c("grey75")) +
-  ggtitle("Individual alpha frequency") +
-  xlab("age") +
-  ylab("Value") +
-  theme(legend.position = "none")
+    # store result
+    res_tihs <- mcse(df_tihs$b > 0)
+    df_results <- df_results %>%
+      add_row(data.frame(dataset = data,
+                         band = band,
+                         metric = "tihs",
+                         probability = round(res_tihs[[1]] * 100, 1),
+                         mcse = round(res_tihs[[2]] * 100, 1)))
 
-# mcse
-df_5 <- df_plot %>% filter(x == 5)
-mcse(df_5$y)
-quantile(df_5$y, probs = c(0.025, 0.975))
+    # plot
+    df_plot <- tibble(
+      .draw = df_tihs$.draw,
+      intercept = df_tihs$a,
+      slope = df_tihs$b,
+      x = list(5:18),
+      y = map2(intercept, slope, ~ .x + .y * 5:18)
+    )
+    df_plot <- df_plot %>% unnest(c(x, y))
 
-df_18 <- df_plot %>% filter(x == 18)
-mcse(df_18$y)
-quantile(df_18$y, probs = c(0.025, 0.975))
+    p5 <- ggplot(data = df_plot, aes(x = x, y = y)) +
+      stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
+      geom_point(data = df,
+                aes(x = age, y = tihs),
+                color = "grey25",
+                alpha = 0.5,
+                shape = 16) +
+      scale_fill_manual(values = c("grey75")) +
+      ggtitle("Interhemispheric strength") +
+      xlab("age") +
+      ylab("Value") +
+      theme(legend.position = "none")
 
-# interhemispheric strength ----------------------------------------------------
-# prep the data
-stan_data <- list(n = nrow(df), x = df$age, y = df$tihs)
+    # alpha peak ---------------------------------------------------------------
+    if (band == "alpha") {
+      # prep the data
+      df_ap_plot <- df %>% filter(ap != -1)
+      stan_data <- list(n = nrow(df_ap_plot),
+                        x = df_ap_plot$age,
+                        y = df_ap_plot$ap)
 
-# fit
-fit_tihs <- model$sample(
-  data = stan_data,
-  parallel_chains = 4
-)
+      # fit
+      fit_ap <- model$sample(
+        data = stan_data,
+        parallel_chains = 4
+      )
 
-# traceplot
-mcmc_trace(fit_tihs$draws())
+      # traceplot
+      #mcmc_trace(fit_ap$draws())
+      # summary
+      #fit_ap$summary()
 
-# summary
-fit_tihs$summary()
+      # extract
+      df_ap <- as_draws_df(fit_ap$draws())
 
-# extract
-df_tihs <- as_draws_df(fit_tihs$draws())
-mcse(df_tihs$b > 0)
+      # store result
+      res_ap <- mcse(df_ap$b > 0)
+      df_results <- df_results %>%
+        add_row(data.frame(dataset = data,
+                          band = band,
+                          metric = "ap",
+                          probability = round(res_ap[[1]] * 100, 1),
+                          mcse = round(res_ap[[2]] * 100, 1)))
 
-# plot
-df_plot <- tibble(
-  .draw = df_tihs$.draw,
-  intercept = df_tihs$a,
-  slope = df_tihs$b,
-  x = list(5:18),
-  y = map2(intercept, slope, ~ .x + .y * 5:18)
-)
-df_plot <- df_plot %>% unnest(c(x, y))
+      # plot
+      df_plot <- tibble(
+        .draw = df_ap$.draw,
+        intercept = df_ap$a,
+        slope = df_ap$b,
+        x = list(5:18),
+        y = map2(intercept, slope, ~ .x + .y * 5:18)
+      )
+      df_plot <- df_plot %>% unnest(c(x, y))
 
-p6 <- ggplot(data = df_plot, aes(x = x, y = y)) +
-  stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
-  geom_point(data = df,
-             aes(x = age, y = tihs),
-            color = "grey25",
-            alpha = 0.5,
-            shape = 16) +
-  scale_fill_manual(values = c("grey75")) +
-  ggtitle("Interhemispheric strength") +
-  xlab("age") +
-  ylab("Value") +
-  theme(legend.position = "none")
+      # df_ap_plot
+      p6 <- ggplot(data = df_plot, aes(x = x, y = y)) +
+        stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
+        geom_point(data = df_ap_plot,
+                  aes(x = age, y = ap),
+                  color = "grey25",
+                  alpha = 0.5,
+                  shape = 16) +
+        scale_fill_manual(values = c("grey75")) +
+        ggtitle("Individual alpha frequency") +
+        xlab("age") +
+        ylab("Value") +
+        theme(legend.position = "none")
+    }
 
-# plot -------------------------------------------------------------------------
-plot_grid(p1, p2, p3, p4, p5, p6, scale = 0.95)
+    # plot ---------------------------------------------------------------------
+    if (band == "alpha") {
+      plot_grid(p1, p2, p3, p4, p5, p6, scale = 0.95)
+      ggsave(paste0("figs/", dataset, "_", band, "_linear.png"),
+            width = 3840,
+            height = 2160,
+            dpi = 250,
+            units = "px",
+            bg = "white")
+    } else {
+      plot_grid(p1, p2, p3, p4, p5, scale = 0.95, ncol = 5)
+      ggsave(paste0("figs/", dataset, "_", band, "_linear.png"),
+            width = 3840,
+            height = 1080,
+            dpi = 250,
+            units = "px",
+            bg = "white")
+    }
+  }
 
-ggsave(paste0(dataset, "_linear.png"),
-       width = 3840,
-       height = 2160,
-       dpi = 300,
-       units = "px")
+  # save results
+  write.table(df_results, file = "linear_results.csv",
+              sep = ",", row.names = FALSE)
+}

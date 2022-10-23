@@ -31,7 +31,7 @@ pop_eegplot(rest_raw, 1, 1, 1);
 figure; pop_spectopo(rest_raw, 1, [0  360000], 'EEG' , 'percent', 50, 'freqrange', [2 25], 'electrodes', 'off');
 
 %% remove bad electrodes
-bad_electrodes = [3, 4, 16, 17, 18, 36, 47, 62, 63, 64];
+bad_electrodes = [3, 4, 16, 18, 36, 62, 63];
 rest = pop_select(rest_raw, 'nochannel', bad_electrodes);
 rest.setname = 'rest_cleaned';
 
@@ -72,7 +72,7 @@ rest = pop_epoch(rest, { }, [0  event_duration]);
 pop_eegplot(rest, 1, 1, 1);
 
 %% use only 120 good
-good_epochs = [1:5, 44:51, 56:61, 80:85, 108:125, 130:141, 146:181, 222:250];
+good_epochs = [112:200, 220:250];
 
 %% filter good epochs
 rest = pop_select(rest, 'trial', good_epochs);

@@ -16,7 +16,7 @@ raw.setname = 'raw';
 raw = pop_editset(raw, 'run', [], 'chanlocs', '../../../64BPMR+ref.ced');
 
 %% extract data with eyes closed
-start = raw.event(7).latency;
+start = raw.event(8).latency;
 stop = start + 360000 + 1;
 rest_raw = eeg_eegrej(raw, [1 start; stop raw.pnts]);
 rest_raw.setname = 'rest_raw';
@@ -31,7 +31,7 @@ pop_eegplot(rest_raw, 1, 1, 1);
 figure; pop_spectopo(rest_raw, 1, [0  360000], 'EEG' , 'percent', 50, 'freqrange', [2 25], 'electrodes', 'off');
 
 %% remove bad electrodes
-bad_electrodes = [9, 11, 17, 18, 21, 30, 31, 34, 35, 36, 42, 43, 53, 60];
+bad_electrodes = [9, 17, 18, 30, 31, 34, 35, 42, 43, 53, 60];
 rest = pop_select(rest_raw, 'nochannel', bad_electrodes);
 rest.setname = 'rest_cleaned';
 
@@ -72,7 +72,7 @@ rest = pop_epoch(rest, { }, [0  event_duration]);
 pop_eegplot(rest, 1, 1, 1);
 
 %% use only 120 good
-good_epochs = [6:16, 64:71, 82:97, 110:117, 122:135, 142:147, 154:157, 164:171, 174:177, 184:199, 220:225, 228:235, 238:243, 246:250];
+good_epochs = [84:90, 126:144, 150:206, 214:250];
 
 %% filter good epochs
 rest = pop_select(rest, 'trial', good_epochs);
