@@ -119,7 +119,7 @@ for (data in datasets) {
     df_ge_f <- as_draws_df(fit_ge_f$draws())
 
     # compare and store result
-    res_ge <- mcse(mcse(df_ge_f$mu > df_ge_m$mu))
+    res_ge <- mcse(df_ge_f$mu > df_ge_m$mu)
     df_results <- df_results %>%
       add_row(data.frame(dataset = data,
                          band = band,
