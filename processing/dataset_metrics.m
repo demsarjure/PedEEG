@@ -4,25 +4,22 @@ addpath('../../SmallWorldNess')
 
 %% calculate metrics
 % directories
-data_dir = '../data/dataset/';
-fc_dir = strcat(data_dir, 'fc');
+data_dir = '../data/validation/';
+fc_dir = strcat(data_dir, 'fc_thresh');
 
 % n metrics
 n_metrics = 4;
 
 % bands
-% delta
-band.name = 'delta';
-bands(1) = band;
 % theta
 band.name = 'theta';
-bands(2) = band;
+bands(1) = band;
 % alpha
 band.name = 'alpha';
-bands(3) = band;
+bands(2) = band;
 % beta
 band.name = 'beta';
-bands(4) = band;
+bands(3) = band;
 
 % iterate over all bands
 m = length(bands);

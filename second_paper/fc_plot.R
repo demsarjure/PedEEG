@@ -45,7 +45,7 @@ matrix_plot <- function(filename, title = "", legend = FALSE) {
 }
 
 # connectome plots
-matrix_plot("../data/ped/fc_csv/PED_01.csv", legend = TRUE)
+matrix_plot("../data/test/fc_csv/PED_01.csv", legend = TRUE)
 
 ggsave(paste0("./figs/fc_plot.png"),
        width = 1100,

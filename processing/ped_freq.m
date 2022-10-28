@@ -5,7 +5,7 @@ run('../../eeglab2022.0/eeglab.m');
 ft_defaults
 
 % directories
-data_dir = '../data/ped/';
+data_dir = '../data/test/';
 eeg_dir = strcat(data_dir, 'eeg');
 
 % iterate over both groups
@@ -89,7 +89,6 @@ for g = 1:2
                     max_p = p;
                 end
             end
-            
         end
         
         % append

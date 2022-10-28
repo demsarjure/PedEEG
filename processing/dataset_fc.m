@@ -9,34 +9,29 @@ ft_defaults
 study_root = '../../';
 
 % data dir
-rest_dir = strcat(study_root, 'dataset/rest/');
-fc_dir = '../data/dataset/fc/';
+rest_dir = strcat(study_root, 'raw_data/validation/rest/');
+fc_dir = '../data/validation/fc/';
 
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));
 n = length(data_files);
 
 % bands
-% delta
-band.name = 'delta';
-band.low_f = 0.5;
-band.high_f = 4;
-bands(1) = band;
 % theta
 band.name = 'theta';
 band.low_f = 4;
 band.high_f = 7;
-bands(2) = band;
+bands(1) = band;
 % alpha
 band.name = 'alpha';
 band.low_f = 8;
 band.high_f = 13;
-bands(3) = band;
+bands(2) = band;
 % beta
 band.name = 'beta';
 band.low_f = 15;
 band.high_f = 25;
-bands(4) = band;
+bands(3) = band;
 
 % iterate over all bands
 m = length(bands);

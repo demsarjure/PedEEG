@@ -2,8 +2,8 @@
 library(tidyverse)
 
 # load data --------------------------------------------------------------------
-df_demo_c <- read.csv("../data/ped/demographics_control.csv")
-df_demo_t <- read.csv("../data/ped/demographics_test.csv")
+df_demo_c <- read.csv("../data/test/demographics_control.csv")
+df_demo_t <- read.csv("../data/test/demographics_test.csv")
 
 # pair controls and tests ------------------------------------------------------
 n_t <- nrow(df_demo_t)
@@ -39,6 +39,6 @@ for (i in 1:n_t) {
 }
 
 write.table(df_pairs,
-            file = "../data/ped/pairs.csv",
+            file = "../data/test/pairs.csv",
             row.names = FALSE,
             sep = ",")

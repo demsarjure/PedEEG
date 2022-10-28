@@ -6,31 +6,26 @@ ft_defaults
 
 %% functional connectome calculation
 % directories
-data_dir = '../data/ped/';
+data_dir = '../data/test/';
 eeg_dir = strcat(data_dir, 'eeg');
 fc_dir = strcat(data_dir, 'fc');
 
 % bands
-% delta
-band.name = 'delta';
-band.low_f = 0.5;
-band.high_f = 4;
-bands(1) = band;
 % theta
 band.name = 'theta';
 band.low_f = 4;
 band.high_f = 7;
-bands(2) = band;
+bands(1) = band;
 % alpha
 band.name = 'alpha';
 band.low_f = 8;
 band.high_f = 13;
-bands(3) = band;
+bands(2) = band;
 % beta
 band.name = 'beta';
 band.low_f = 15;
 band.high_f = 25;
-bands(4) = band;
+bands(3) = band;
 
 % iterate over all bands
 m = length(bands);
@@ -45,10 +40,10 @@ for b = 1:m
     for g = 1:2
         if g == 1
             subject_suffix = '';
-            n = 25;
+            n = 27;
         else
             subject_suffix = 'T_';
-            n = 29;
+            n = 30;
         end
 
         % report

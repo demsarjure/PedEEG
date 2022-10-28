@@ -9,27 +9,27 @@ columns_inter <- c(
   "cp_r", "ge_r", "cc_r", "sw_r", "mod_r", "dv_r"
 )
 
-df_control <- read.csv("../data/ped/metrics.csv")
+df_control <- read.csv("../data/test/metrics.csv")
 colnames(df_control) <- columns_metrics
 
-df_control_inter <- read.csv("../data/ped/metrics_inter.csv")
+df_control_inter <- read.csv("../data/test/metrics_inter.csv")
 colnames(df_control_inter) <- columns_inter
 
 df_control <- df_control %>%
   inner_join(df_control_inter)
 
-df_test <- read.csv("../data/ped/metrics_T.csv")
+df_test <- read.csv("../data/test/metrics_T.csv")
 colnames(df_test) <- columns_metrics
 
-df_test_inter <- read.csv("../data/ped/metrics_inter_T.csv")
+df_test_inter <- read.csv("../data/test/metrics_inter_T.csv")
 colnames(df_test_inter) <- columns_inter
 
 df_test <- df_test %>%
   inner_join(df_test_inter)
 
-df_pairs <- read.csv("../data/ped/pairs.csv")
+df_pairs <- read.csv("../data/test/pairs.csv")
 
-df_demo_test <- read.csv("../data/ped/demographics_test.csv")
+df_demo_test <- read.csv("../data/test/demographics_test.csv")
 
 # filter
 df_test_filter <- df_test %>%

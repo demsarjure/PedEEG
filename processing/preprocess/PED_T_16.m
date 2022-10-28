@@ -9,7 +9,7 @@ subject = 'PED_T_16';
 disp(['Subject: ', subject])
 
 %% load the data
-raw = pop_fileio(strcat('../../../', subject, '/', subject, '.vhdr'), 'dataformat', 'auto');
+raw = pop_fileio(strcat('../../../raw_data/test/', subject, '/', subject, '.vhdr'), 'dataformat', 'auto');
 raw.setname = 'raw';
 
 %% load electrode locations
@@ -78,4 +78,4 @@ good_epochs = [3:6, 21:24, 49:53, 79:109, 121:129, 135:144, 146:151, 153:157, 16
 rest = pop_select(rest, 'trial', good_epochs);
 
 %% save
-pop_saveset(rest, 'filename', strcat(subject, '_rest_cleaned.set'), 'filepath', '../../data/ped/eeg/');
+pop_saveset(rest, 'filename', strcat(subject, '_rest_cleaned.set'), 'filepath', '../../data/test/eeg/');

@@ -7,9 +7,9 @@ run('../../eeglab2022.0/eeglab.m');
 study_root = '../../';
 
 % data dir
-rest_dir = strcat(study_root, 'dataset/rest/');
-data_dir = '../data/dataset/';
-fc_dir = strcat(data_dir, 'fc');
+rest_dir = strcat(study_root, 'raw_data/validation/rest/');
+data_dir = '../data/validation/';
+fc_dir = strcat(data_dir, 'fc_thresh');
 
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));
@@ -19,18 +19,15 @@ n = length(data_files);
 n_metrics = 2;
 
 % bands
-% delta
-band.name = 'delta';
-bands(1) = band;
 % theta
 band.name = 'theta';
-bands(2) = band;
+bands(1) = band;
 % alpha
 band.name = 'alpha';
-bands(3) = band;
+bands(2) = band;
 % beta
 band.name = 'beta';
-bands(4) = band;
+bands(3) = band;
 
 % iterate over all bands
 m = length(bands);

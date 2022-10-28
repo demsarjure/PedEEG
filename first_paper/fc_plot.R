@@ -45,17 +45,17 @@ matrix_plot <- function(filename, title = "", legend = FALSE) {
 }
 
 # connectome plots
-matrix_plot("../data/ped/fc_csv/PED_05.csv")
-matrix_plot("../data/ped/fc_csv/PED_14.csv")
-matrix_plot("../data/ped/fc_csv/PED_03.csv")
-matrix_plot("../data/ped/fc_csv/PED_13.csv")
-matrix_plot("../data/ped/fc_csv/PED_15.csv")
-matrix_plot("../data/ped/fc_csv/PED_16.csv")
-matrix_plot("../data/ped/fc_csv/PED_17.csv")
+matrix_plot("../data/test/fc_csv/PED_05.csv")
+matrix_plot("../data/test/fc_csv/PED_14.csv")
+matrix_plot("../data/test/fc_csv/PED_03.csv")
+matrix_plot("../data/test/fc_csv/PED_13.csv")
+matrix_plot("../data/test/fc_csv/PED_15.csv")
+matrix_plot("../data/test/fc_csv/PED_16.csv")
+matrix_plot("../data/test/fc_csv/PED_17.csv")
 
-p1 <- matrix_plot("../data/ped/fc_csv/PED_13.csv", title = "7 years old")
-p2 <- matrix_plot("../data/ped/fc_csv/PED_11.csv", title = "12 years old")
-p3 <- matrix_plot("../data/ped/fc_csv/PED_19.csv", title = "17 years old")
+p1 <- matrix_plot("../data/test/fc_csv/PED_13.csv", title = "7 years old")
+p2 <- matrix_plot("../data/test/fc_csv/PED_11.csv", title = "12 years old")
+p3 <- matrix_plot("../data/test/fc_csv/PED_19.csv", title = "17 years old")
 
 plot_grid(p1, p2, p3, ncol = 3, scale = 0.95) +
   theme(plot.background = element_rect(fill = "white", color = NA))

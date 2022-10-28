@@ -9,8 +9,8 @@ ft_defaults
 study_root = '../../';
 
 % data dir
-rest_dir = strcat(study_root, 'dataset/rest/');
-data_dir = '../data/dataset/';
+rest_dir = strcat(study_root, 'raw_data/validation/rest/');
+data_dir = '../data/validation/';
 
 % get files
 data_files = dir(fullfile(rest_dir, '*.mat'));

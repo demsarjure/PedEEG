@@ -4,25 +4,22 @@ addpath('../../SmallWorldNess')
 
 %% iterater over subjects
 % dir
-data_dir = '../data/ped/';
-fc_dir = strcat(data_dir, 'fc');
+data_dir = '../data/test/';
+fc_dir = strcat(data_dir, 'fc_thresh');
 
 % n metrics
 n_metrics = 6;
 
 % bands
-% delta
-band.name = 'delta';
-bands(1) = band;
 % theta
 band.name = 'theta';
-bands(2) = band;
+bands(1) = band;
 % alpha
 band.name = 'alpha';
-bands(3) = band;
+bands(2) = band;
 % beta
 band.name = 'beta';
-bands(4) = band;
+bands(3) = band;
 
 % iterate over all bands
 m = length(bands);
@@ -38,11 +35,11 @@ for b = 1:m
         if g == 1
             subject_suffix = '';
             group_suffix = '';
-            n = 25;
+            n = 27;
         else
             subject_suffix = 'T_';
             group_suffix = '_T';
-            n = 29;
+            n = 30;
         end
 
         % storages
