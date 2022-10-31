@@ -1,15 +1,13 @@
 %% init
 addpath('../../../eeglab2022.0')
-addpath('../../../fieldtrip')bk
 run('../../../eeglab2022.0/eeglab.m');
-ft_defaults
 
 %% set subject
 subject = 'PED_06';
-disp(['Subject: ', subject])
+disp(['Subject ', subject])
 
 %% load the data
-raw = pop_fileio(strcat('../../../raw_data/test/', subject, '/', subject, '.vhdr'), 'dataformat', 'auto');
+raw = pop_fileio(strcat('../../../data/test/eeg/', subject, '/', subject, '.vhdr'), 'dataformat', 'auto');
 raw.setname = 'raw';
 
 %% load electrode locations
@@ -31,12 +29,15 @@ pop_eegplot(rest_raw, 1, 1, 1);
 figure; pop_spectopo(rest_raw, 1, [0  360000], 'EEG' , 'percent', 50, 'freqrange', [2 25], 'electrodes', 'off');
 
 %% remove bad electrodes
-bad_electrodes = [6, 17, 18, 31, 34];
-rest = pop_select(rest_raw, 'nochannel', bad_electrodes);
+side_electrodes = [1, 2, 29, 30, 60, 61];
+bad_electrodes = [6, 9, 11, 17, 18, 31, 34, 35];
+remove_electrodes = [side_electrodes, bad_electrodes];
+rest = pop_select(rest_raw, 'nochannel', remove_electrodes);
 rest.setname = 'rest_cleaned';
 
 %% interpolate
 rest = pop_interp(rest, rest_raw.chanlocs, 'spherical');
+rest = pop_select(rest, 'nochannel', side_electrodes);
 
 %% inspect manually
 pop_eegplot(rest, 1, 1, 1);

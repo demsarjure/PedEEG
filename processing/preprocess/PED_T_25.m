@@ -6,10 +6,10 @@ ft_defaults
 
 %% set subject
 subject = 'PED_T_25';
-disp(['Subject: ', subject])
+disp(['Subject ', subject])
 
 %% load the data
-raw = pop_fileio(strcat('../../../raw_data/test/', subject, '/', subject, '.vhdr'), 'dataformat', 'auto');
+raw = pop_fileio(strcat('../../../data/test/eeg/', subject, '/', subject, '.vhdr'), 'dataformat', 'auto');
 raw.setname = 'raw';
 
 %% load electrode locations

@@ -363,7 +363,7 @@ for (dataset in datasets) {
       # compare and store result
       res_ap <- mcse(df_ap_f$mu > df_ap_m$mu)
       df_results <- df_results %>%
-        add_row(data.frame(dataset = data,
+        add_row(data.frame(dataset = dataset,
                            band = band,
                            metric = "ap",
                            probability = round(res_ap[[1]] * 100, 1),
@@ -412,5 +412,5 @@ for (dataset in datasets) {
 }
 
 # save results
-write.table(df_results, file = "by_sex_results.csv",
+write.table(df_results, file = "./results/by_sex.csv",
             sep = ",", row.names = FALSE)

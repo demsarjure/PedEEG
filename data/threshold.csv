@@ -1,7 +1,0 @@
-"band","dataset","min_fc"
-"theta","test",0.018
-"alpha","test",0.026
-"beta","test",0.018
-"theta","validation",0.02
-"alpha","validation",0.023
-"beta","validation",0.015

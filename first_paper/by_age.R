@@ -295,10 +295,10 @@ for (dataset in datasets) {
     # alpha peak ---------------------------------------------------------------
     if (band == "alpha") {
       # prep the data
-      df_ap_plot <- df %>% filter(ap != -1)
-      stan_data <- list(n = nrow(df_ap_plot),
-                        x = df_ap_plot$age,
-                        y = df_ap_plot$ap)
+      df_ap_filter <- df %>% filter(ap != -1)
+      stan_data <- list(n = nrow(df_ap_filter),
+                        x = df_ap_filter$age,
+                        y = df_ap_filter$ap)
 
       # fit
       fit_ap <- model$sample(
@@ -338,11 +338,11 @@ for (dataset in datasets) {
       # df_ap_plot
       p6 <- ggplot(data = df_plot, aes(x = x, y = y)) +
         stat_lineribbon(.width = c(.95), alpha = 0.5, size = 1) +
-        geom_point(data = df_ap_plot,
-                  aes(x = age, y = ap),
-                  color = "grey25",
-                  alpha = 0.5,
-                  shape = 16) +
+        geom_point(data = df_ap_filter,
+                   aes(x = age, y = ap),
+                   color = "grey25",
+                   alpha = 0.5,
+                   shape = 16) +
         scale_fill_manual(values = c("grey75")) +
         ggtitle("Individual alpha frequency") +
         xlab("age") +
@@ -353,24 +353,24 @@ for (dataset in datasets) {
     # plot ---------------------------------------------------------------------
     if (band == "alpha") {
       plot_grid(p1, p2, p3, p4, p5, p6, scale = 0.95)
-      ggsave(paste0("figs/", dataset, "_", band, "_linear.png"),
-            width = 3840,
-            height = 2160,
-            dpi = 250,
-            units = "px",
-            bg = "white")
+      ggsave(paste0("figs/by_age_", dataset, "_", band, ".png"),
+             width = 3840,
+             height = 2160,
+             dpi = 250,
+             units = "px",
+             bg = "white")
     } else {
       plot_grid(p1, p2, p3, p4, p5, scale = 0.95, ncol = 5)
-      ggsave(paste0("figs/by_age", dataset, "_", band, ".png"),
-            width = 3840,
-            height = 1080,
-            dpi = 250,
-            units = "px",
-            bg = "white")
+      ggsave(paste0("figs/by_age_", dataset, "_", band, ".png"),
+             width = 3840,
+             height = 1080,
+             dpi = 250,
+             units = "px",
+             bg = "white")
     }
   }
 }
 
 # save results
-write.table(df_results, file = "by_age_results.csv",
+write.table(df_results, file = "./results/by_age.csv",
             sep = ",", row.names = FALSE)

@@ -19,7 +19,7 @@ if (band == "alpha") {
 }
 
 # add age
-df_age <- read.csv("../../validation/MIPDB_PublicFile.csv")
+df_age <- read.csv("../data/validation/MIPDB_PublicFile.csv")
 df_age <- df_age %>% select(ID, Age, Sex)
 colnames(df_age) <- c("id", "age", "sex")
 df <- df %>% left_join(df_age)
