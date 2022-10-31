@@ -1,8 +1,6 @@
 %% init
 addpath('../../../eeglab2022.0')
-addpath('../../../fieldtrip')
 run('../../../eeglab2022.0/eeglab.m');
-ft_defaults
 
 %% set subject
 subject = 'PED_15';

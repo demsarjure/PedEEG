@@ -1,8 +1,6 @@
 %% init
 addpath('../../../eeglab2022.0')
-addpath('../../../fieldtrip')
 run('../../../eeglab2022.0/eeglab.m');
-ft_defaults
 
 %% set subject
 subject = 'PED_T_13';
@@ -31,12 +29,15 @@ pop_eegplot(rest_raw, 1, 1, 1);
 figure; pop_spectopo(rest_raw, 1, [0  360000], 'EEG' , 'percent', 50, 'freqrange', [2 25], 'electrodes', 'off');
 
 %% remove bad electrodes
-bad_electrodes = [2, 3, 6, 7, 8, 17, 33, 34, 36, 37, 52, 62, 63, 64];
-rest = pop_select(rest_raw, 'nochannel', bad_electrodes);
+side_electrodes = [1, 2, 29, 30, 60, 61];
+bad_electrodes = [3, 6, 7, 8, 17, 33, 34, 36, 37, 52, 62, 63, 64];
+remove_electrodes = [side_electrodes, bad_electrodes];
+rest = pop_select(rest_raw, 'nochannel', remove_electrodes);
 rest.setname = 'rest_cleaned';
 
 %% interpolate
 rest = pop_interp(rest, rest_raw.chanlocs, 'spherical');
+rest = pop_select(rest, 'nochannel', side_electrodes);
 
 %% inspect manually
 pop_eegplot(rest, 1, 1, 1);
