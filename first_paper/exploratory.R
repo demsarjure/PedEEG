@@ -38,6 +38,7 @@ ggsave(paste0("figs/sex_distributions.png"),
         bg = "white")
 
 # summary
+summary(filter(df_age, dataset == "test"))
 summary(filter(df_age, sex == "male" & dataset == "test"))
 summary(filter(df_age, sex == "female" & dataset == "test"))
 summary(filter(df_age, sex == "male" & dataset == "validation"))

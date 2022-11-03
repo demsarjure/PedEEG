@@ -14,11 +14,11 @@ for g = 1:2
     if g == 1
         subject_suffix = '';
         group_suffix = '';
-        n = 25;
+        n = 27;
     else
         subject_suffix = 'T_';
         group_suffix = '_T';
-        n = 29;
+        n = 30;
     end
     
     % storages
