@@ -313,12 +313,12 @@ for (dataset in datasets) {
     df_stats <- df_stats %>%
       add_row(data.frame(Value = df_tihs_m$mu,
                          sex = "M",
-                         Metric = "Interhemispheric strength"))
+                         Metric = "IH strength"))
 
     df_stats <- df_stats %>%
       add_row(data.frame(Value = df_tihs_f$mu,
                          sex = "F",
-                         Metric = "Interhemispheric strength"))
+                         Metric = "IH strength"))
 
     # alpha peak ---------------------------------------------------------------
     if (band == "alpha") {
@@ -385,12 +385,12 @@ for (dataset in datasets) {
     # factors
     df_stats$Metric <-
       factor(df_stats$Metric,
-            levels = c("Characteristic path",
-                        "Global efficiency",
-                        "Clustering coefficient",
-                        "Small worldness",
-                        "Interhemispheric strength",
-                        "Individual alpha frequency"))
+             levels = c("Characteristic path",
+                         "Global efficiency",
+                         "Clustering coefficient",
+                         "Small worldness",
+                         "IH strength",
+                         "Individual alpha frequency"))
 
     if (band == "alpha") {
       n_col <- 3
@@ -403,11 +403,19 @@ for (dataset in datasets) {
       facet_wrap(. ~ Metric, scales = "free", ncol = n_col) +
       theme(panel.spacing = unit(2, "lines"))
 
-    ggsave(paste0("figs/by_sex_", dataset, "_", band, ".png"),
-          width = 3840,
-          height = 2160,
-          dpi = 250,
-          units = "px")
+    if (band == "alpha") {
+      ggsave(paste0("figs/by_sex_", dataset, "_", band, ".png"),
+            width = 3840,
+            height = 2160,
+            dpi = 400,
+            units = "px")
+    } else {
+      ggsave(paste0("figs/by_sex_", dataset, "_", band, ".png"),
+            width = 3840,
+            height = 1080,
+            dpi = 300,
+            units = "px")
+    }
   }
 }
 
