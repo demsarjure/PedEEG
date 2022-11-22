@@ -33,7 +33,7 @@ ggplot(df_age, aes(x = age, color = sex, fill = sex)) +
 ggsave(paste0("figs/sex_distributions.png"),
         width = 3840,
         height = 1920,
-        dpi = 250,
+        dpi = 500,
         units = "px",
         bg = "white")
 

@@ -413,7 +413,7 @@ for (dataset in datasets) {
       ggsave(paste0("figs/by_sex_", dataset, "_", band, ".png"),
             width = 3840,
             height = 1080,
-            dpi = 300,
+            dpi = 350,
             units = "px")
     }
   }
