@@ -183,7 +183,7 @@ for (dataset in datasets) {
                  alpha = 0.5,
                  shape = 16) +
       scale_fill_manual(values = c("grey75")) +
-      ggtitle("Clustering coefficient") +
+      ggtitle("Clustering coeff.") +
       xlab("age") +
       ylab("Value") +
       theme(legend.position = "none")
@@ -364,7 +364,7 @@ for (dataset in datasets) {
       ggsave(paste0("figs/by_age_", dataset, "_", band, ".png"),
              width = 3840,
              height = 1080,
-             dpi = 300,
+             dpi = 350,
              units = "px",
              bg = "white")
     }
