@@ -3,7 +3,7 @@ library(tidyverse)
 
 # load data --------------------------------------------------------------------
 df_demo_c <- read.csv("../data/test/demographics_control.csv")
-df_demo_t <- read.csv("../data/test/demographics_test.csv")
+df_demo_t <- read.csv("../data/test/demographics_test_volume.csv")
 
 # pair controls and tests ------------------------------------------------------
 n_t <- nrow(df_demo_t)

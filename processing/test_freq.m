@@ -14,7 +14,7 @@ for g = 1:2
     if g == 1
         subject_suffix = '';
         group_suffix = '';
-        n = 27;
+        n = 28;
     else
         subject_suffix = 'T_';
         group_suffix = '_T';

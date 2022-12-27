@@ -49,7 +49,7 @@ for b = 1:m
         if g == 1
             subject_suffix = '';
             group_suffix = '';
-            n = 27;
+            n = 28;
         else
             subject_suffix = 'T_';
             group_suffix = '_T';

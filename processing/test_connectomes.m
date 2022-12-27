@@ -27,7 +27,7 @@ for b = 1:m
     for g = 1:2
         if g == 1
             subject_suffix = '';
-            n = 27;
+            n = 28;
         else
             subject_suffix = 'T_';
             n = 30;

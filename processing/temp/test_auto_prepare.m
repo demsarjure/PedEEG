@@ -12,7 +12,7 @@ out_data_dir = '../../data/test/set/';
 for g = 1:2
     if g == 1
         subject_suffix = '';
-        n = 27;
+        n = 28;
         % markers for start of eyes closed resting state
         events = [7, 7, 7, 8, 7, 8, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 5, 7, 7, 8, 7, 8, 7, 7, 8];
     else

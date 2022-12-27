@@ -37,10 +37,10 @@ for b = 1:m
     disp(['===> Processing band ', band.name])
 
     % iterate over both groups
-    for g = 1:1
+    for g = 1:2
         if g == 1
             subject_suffix = '';
-            n = 27;
+            n = 28;
         else
             subject_suffix = 'T_';
             n = 30;
