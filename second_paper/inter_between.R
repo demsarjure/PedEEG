@@ -41,7 +41,7 @@ compare_normal(cc_i_fit, label1 = "control", label2 = "test")
 # compare sw -------------------------------------------------------------------
 # C
 compare_normal(sw_h_fit, label1 = "control", label2 = "test")
-# P(control > test) = 7.27 +/- 0.6% 
+# P(control > test) = 7.27 +/- 0.6%
 # P(control < test) = 92.73 +/- 0.6%
 
 # I
