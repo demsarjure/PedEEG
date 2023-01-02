@@ -9,19 +9,19 @@ columns_inter <- c(
   "cp_r", "ge_r", "cc_r", "sw_r", "mod_r", "dv_r"
 )
 
-df_control <- read.csv("../data/test/metrics.csv")
+df_control <- read.csv("../data/test/metrics_alpha.csv")
 colnames(df_control) <- columns_metrics
 
-df_control_inter <- read.csv("../data/test/metrics_inter.csv")
+df_control_inter <- read.csv("../data/test/metrics_inter_alpha.csv")
 colnames(df_control_inter) <- columns_inter
 
 df_control <- df_control %>%
   inner_join(df_control_inter)
 
-df_test <- read.csv("../data/test/metrics_T.csv")
+df_test <- read.csv("../data/test/metrics_T_alpha.csv")
 colnames(df_test) <- columns_metrics
 
-df_test_inter <- read.csv("../data/test/metrics_inter_T.csv")
+df_test_inter <- read.csv("../data/test/metrics_inter_T_alpha.csv")
 colnames(df_test_inter) <- columns_inter
 
 df_test <- df_test %>%

@@ -132,16 +132,16 @@ plot_comparison_normal <- function(fit, constant = 0, ci = NULL) {
     ylab("") +
     scale_fill_manual(values = c("grey90", "skyblue")) +
     geom_vline(xintercept = constant, linetype = "dashed",
-               color = "grey50", size = 1) +
+               color = "grey50", linewidth = 1) +
     theme_minimal()
 
   return(p)
 }
 
 # plot comparison between two normal fits and a constant -----------------------
-plot_comparison_normal <- function(fit1, label1 = "Group 1",
-                                   fit2, label2 = "Group 2",
-                                   constant = 0, ci = c(0.66, 0.95)) {
+plot_comparison_two_normal_constant <- function(fit1, label1 = "Group 1",
+                                                fit2, label2 = "Group 2",
+                                                constant = 0, ci = c(0.66, 0.95)) {
 
   # extract
   df_samples <- data.frame(
@@ -159,7 +159,7 @@ plot_comparison_normal <- function(fit1, label1 = "Group 1",
         xlab("Mean") +
         ylab("") +
         geom_vline(xintercept = 0, linetype = "dashed",
-                  color = "grey50", size = 1) +
+                  color = "grey50", linewidth = 1) +
         theme_minimal()
 
   return(p)

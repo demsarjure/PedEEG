@@ -50,9 +50,9 @@ compare_simple_linear <- function(fit, constant = 0) {
   smaller_se <- round(smaller[[2]] * 100, 1)
 
   # print results
-  cat(paste0("# P(β > ", constant, ") = ",
+  cat(paste0("# P(b > ", constant, ") = ",
              bigger_prob, " +/- ", bigger_se, "%\n"))
-  cat(paste0("# P(β < ", constant, ") = ",
+  cat(paste0("# P(b < ", constant, ") = ",
              smaller_prob, " +/- ", smaller_se, "%"))
 }
 
