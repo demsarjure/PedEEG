@@ -83,9 +83,9 @@ p6 <- plot_simple_linear(dv_fit, min_x = min_x, max_x = max_x) +
 
 plot_grid(p1, p2, p3, p4, p5, p6, ncol = 2, scale = 0.95)
 
-ggsave("./figs/volume.tiff",
-       width = 1920,
-       height = 960,
-       dpi = 150,
-       units = "px",
-       bg = "white")
+ggsave("./figs/volume.pdf",
+        width = 3840,
+        height = 2160,
+        dpi = 450,
+        units = "px",
+        bg = "white")
