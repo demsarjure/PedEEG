@@ -13,6 +13,8 @@ df_pairs <- data.frame(id_test = character(),
                        id_control = character(),
                        age_diff = numeric())
 
+max_diff <- 0
+
 for (i in 1:n_t) {
   t <- df_demo_t[i, ]
 
@@ -27,15 +29,13 @@ for (i in 1:n_t) {
     }
   }
 
-  min_diff <- min(df_diff$age_diff)
-
   df_match <- df_diff %>%
-    filter(age_diff == min_diff)
+    filter(age_diff <= max_diff)
 
   df_pairs <- df_pairs %>%
     add_row(data.frame(id_test = t$id,
                        id_control = df_match$id,
-                       age_diff = min_diff))
+                       age_diff = df_match$age_diff))
 }
 
 write.table(df_pairs,

@@ -78,43 +78,42 @@ p1 <- plot_comparison_two_normal_constant(cp_h_fit, "C",
                                           cp_i_fit, "I",
                                           ci = c(0.3, 0.8)) +
         ggtitle("Characteristic path") +
-        xlim(-0.07, 0.07) +
+        xlim(-0.1, 0.1) +
         xlab("Mean difference")
 
 p2 <- plot_comparison_two_normal_constant(cc_h_fit, "C",
                                           cc_i_fit, "I",
                                           ci = c(0.3, 0.8)) +
         ggtitle("Clustering coefficient") +
-        xlim(-0.07, 0.07) +
+        xlim(-0.1, 0.1) +
         xlab("Mean difference")
 
 p3 <- plot_comparison_two_normal_constant(sw_h_fit, "C",
                                           sw_i_fit, "I",
                                           ci = c(0.3, 0.8)) +
         ggtitle("Small-worldness") +
-        xlim(-0.07, 0.07) +
+        xlim(-0.1, 0.1) +
         xlab("Mean difference")
 
 p4 <- plot_comparison_two_normal_constant(mod_h_fit, "C",
                                           mod_i_fit, "I",
                                           ci = c(0.3, 0.8)) +
         ggtitle("Modularity") +
-        xlim(-0.07, 0.07) +
+        xlim(-0.1, 0.1) +
         xlab("Mean difference")
 
 p5 <- plot_comparison_two_normal_constant(dv_h_fit, "C",
                                           dv_i_fit, "I",
                                           ci = c(0.3, 0.8)) +
         ggtitle("Degree variance") +
-        xlim(-1, 1) +
+        xlim(-1.5, 1.5) +
         xlab("Mean difference")
-p5
 
-plot_grid(p1, p2, p3, p4, p5, ncol = 5)
+plot_grid(p1, p2, p3, p4, p5, ncol = 5, scale = 0.95)
 
-ggsave("./figs/inter_between.tiff",
-       width = 1920,
-       height = 540,
-       dpi = 150,
-       units = "px",
-       bg = "white")
+ggsave("./figs/inter_between.pdf",
+        width = 3840,
+        height = 1080,
+        dpi = 350,
+        units = "px",
+        bg = "white")

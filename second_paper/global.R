@@ -47,39 +47,39 @@ compare_normal(tihs_fit, label1 = "control", label2 = "test")
 # plot -------------------------------------------------------------------------
 p1 <- plot_comparison_normal(cp_fit, ci = 0.9) +
         ggtitle("Characteristic path") +
-        xlim(-0.05, 0.05) +
+        xlim(-0.1, 0.1) +
         xlab("Mean difference")
 
 p2 <- plot_comparison_normal(cc_fit, ci = 0.9) +
         ggtitle("Clustering coefficient") +
-        xlim(-0.05, 0.05) +
+        xlim(-0.1, 0.1) +
         xlab("Mean difference")
 
 p3 <- plot_comparison_normal(sw_fit, ci = 0.9) +
         ggtitle("Small-worldness") +
-        xlim(-0.04, 0.04) +
+        xlim(-0.1, 0.1) +
         xlab("Mean difference")
 
 p4 <- plot_comparison_normal(mod_fit, ci = 0.1) +
         ggtitle("Modularity") +
-        xlim(-0.04, 0.04) +
+        xlim(-0.1, 0.1) +
         xlab("Mean difference")
 
 p5 <- plot_comparison_normal(dv_fit, ci = 0.9) +
         ggtitle("Degree variance") +
-        xlim(-4, 4) +
+        xlim(-7, 7) +
         xlab("Mean difference")
 
 p6 <- plot_comparison_normal(dv_fit, ci = 0.9) +
         ggtitle("Total interhemisperhic strength") +
-        xlim(-4, 4) +
+        xlim(-7, 7) +
         xlab("Mean difference")
 
 plot_grid(p1, p2, p3, p4, p5, p6, ncol = 2, scale = 0.95)
 
-ggsave("./figs/global.tiff",
-       width = 1920,
-       height = 960,
-       dpi = 200,
-       units = "px",
-       bg = "white")
+ggsave("./figs/global.pdf",
+        width = 3840,
+        height = 2160,
+        dpi = 450,
+        units = "px",
+        bg = "white")

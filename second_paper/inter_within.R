@@ -64,9 +64,9 @@ p5 <- plot_comparison_normal(dv_fit, ci = 0.1) +
 
 plot_grid(p1, p2, p3, p4, p5, ncol = 5, scale = 0.95)
 
-ggsave("./figs/inter_within.tiff",
-       width = 1920,
-       height = 360,
-       dpi = 150,
-       units = "px",
-       bg = "white")
+ggsave("./figs/inter_within.pdf",
+        width = 3840,
+        height = 1080,
+        dpi = 350,
+        units = "px",
+        bg = "white")
