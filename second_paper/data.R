@@ -56,18 +56,16 @@ for (i in seq_len(nrow(df_pairs))) {
   c <- df_control %>% filter(id == p$id_control)
   t <- df_test %>% filter(id == p$id_test)
 
-  if (p$age_diff == 0) {
-    df_diff <- df_diff %>% add_row(data.frame(
-      id = t$id,
-      volume = d$volume,
-      cp = c$cp - t$cp,
-      cc = c$cc - t$cc,
-      sw = c$sw - t$sw,
-      mod = c$mod - t$mod,
-      dv = c$dv - t$dv,
-      tihs = c$tihs - t$tihs
-    ))
-  }
+  df_diff <- df_diff %>% add_row(data.frame(
+    id = t$id,
+    volume = d$volume,
+    cp = c$cp - t$cp,
+    cc = c$cc - t$cc,
+    sw = c$sw - t$sw,
+    mod = c$mod - t$mod,
+    dv = c$dv - t$dv,
+    tihs = c$tihs - t$tihs
+  ))
 }
 
 # compute inter-hemispheric pairwise differences -------------------------------
@@ -95,40 +93,38 @@ for (i in seq_len(nrow(df_pairs))) {
   t <- df_test %>% filter(id == p$id_test)
 
   # if the lesion was in the left hemisphere
-  if (p$age_diff == 0) {
-    if (d$location == "l") {
-      df_diff_inter <- df_diff_inter %>% add_row(data.frame(
-        id = t$id,
-        volume = d$volume,
-        cp_h = c$cp_r - t$cp_r,
-        cp_i = c$cp_l - t$cp_l,
-        cc_h = c$cc_r - t$cc_r,
-        cc_i = c$cc_l - t$cc_l,
-        sw_h = c$sw_r - t$sw_r,
-        sw_i = c$sw_l - t$sw_l,
-        mod_h = c$mod_r - t$mod_r,
-        mod_i = c$mod_l - t$mod_l,
-        dv_h = c$dv_r - t$dv_r,
-        dv_i = c$dv_l - t$dv_l
-      ))
-    }
-    # if the lesion was in the right hemisphere
-    else if (d$location == "r") {
-      df_diff_inter <- df_diff_inter %>% add_row(data.frame(
-        id = t$id,
-        volume = d$volume,
-        cp_h = c$cp_l - t$cp_l,
-        cp_i = c$cp_r - t$cp_r,
-        cc_h = c$cc_l - t$cc_l,
-        cc_i = c$cc_r - t$cc_r,
-        sw_h = c$sw_l - t$sw_l,
-        sw_i = c$sw_r - t$sw_r,
-        mod_h = c$mod_l - t$mod_l,
-        mod_i = c$mod_r - t$mod_r,
-        dv_h = c$dv_l - t$dv_l,
-        dv_i = c$dv_r - t$dv_r
-      ))
-    }
+  if (d$location == "l") {
+    df_diff_inter <- df_diff_inter %>% add_row(data.frame(
+      id = t$id,
+      volume = d$volume,
+      cp_h = c$cp_r - t$cp_r,
+      cp_i = c$cp_l - t$cp_l,
+      cc_h = c$cc_r - t$cc_r,
+      cc_i = c$cc_l - t$cc_l,
+      sw_h = c$sw_r - t$sw_r,
+      sw_i = c$sw_l - t$sw_l,
+      mod_h = c$mod_r - t$mod_r,
+      mod_i = c$mod_l - t$mod_l,
+      dv_h = c$dv_r - t$dv_r,
+      dv_i = c$dv_l - t$dv_l
+    ))
+  }
+  # if the lesion was in the right hemisphere
+  else if (d$location == "r") {
+    df_diff_inter <- df_diff_inter %>% add_row(data.frame(
+      id = t$id,
+      volume = d$volume,
+      cp_h = c$cp_l - t$cp_l,
+      cp_i = c$cp_r - t$cp_r,
+      cc_h = c$cc_l - t$cc_l,
+      cc_i = c$cc_r - t$cc_r,
+      sw_h = c$sw_l - t$sw_l,
+      sw_i = c$sw_r - t$sw_r,
+      mod_h = c$mod_l - t$mod_l,
+      mod_i = c$mod_r - t$mod_r,
+      dv_h = c$dv_l - t$dv_l,
+      dv_i = c$dv_r - t$dv_r
+    ))
   }
 }
 
