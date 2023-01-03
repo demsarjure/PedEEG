@@ -16,33 +16,33 @@ tihs_fit <- fit_normal(df_diff$tihs)
 
 # compare cp -------------------------------------------------------------------
 compare_normal(cp_fit, label1 = "control", label2 = "test")
-# P(control > test) = 8.67 +/- 0.6%
-# P(control < test) = 91.33 +/- 0.6%
+# P(control > test) = 1.55 +/- 0.3%
+# P(control < test) = 98.45 +/- 0.3%
 
 # compare cc -------------------------------------------------------------------
 compare_normal(cc_fit, label1 = "control", label2 = "test")
-# P(control > test) = 8.82 +/- 0.6%
-# P(control < test) = 91.17 +/- 0.6%
+# P(control > test) = 1.82 +/- 0.3% 
+# P(control < test) = 98.17 +/- 0.3%
 
 # compare sw -------------------------------------------------------------------
 compare_normal(sw_fit, label1 = "control", label2 = "test")
-# P(control > test) = 6.38 +/- 0.5%
-# P(control < test) = 93.62 +/- 0.5%
+# P(control > test) = 1.57 +/- 0.3%
+# P(control < test) = 98.42 +/- 0.3%
 
 # compare mod ------------------------------------------------------------------
 compare_normal(mod_fit, label1 = "control", label2 = "test")
-# P(control > test) = 95.12 +/- 0.5%
-# P(control < test) = 4.88 +/- 0.5%
+# P(control > test) = 95.1 +/- 0.5%
+# P(control < test) = 4.9 +/- 0.5%
 
 # compare dv -------------------------------------------------------------------
 compare_normal(dv_fit, label1 = "control", label2 = "test")
-# P(control > test) = 5.75 +/- 0.5%
-# P(control < test) = 94.25 +/- 0.5%
+# P(control > test) = 2.12 +/- 0.3%
+# P(control < test) = 97.88 +/- 0.3%
 
 # compare tihs -----------------------------------------------------------------
 compare_normal(tihs_fit, label1 = "control", label2 = "test")
-# P(control > test) = 7.85 +/- 0.6%
-# P(control < test) = 92.15 +/- 0.6%
+# P(control > test) = 2.45 +/- 0.3% 
+# P(control < test) = 97.55 +/- 0.3%
 
 # plot -------------------------------------------------------------------------
 p1 <- plot_comparison_normal(cp_fit, ci = 0.9) +

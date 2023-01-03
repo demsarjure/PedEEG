@@ -13,7 +13,7 @@ df_pairs <- data.frame(id_test = character(),
                        id_control = character(),
                        age_diff = numeric())
 
-max_diff <- 0
+max_diff <- 1
 
 for (i in 1:n_t) {
   t <- df_demo_t[i, ]

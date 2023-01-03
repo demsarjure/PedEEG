@@ -19,57 +19,57 @@ dv_i_fit <- fit_normal(df_diff_inter$dv_i)
 # compare cp -------------------------------------------------------------------
 # C
 compare_normal(cp_h_fit, label1 = "control", label2 = "test")
-# P(control > test) = 8.28 +/- 0.6%
-# P(control < test) = 91.72 +/- 0.6%
+# P(control > test) = 2.28 +/- 0.3%
+# P(control < test) = 97.72 +/- 0.3%
 
 # I
 compare_normal(cp_i_fit, label1 = "control", label2 = "test")
-# P(control > test) = 8.6 +/- 0.7%
-# P(control < test) = 91.4 +/- 0.7%
+# P(control > test) = 2.02 +/- 0.3%
+# P(control < test) = 97.97 +/- 0.3%
 
 # compare cc -------------------------------------------------------------------
 # C
 compare_normal(cc_h_fit, label1 = "control", label2 = "test")
-# P(control > test) = 9.6 +/- 0.6%
-# P(control < test) = 90.4 +/- 0.6%
+# P(control > test) = 2.38 +/- 0.3%
+# P(control < test) = 97.62 +/- 0.3%
 
 # I
 compare_normal(cc_i_fit, label1 = "control", label2 = "test")
-# P(control > test) = 9.47 +/- 0.6%
-# P(control < test) = 90.53 +/- 0.6%
+# P(control > test) = 2.05 +/- 0.3%
+# P(control < test) = 97.95 +/- 0.3%
 
 # compare sw -------------------------------------------------------------------
 # C
 compare_normal(sw_h_fit, label1 = "control", label2 = "test")
-# P(control > test) = 7.27 +/- 0.6%
-# P(control < test) = 92.73 +/- 0.6%
+# P(control > test) = 2.4 +/- 0.3%
+# P(control < test) = 97.6 +/- 0.3%
 
 # I
 compare_normal(sw_i_fit, label1 = "control", label2 = "test")
-# P(control > test) = 6.38 +/- 0.5%
-# P(control < test) = 93.62 +/- 0.5%
+# P(control > test) = 1.7 +/- 0.3%
+# P(control < test) = 98.3 +/- 0.3%
 
 # compare mod ------------------------------------------------------------------
 # C
 compare_normal(mod_h_fit, label1 = "control", label2 = "test")
-# P(control > test) = 74.55 +/- 0.9%
-# P(control < test) = 25.45 +/- 0.9%
+# P(control > test) = 86.17 +/- 0.6%
+# P(control < test) = 13.83 +/- 0.6%
 
 # I
 compare_normal(mod_i_fit, label1 = "control", label2 = "test")
-# P(control > test) = 98.9 +/- 0.2%
-# P(control < test) = 1.1 +/- 0.2%
+# P(control > test) = 99.65 +/- 0.1%
+# P(control < test) = 0.35 +/- 0.1%
 
 # compare dv -------------------------------------------------------------------
 # C
 compare_normal(dv_h_fit, label1 = "control", label2 = "test")
-# P(control > test) = 10.25 +/- 0.7%
-# P(control < test) = 89.75 +/- 0.7%
+# P(control > test) = 2.85 +/- 0.3%
+# P(control < test) = 97.15 +/- 0.3%
 
 # I
 compare_normal(dv_i_fit, label1 = "control", label2 = "test")
-# P(control > test) = 2.12 +/- 0.3%
-# P(control < test) = 97.88 +/- 0.3%
+# P(control > test) = 0.2 +/- 0.1%
+# P(control < test) = 99.8 +/- 0.1%
 
 # plot -------------------------------------------------------------------------
 # note we are using 0.3 and 0.8 CI because for visualizing 0.5 and 0.9 CI

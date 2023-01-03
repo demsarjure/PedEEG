@@ -8,38 +8,38 @@ source("./utils/simple_linear.R")
 # cp
 cp_fit <- fit_simple_linear(df_diff$volume, df_diff$cp)
 compare_simple_linear(cp_fit)
-# P(b > 0) = 85.82 +/- 0.8%
-# P(b < 0) = 14.17 +/- 0.8%
+# P(b > 0) = 92.95 +/- 0.5%
+# P(b < 0) = 7.05 +/- 0.5%
 
 # cc
 cc_fit <- fit_simple_linear(df_diff$volume, df_diff$cc)
 compare_simple_linear(cc_fit)
-# P(b > 0) = 82.3 +/- 0.8%
-# P(b < 0) = 17.7 +/- 0.8%
+# P(b > 0) = 87.35 +/- 0.7%
+# P(b < 0) = 12.65 +/- 0.7%
 
 # sw
 sw_fit <- fit_simple_linear(df_diff$volume, df_diff$sw)
 compare_simple_linear(sw_fit)
-# P(b > 0) = 89.08 +/- 0.6%
-# P(b < 0) = 10.93 +/- 0.6%
+# P(b > 0) = 94.67 +/- 0.4%
+# P(b < 0) = 5.32 +/- 0.4% 
 
 # mod
 mod_fit <- fit_simple_linear(df_diff$volume, df_diff$mod)
 compare_simple_linear(mod_fit)
-# P(b > 0) = 48.75 +/- 1%
-# P(b < 0) = 51.25 +/- 1%
+# P(b > 0) = 40.05 +/- 1%
+# P(b < 0) = 59.95 +/- 1%
 
 # dv
 dv_fit <- fit_simple_linear(df_diff$volume, df_diff$dv)
 compare_simple_linear(dv_fit)
-# P(b > 0) = 88.9 +/- 0.7%
-# P(b < 0) = 11.1 +/- 0.7%
+# P(b > 0) = 97.45 +/- 0.4%
+# P(b < 0) = 2.55 +/- 0.4%
 
 # tihs
 tihs_fit <- fit_simple_linear(df_diff$volume, df_diff$tihs)
 compare_simple_linear(tihs_fit)
-# P(b > 0) = 85.85 +/- 0.8%
-# P(b < 0) = 14.15 +/- 0.8%
+# P(b > 0) = 92.95 +/- 0.7%
+# P(b < 0) = 7.05 +/- 0.7%
 
 # plot -------------------------------------------------------------------------
 min_x <- 0

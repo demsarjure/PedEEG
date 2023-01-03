@@ -13,28 +13,28 @@ dv_fit <- fit_normal(df_diff_injured$dv)
 
 # compare cp -------------------------------------------------------------------
 compare_normal(cp_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 29.98 +/- 0.9%
-# P(healthy < injured) = 70.03 +/- 0.9%
+# P(healthy > injured) = 28.52 +/- 1%
+# P(healthy < injured) = 71.47 +/- 1%
 
 # compare cc -------------------------------------------------------------------
 compare_normal(cc_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 28.8 +/- 0.9%
-# P(healthy < injured) = 71.2 +/- 0.9%
+# P(healthy > injured) = 28.88 +/- 0.8%
+# P(healthy < injured) = 71.12 +/- 0.8%
 
 # compare sw -------------------------------------------------------------------
 compare_normal(sw_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 26 +/- 0.9%
-# P(healthy < injured) = 74 +/- 0.9%
+# P(healthy > injured) = 26.88 +/- 1%
+# P(healthy < injured) = 73.12 +/- 1%
 
 # compare mod ------------------------------------------------------------------
 compare_normal(mod_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 63.15 +/- 0.8%
-# P(healthy < injured) = 36.85 +/- 0.8%
+# P(healthy > injured) = 61.6 +/- 0.9%
+# P(healthy < injured) = 38.4 +/- 0.9%
 
 # compare dv -------------------------------------------------------------------
 compare_normal(dv_fit, label1 = "healthy", label2 = "injured")
-# P(healthy > injured) = 80.42 +/- 0.8%
-# P(healthy < injured) = 19.58 +/- 0.8%
+# P(healthy > injured) = 79.57 +/- 0.8%
+# P(healthy < injured) = 20.42 +/- 0.8%
 
 # plot -------------------------------------------------------------------------
 p1 <- plot_comparison_normal(cp_fit, ci = 0.9) +

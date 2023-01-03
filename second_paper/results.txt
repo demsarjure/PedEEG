@@ -1,36 +1,36 @@
 Global:
-  - CP: P(control < test) = 91.33 +/- 0.6%
-  - CC: P(control < test) = 91.17 +/- 0.6%
-  - SW: P(control < test) = 93.62 +/- 0.5%
-  - MOD: P(control > test) = 95.12 +/- 0.5%
-  - DV: P(control < test) = 94.25 +/- 0.5%
-  - TIHS: P(control < test) = 92.15 +/- 0.6%
+  - CP: P(control < test) = 98.45 +/- 0.3%
+  - CC: P(control < test) = 98.17 +/- 0.3%
+  - SW: P(control < test) = 98.42 +/- 0.3%
+  - MOD: P(control > test) = 95.1 +/- 0.5%
+  - DV: P(control < test) = 97.88 +/- 0.3%
+  - TIHS: P(control < test) = 97.55 +/- 0.3%
 
 Within subject hemispheres:
-  - CP: P(healthy < injured) = 70.03 +/- 0.9%
-  - CC: P(healthy < injured) = 71.2 +/- 0.9%
-  - SW: P(healthy < injured) = 74 +/- 0.9%
-  - MOD: P(healthy > injured) = 63.15 +/- 0.8%
-  - DV: P(healthy > injured) = 80.42 +/- 0.8%
+  - CP: P(healthy < injured) = 71.47 +/- 1%
+  - CC: P(healthy < injured) = 71.12 +/- 0.8%
+  - SW: P(healthy < injured) = 73.12 +/- 1%
+  - MOD: P(healthy > injured) = 61.6 +/- 0.9%
+  - DV: P(healthy > injured) = 79.57 +/- 0.8%
 
 # _h means comparison of healthy hemispheres
 # _i means comparison of injured hemispheres
 Test vs control hemispheres:
-  - CP_h: P(control < test) = 91.72 +/- 0.6%
-  - CP_i: P(control < test) = 91.4 +/- 0.7%
-  - CC_h: P(control < test) = 90.4 +/- 0.6%
-  - CC_i: P(control < test) = 90.53 +/- 0.6%
-  - SW_h: P(control < test) = 92.73 +/- 0.6%
-  - SW_i: P(control < test) = 93.62 +/- 0.5%
-  - MOD_h: P(control > test) = 74.55 +/- 0.9%
-  - MOD_i: P(control > test) = 98.9 +/- 0.2%
-  - DV_h: P(control < test) = 89.75 +/- 0.7%
-  - DV_i: P(control < test) = 97.88 +/- 0.3%
+  - CP_h: P(control < test) = 97.72 +/- 0.3%
+  - CP_i: P(control < test) = 97.97 +/- 0.3%
+  - CC_h: P(control < test) = 97.62 +/- 0.3%
+  - CC_i: P(control < test) = 97.95 +/- 0.3%
+  - SW_h: P(control < test) = 97.6 +/- 0.3%
+  - SW_i: P(control < test) = 98.3 +/- 0.3%
+  - MOD_h: P(control > test) = 86.17 +/- 0.6%
+  - MOD_i: P(control > test) = 99.65 +/- 0.1%
+  - DV_h: P(control < test) = 97.15 +/- 0.3%
+  - DV_i: P(control < test) = 99.8 +/- 0.1%
 
 Linear:
-  - CP: P(b > 0) = 85.82 +/- 0.8%
-  - CC: P(b > 0) = 82.3 +/- 0.8%
-  - SW: P(b > 0) = 89.08 +/- 0.6%
-  - MOD: P(b < 0) = 51.25 +/- 1%
-  - DV: P(b > 0) = 88.9 +/- 0.7%
-  - TIHS: P(b > 0) = 85.85 +/- 0.8%
+  - CP: P(b > 0) = 92.95 +/- 0.5%
+  - CC: P(b > 0) = 87.35 +/- 0.7%
+  - SW: P(b > 0) = 94.67 +/- 0.4%
+  - MOD: P(b < 0) = 59.95 +/- 1%
+  - DV: P(b > 0) = 97.45 +/- 0.4%
+  - TIHS: P(b > 0) = 92.95 +/- 0.7%
