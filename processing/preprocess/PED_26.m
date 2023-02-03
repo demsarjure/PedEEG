@@ -50,9 +50,6 @@ figure; pop_spectopo(rest, 1, [0  360000], 'EEG' , 'percent', 50, 'freqrange', [
 frequency = 250;
 rest = pop_resample(rest, frequency);
 
-%% rereferencing
-%rest = pop_reref(rest, []);
-
 %% create dummy events
 n_events = 151;
 event_duration = 1;
