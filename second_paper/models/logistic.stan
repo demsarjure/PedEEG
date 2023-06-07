@@ -7,7 +7,6 @@ data {
 parameters {
   real a;              // intercept
   real b;              // slope
-  real<lower=0> sigma; // stdev
 }
 
 model {

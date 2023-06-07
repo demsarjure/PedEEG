@@ -7,87 +7,37 @@ source("./utils/simple_linear.R")
 
 # linear -----------------------------------------------------------------------
 # cp
-cp_fit <- fit_simple_linear(df_diff$cognitive, df_diff$cp)
+cp_fit <- fit_simple_linear(df_diff$cp, df_diff$cognitive)
 compare_simple_linear(cp_fit)
-# P(b > 0) = 55.73 +/- 1.1%
-# P(b < 0) = 44.27 +/- 1.1%
+# P(b > 0) = 53.08 +/- 0.7%
+# P(b < 0) = 46.92 +/- 0.7%
 
 # cc
-cc_fit <- fit_simple_linear(df_diff$cognitive, df_diff$cc)
+cc_fit <- fit_simple_linear(df_diff$cc, df_diff$cognitive)
 compare_simple_linear(cc_fit)
-# P(b > 0) = 57.93 +/- 1.1%
-# P(b < 0) = 42.08 +/- 1.1%
+# P(b > 0) = 54.93 +/- 0.8%
+# P(b < 0) = 45.07 +/- 0.8%
 
 # sw
-sw_fit <- fit_simple_linear(df_diff$cognitive, df_diff$sw)
+sw_fit <- fit_simple_linear(df_diff$sw, df_diff$cognitive)
 compare_simple_linear(sw_fit)
-# P(b > 0) = 51.9 +/- 1.1%
-# P(b < 0) = 48.1 +/- 1.1%
+# P(b > 0) = 50.4 +/- 0.8%
+# P(b < 0) = 49.6 +/- 0.8%
 
 # mod
-mod_fit <- fit_simple_linear(df_diff$cognitive, df_diff$mod)
+mod_fit <- fit_simple_linear(df_diff$mod, df_diff$cognitive)
 compare_simple_linear(mod_fit)
-# P(b > 0) = 35.2 +/- 1%
-# P(b < 0) = 64.8 +/- 1%
+# P(b > 0) = 45.4 +/- 0.8%
+# P(b < 0) = 54.6 +/- 0.8%
 
 # dv
-dv_fit <- fit_simple_linear(df_diff$cognitive, df_diff$dv)
+dv_fit <- fit_simple_linear(df_diff$dv, df_diff$cognitive)
 compare_simple_linear(dv_fit)
-# P(b > 0) = 30.3 +/- 1.1%
-# P(b < 0) = 69.7 +/- 1.1%
+# P(b > 0) = 29.68 +/- 0.8%
+# P(b < 0) = 70.33 +/- 0.8%
 
 # tihs
-tihs_fit <- fit_simple_linear(df_diff$cognitive, df_diff$tihs)
+tihs_fit <- fit_simple_linear(df_diff$tihs, df_diff$cognitive)
 compare_simple_linear(tihs_fit)
-# P(b > 0) = 52.05 +/- 0.9%
-# P(b < 0) = 47.95 +/- 0.9%
-
-# plot -------------------------------------------------------------------------
-min_x <- 0
-max_x <- 2
-
-p1 <- plot_simple_linear(cp_fit, min_x = min_x, max_x = max_x) +
-        ggtitle("Characteristic path") +
-        ylab("Metric value") +
-        xlab("Cognitive score") +
-        ylim(-0.1, 0.1)
-
-p2 <- plot_simple_linear(cc_fit, min_x = min_x, max_x = max_x) +
-        ggtitle("Clustering coefficient") +
-        ylab("Metric value") +
-        xlab("Cognitive score") +
-        ylim(-0.05, 0.05)
-
-p3 <- plot_simple_linear(sw_fit, min_x = min_x, max_x = max_x) +
-        ggtitle("Small-worldness") +
-        ylab("Metric value") +
-        xlab("Cognitive score") +
-        ylim(-0.05, 0.05)
-
-p4 <- plot_simple_linear(mod_fit, min_x = min_x, max_x = max_x) +
-        ggtitle("Modularity") +
-        ylab("Metric value") +
-        xlab("Cognitive score") +
-        ylim(-0.05, 0.05)
-
-p5 <- plot_simple_linear(dv_fit, min_x = min_x, max_x = max_x) +
-        ggtitle("Degree variance") +
-        ylab("Metric value") +
-        xlab("Cognitive score") +
-        ylim(-5, 5)
-
-p6 <- plot_simple_linear(dv_fit, min_x = min_x, max_x = max_x) +
-        ggtitle("Total interhemisperhic strength") +
-        ylab("Metric value") +
-        xlab("Cognitive score") +
-        ylim(-5, 5)
-
-plot_grid(p1, p2, p3, p4, p5, p6, ncol = 2, scale = 0.95)
-
-ggsave("./figs/cognitive.pdf",
-        width = 3840,
-        height = 2160,
-        dpi = 450,
-        units = "px",
-        bg = "white"
-)
+# P(b > 0) = 52.6 +/- 0.8%
+# P(b < 0) = 47.4 +/- 0.8%
