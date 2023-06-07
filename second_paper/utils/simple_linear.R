@@ -17,9 +17,11 @@ fit_simple_linear <- function(x, y, robust = FALSE) {
   }
 
   # prep data
-  stan_data <- list(n = length(x),
-                    x = x,
-                    y = y)
+  stan_data <- list(
+    n = length(x),
+    x = x,
+    y = y
+  )
 
   # fit
   fit <- model$sample(
@@ -50,13 +52,17 @@ compare_simple_linear <- function(fit, constant = 0) {
   smaller_se <- round(smaller[[2]] * 100, 1)
 
   # print results
-  cat(paste0("# P(b > ", constant, ") = ",
-             bigger_prob, " +/- ", bigger_se, "%\n"))
-  cat(paste0("# P(b < ", constant, ") = ",
-             smaller_prob, " +/- ", smaller_se, "%"))
+  cat(paste0(
+    "# P(b > ", constant, ") = ",
+    bigger_prob, " +/- ", bigger_se, "%\n"
+  ))
+  cat(paste0(
+    "# P(b < ", constant, ") = ",
+    smaller_prob, " +/- ", smaller_se, "%"
+  ))
 }
 
-# plot the simple_linear-------------------------------
+# plot the simple_linear model's fit -------------------------------------------
 plot_simple_linear <- function(fit, min_x, max_x) {
   # get samples
   df_samples <- as_draws_df(fit$draws())

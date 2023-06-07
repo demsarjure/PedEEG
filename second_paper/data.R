@@ -42,6 +42,9 @@ df_control_filter <- df_control %>%
 df_diff <- data.frame(
   id = character(),
   volume = numeric(),
+  GMFCS = numeric(),
+  cognitive = numeric(),
+  epilepsy = numeric(),
   cp = numeric(),
   cc = numeric(),
   sw = numeric(),
@@ -59,6 +62,9 @@ for (i in seq_len(nrow(df_pairs))) {
   df_diff <- df_diff %>% add_row(data.frame(
     id = t$id,
     volume = d$volume,
+    GMFCS = d$GMFCS,
+    cognitive = d$cognitive,
+    epilepsy = d$epilepsy,
     cp = c$cp - t$cp,
     cc = c$cc - t$cc,
     sw = c$sw - t$sw,
@@ -74,6 +80,9 @@ for (i in seq_len(nrow(df_pairs))) {
 df_diff_inter <- data.frame(
   id = character(),
   volume = numeric(),
+  GMFCS = numeric(),
+  cognitive = numeric(),
+  epilepsy = numeric(),
   cp_h = numeric(),
   cp_i = numeric(),
   cc_h = numeric(),
@@ -97,6 +106,9 @@ for (i in seq_len(nrow(df_pairs))) {
     df_diff_inter <- df_diff_inter %>% add_row(data.frame(
       id = t$id,
       volume = d$volume,
+      GMFCS = d$GMFCS,
+      cognitive = d$cognitive,
+      epilepsy = d$epilepsy,
       cp_h = c$cp_r - t$cp_r,
       cp_i = c$cp_l - t$cp_l,
       cc_h = c$cc_r - t$cc_r,
@@ -114,6 +126,9 @@ for (i in seq_len(nrow(df_pairs))) {
     df_diff_inter <- df_diff_inter %>% add_row(data.frame(
       id = t$id,
       volume = d$volume,
+      GMFCS = d$GMFCS,
+      cognitive = d$cognitive,
+      epilepsy = d$epilepsy,
       cp_h = c$cp_l - t$cp_l,
       cp_i = c$cp_r - t$cp_r,
       cc_h = c$cc_l - t$cc_l,
@@ -132,6 +147,9 @@ for (i in seq_len(nrow(df_pairs))) {
 df_diff_injured <- data.frame(
   id = character(),
   volume = numeric(),
+  GMFCS = numeric(),
+  cognitive = numeric(),
+  epilepsy = numeric(),
   cp = numeric(),
   cc = numeric(),
   sw = numeric(),
@@ -148,6 +166,9 @@ for (i in seq_len(nrow(df_test_filter))) {
     df_diff_injured <- df_diff_injured %>% add_row(data.frame(
       id = t$id,
       volume = d$volume,
+      GMFCS = d$GMFCS,
+      cognitive = d$cognitive,
+      epilepsy = d$epilepsy,
       cp = t$cp_r - t$cp_l,
       cc = t$cc_r - t$cc_l,
       sw = t$sw_r - t$sw_l,
@@ -160,6 +181,9 @@ for (i in seq_len(nrow(df_test_filter))) {
     df_diff_injured <- df_diff_injured %>% add_row(data.frame(
       id = t$id,
       volume = d$volume,
+      GMFCS = d$GMFCS,
+      cognitive = d$cognitive,
+      epilepsy = d$epilepsy,
       cp = t$cp_l - t$cp_r,
       cc = t$cc_l - t$cc_r,
       sw = t$sw_l - t$sw_r,

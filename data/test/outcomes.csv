@@ -1,0 +1,13 @@
+﻿ID,GMFCS,cognitive,cognitive_numeric,epilepsy
+PED_T_03,0,high average,5,0
+PED_T_05,1,profoundly low,0,0
+PED_T_08,2,low,3,1
+PED_T_14,2,profoundly low,0,1
+PED_T_17,0,low average,2,0
+PED_T_20,2,low average,2,0
+PED_T_24,2,profoundly low,0,1
+PED_T_26,0,low,3,0
+PED_T_27,0,low average,2,0
+PED_T_28,0,low,3,0
+PED_T_29,2,high average,2,0
+PED_T_30,1,low,3,1
