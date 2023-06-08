@@ -4,8 +4,8 @@
 source("./utils/normal.R")
 source("data.R")
 
-# repeat 10 times for each metric
-n <- 10
+# repeat 100 times for each metric
+n <- 100
 n_data <- nrow(df_diff)
 
 # cp
