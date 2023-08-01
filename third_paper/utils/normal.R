@@ -16,9 +16,14 @@ fit_normal <- function(y, robust = FALSE) {
     model <- cmdstan_model("./models/cauchy.stan")
   }
 
+  # remove NAs
+  filtered_y <- y[!is.na(y)]
+
   # prep data
-  stan_data <- list(n = length(y),
-                    y = y)
+  stan_data <- list(
+    n = length(filtered_y),
+    y = filtered_y
+  )
 
   # fit
   fit <- model$sample(
@@ -49,10 +54,14 @@ compare_two_normal <- function(fit1, label1, fit2, label2) {
   smaller_prob <- round(smaller[[1]] * 100, 2)
   smaller_se <- round(smaller[[2]] * 100, 2)
 
-  cat(paste0("# P(", label1, " > ", label2, ") = ",
-             bigger_prob, " +/- ", bigger_se, "%\n"))
-  cat(paste0("# P(", label1, " < ", label2, ") = ",
-             smaller_prob, " +/- ", smaller_se, "%"))
+  cat(paste0(
+    "# P(", label1, " > ", label2, ") = ",
+    bigger_prob, " +/- ", bigger_se, "%\n"
+  ))
+  cat(paste0(
+    "# P(", label1, " < ", label2, ") = ",
+    smaller_prob, " +/- ", smaller_se, "%"
+  ))
 }
 
 # plot comparison between two normal fits --------------------------------------
@@ -96,10 +105,14 @@ compare_normal <- function(fit, constant = 0, label1 = "", label2 = "") {
   }
 
   # print results
-  cat(paste0("# P(", label1, " > ", label2, ") = ",
-             bigger_prob, " +/- ", bigger_se, "%\n"))
-  cat(paste0("# P(", label1, " < ", label2, ") = ",
-             smaller_prob, " +/- ", smaller_se, "%"))
+  cat(paste0(
+    "# P(", label1, " > ", label2, ") = ",
+    bigger_prob, " +/- ", bigger_se, "%\n"
+  ))
+  cat(paste0(
+    "# P(", label1, " < ", label2, ") = ",
+    smaller_prob, " +/- ", smaller_se, "%"
+  ))
 }
 
 # plot comparison between a normal fit and a constant --------------------------
@@ -116,8 +129,7 @@ plot_comparison_normal <- function(fit, constant = 0, ci = NULL) {
   if (is.null(ci)) {
     p <- p +
       stat_halfeye(fill = "skyblue", alpha = 0.75)
-  }
-  else if (ci > 0.5) {
+  } else if (ci > 0.5) {
     q <- quantile(df_comparison$mu, ci)
     p <- p +
       stat_slab(aes(fill = stat(x < q)), alpha = 0.75, show.legend = FALSE)
@@ -131,8 +143,10 @@ plot_comparison_normal <- function(fit, constant = 0, ci = NULL) {
     xlab("Mean") +
     ylab("") +
     scale_fill_manual(values = c("grey90", "skyblue")) +
-    geom_vline(xintercept = constant, linetype = "dashed",
-               color = "grey50", linewidth = 1) +
+    geom_vline(
+      xintercept = constant, linetype = "dashed",
+      color = "grey50", linewidth = 1
+    ) +
     theme_minimal()
 
   return(p)
@@ -142,25 +156,26 @@ plot_comparison_normal <- function(fit, constant = 0, ci = NULL) {
 plot_comparison_two_normal_constant <- function(fit1, label1 = "Group 1",
                                                 fit2, label2 = "Group 2",
                                                 constant = 0, ci = c(0.66, 0.95)) {
-
   # extract
   df_samples <- data.frame(
-      value = as_draws_df(fit1$draws())$mu,
-      group = label1
+    value = as_draws_df(fit1$draws())$mu,
+    group = label1
   )
   df_samples <- df_samples %>% add_row(
-      value = as_draws_df(fit2$draws())$mu,
-      group = label2
+    value = as_draws_df(fit2$draws())$mu,
+    group = label2
   )
 
   # plot
   p <- ggplot(data = df_samples, aes(x = value, y = group)) +
-        stat_pointinterval(.width = ci) +
-        xlab("Mean") +
-        ylab("") +
-        geom_vline(xintercept = 0, linetype = "dashed",
-                  color = "grey50", linewidth = 1) +
-        theme_minimal()
+    stat_pointinterval(.width = ci) +
+    xlab("Mean") +
+    ylab("") +
+    geom_vline(
+      xintercept = 0, linetype = "dashed",
+      color = "grey50", linewidth = 1
+    ) +
+    theme_minimal()
 
   return(p)
 }

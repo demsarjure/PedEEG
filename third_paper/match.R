@@ -3,7 +3,7 @@ library(tidyverse)
 
 # load data --------------------------------------------------------------------
 df_demo_c <- read.csv("../data/test/demographics_control.csv")
-df_demo_t <- read.csv("../data/test/demographics_test_volume.csv")
+df_demo_t <- read.csv("../data/test/demographics_test.csv")
 
 # pair controls and tests ------------------------------------------------------
 n_t <- nrow(df_demo_t)
@@ -25,25 +25,25 @@ for (i in 1:n_t) {
     c <- df_demo_c[j, ]
 
     # add only same sex
-    if (c$sex == t$sex) {
-      df_diff <- df_diff %>%
-        add_row(data.frame(id = c$id, age_diff = abs(c$age - t$age)))
-    }
+    df_diff <- df_diff %>%
+      add_row(data.frame(id = c$id, age_diff = abs(c$age - t$age)))
   }
 
-  df_match <- df_diff %>%
-    filter(age_diff <= max_diff)
+  if (nrow(df_diff) != 0) {
+    df_match <- df_diff %>%
+      filter(age_diff <= max_diff)
 
-  df_pairs <- df_pairs %>%
-    add_row(data.frame(
-      id_test = t$id,
-      id_control = df_match$id,
-      age_diff = df_match$age_diff
-    ))
+    df_pairs <- df_pairs %>%
+      add_row(data.frame(
+        id_test = t$id,
+        id_control = df_match$id,
+        age_diff = df_match$age_diff
+      ))
+  }
 }
 
 write.table(df_pairs,
-  file = "../data/test/pairs_volume.csv",
-  row.names = FALSE,
-  sep = ","
+ file = "../data/test/pairs.csv",
+ row.names = FALSE,
+ sep = ","
 )

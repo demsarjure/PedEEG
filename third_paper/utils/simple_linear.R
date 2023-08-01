@@ -88,7 +88,7 @@ plot_simple_linear <- function(fit, min_x, max_x) {
     group_by(x) %>%
     median_qi(y, .width = c(.50, .90)) %>%
     ggplot(aes(x = x, y = y, ymin = .lower, ymax = .upper)) +
-    geom_lineribbon(show.legend = FALSE, size = 0.5) +
+    geom_lineribbon(show.legend = FALSE, linewidth = 0.5) +
     scale_fill_brewer() +
     theme_minimal()
 

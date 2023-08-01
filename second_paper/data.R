@@ -27,7 +27,7 @@ colnames(df_test_inter) <- columns_inter
 df_test <- df_test %>%
   inner_join(df_test_inter)
 
-df_pairs <- read.csv("../data/test/pairs.csv")
+df_pairs <- read.csv("../data/test/pairs_volume.csv")
 
 df_demo_test <- read.csv("../data/test/demographics_test_volume.csv")
 
