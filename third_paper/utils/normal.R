@@ -60,7 +60,14 @@ compare_two_normal <- function(fit1, label1, fit2, label2) {
   ))
   cat(paste0(
     "# P(", label1, " < ", label2, ") = ",
-    smaller_prob, " +/- ", smaller_se, "%"
+    smaller_prob, " +/- ", smaller_se, "%\n"
+  ))
+
+  return(list(
+    bigger_prob = bigger_prob,
+    bigger_se = bigger_se,
+    smaller_prob = smaller_prob,
+    smaller_se = smaller_se
   ))
 }
 
@@ -111,7 +118,14 @@ compare_normal <- function(fit, constant = 0, label1 = "", label2 = "") {
   ))
   cat(paste0(
     "# P(", label1, " < ", label2, ") = ",
-    smaller_prob, " +/- ", smaller_se, "%"
+    smaller_prob, " +/- ", smaller_se, "%\n"
+  ))
+
+  return(list(
+    bigger_prob = bigger_prob,
+    bigger_se = bigger_se,
+    smaller_prob = smaller_prob,
+    smaller_se = smaller_se
   ))
 }
 

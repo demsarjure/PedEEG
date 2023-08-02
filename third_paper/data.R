@@ -38,12 +38,38 @@ df_test <- df_test %>%
 df_test <- df_test %>%
   filter(id != "PED_T_25")
 
-# merge
-df_all <- rbind(df_control, df_test)
+# variables of interest
+demo_vars <- c("id")
+
+neural_vars <- c(
+  "cp",
+  "mod",
+  "tihs"
+)
+
+behavior_vars <- c(
+  "iq",
+  "iq_memory",
+  "iq_speed",
+  "visual_integration",
+  "hrt",
+  "motor_coordination",
+  "d",
+  "omissions",
+  "comissions",
+  "perservation"
+)
+
+all_vars <- c(neural_vars, behavior_vars)
+
+df_control <- df_control %>%
+  select(all_of(c(demo_vars, all_vars)))
+
+df_test <- df_test %>%
+  select(all_of(c(demo_vars, all_vars)))
 
 # compute pairwise differences -------------------------------------------------
 df_diff <- data.frame(
-  id = character(),
   cp = numeric(),
   mod = numeric(),
   tihs = numeric(),
@@ -66,9 +92,7 @@ for (i in seq_len(nrow(df_pairs))) {
 
   if (nrow(c) > 0 && nrow(t) > 0) {
     df_diff <- df_diff %>% add_row(data.frame(
-      id = t$id,
       cp = c$cp - t$cp,
-      ge = c$ge - t$ge,
       mod = c$mod - t$mod,
       tihs = c$tihs - t$tihs,
       iq = c$iq - t$iq,
@@ -84,3 +108,10 @@ for (i in seq_len(nrow(df_pairs))) {
     ))
   }
 }
+
+# remove demographic vars ------------------------------------------------------
+df_test <- df_test %>%
+  select(-all_of(demo_vars))
+
+df_control <- df_control %>%
+  select(-all_of(demo_vars))

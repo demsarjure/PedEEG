@@ -29,7 +29,7 @@ behavior <- as.numeric(scale(df_diff$perservation))
 # higher tihs is larger perservation
 # higher tihs is larger omissions
 
-linear_fit <- fit_simple_linear(neural, behavior, robust = TRUE)
+linear_fit <- fit_simple_linear(neural, behavior)
 compare_simple_linear(linear_fit)
 plot_simple_linear(linear_fit, min_x = -3, max_x = 3)
 

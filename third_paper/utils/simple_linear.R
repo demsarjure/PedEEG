@@ -46,23 +46,30 @@ compare_simple_linear <- function(fit, constant = 0) {
   df_samples <- as_draws_df(fit$draws())
 
   # compare
-  bigger <- mcse(df_samples$b > constant)
-  smaller <- mcse(df_samples$b < constant)
+  positive <- mcse(df_samples$b > constant)
+  negative <- mcse(df_samples$b < constant)
 
   # extract
-  bigger_prob <- round(bigger[[1]] * 100, 2)
-  bigger_se <- round(bigger[[2]] * 100, 1)
-  smaller_prob <- round(smaller[[1]] * 100, 2)
-  smaller_se <- round(smaller[[2]] * 100, 1)
+  positive_prob <- round(positive[[1]] * 100, 2)
+  positive_se <- round(positive[[2]] * 100, 1)
+  negative_prob <- round(negative[[1]] * 100, 2)
+  negative_se <- round(negative[[2]] * 100, 1)
 
   # print results
   cat(paste0(
     "# P(b > ", constant, ") = ",
-    bigger_prob, " +/- ", bigger_se, "%\n"
+    positive_prob, " +/- ", positive_se, "%\n"
   ))
   cat(paste0(
     "# P(b < ", constant, ") = ",
-    smaller_prob, " +/- ", smaller_se, "%"
+    negative_prob, " +/- ", negative_se, "%\n"
+  ))
+
+  return(list(
+    positive_prob = positive_prob,
+    positive_se = positive_se,
+    negative_prob = negative_prob,
+    negative_se = negative_se
   ))
 }
 
