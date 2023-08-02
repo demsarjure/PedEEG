@@ -102,9 +102,9 @@ compare_normal <- function(fit, constant = 0, label1 = "", label2 = "") {
 
   # extract
   bigger_prob <- round(bigger[[1]] * 100, 2)
-  bigger_se <- round(bigger[[2]] * 100, 1)
+  bigger_se <- round(bigger[[2]] * 100, 2)
   smaller_prob <- round(smaller[[1]] * 100, 2)
-  smaller_se <- round(smaller[[2]] * 100, 1)
+  smaller_se <- round(smaller[[2]] * 100, 2)
 
   # set label
   if (label2 == "") {

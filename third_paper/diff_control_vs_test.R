@@ -13,14 +13,11 @@ robust <- TRUE
 
 # compare control vs test ------------------------------------------------------
 for (var in all_vars) {
-    control <- df_control[[var]]
-    test <- df_test[[var]]
+    diff <- df_diff[[var]]
 
-    fit_control <- fit_normal(control, robust = robust)
-    fit_test <- fit_normal(test, robust = robust)
-    results <- compare_two_normal(
-        fit1 = fit_control, label1 = "control",
-        fit2 = fit_test, label2 = "test"
+    fit_diff <- fit_normal(diff, robust = robust)
+    results <- compare_normal(
+        fit = fit_diff, label1 = "control", label2 = "test"
     )
     df_results <- rbind(
         df_results,
@@ -31,10 +28,7 @@ for (var in all_vars) {
         )
     )
 
-    plot <- plot_comparison_two_normal(
-        fit1 = fit_control, label1 = "control",
-        fit2 = fit_test, label2 = "test"
-    )
+    plot <- plot_comparison_normal(fit = fit_diff)
     plot <- plot +
         xlab("") +
         ggtitle(var) +

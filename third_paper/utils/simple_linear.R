@@ -51,9 +51,9 @@ compare_simple_linear <- function(fit, constant = 0) {
 
   # extract
   positive_prob <- round(positive[[1]] * 100, 2)
-  positive_se <- round(positive[[2]] * 100, 1)
+  positive_se <- round(positive[[2]] * 100, 2)
   negative_prob <- round(negative[[1]] * 100, 2)
-  negative_se <- round(negative[[2]] * 100, 1)
+  negative_se <- round(negative[[2]] * 100, 2)
 
   # print results
   cat(paste0(

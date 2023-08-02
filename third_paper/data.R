@@ -69,6 +69,7 @@ df_test <- df_test %>%
   select(all_of(c(demo_vars, all_vars)))
 
 # compute pairwise differences -------------------------------------------------
+# TODO IF DIFF IS NOT USED CAN REMOVE BELOW + DEMO VARS FROM ABOVE
 df_diff <- data.frame(
   cp = numeric(),
   mod = numeric(),
