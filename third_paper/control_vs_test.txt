@@ -1,70 +1,15 @@
-NORMAL:
-
-             variable c_bigger c_smaller
-1                  cp     6.15     93.85
-2                 mod    87.02     12.97
-3                tihs     7.10     92.90
-4                  iq   100.00      0.00
-5           iq_memory   100.00      0.00
-6            iq_speed   100.00      0.00
-7  visual_integration    99.98      0.03
-8                 hrt     0.05     99.95
-9  motor_coordination    96.00      4.00
-10                  d     0.22     99.78
-11          omissions     0.05     99.95
-12         comissions     2.48     97.52
-13       perservation     0.03     99.98
-
-
-ROBUST:
-
-             variable c_bigger c_smaller
-1                  cp    13.50     86.50
-2                 mod    83.58     16.42
-3                tihs    11.10     88.90
-4                  iq   100.00      0.00
-5           iq_memory   100.00      0.00
-6            iq_speed   100.00      0.00
-7  visual_integration    99.98      0.03
-8                 hrt     1.32     98.67
-9  motor_coordination    99.33      0.68
-10                  d     0.15     99.85
-11          omissions     0.80     99.20
-12         comissions     1.32     98.67
-13       perservation     4.30     95.70
-
-
-DIFF NORMAL:
-
-             variable c_bigger c_smaller
-1                  cp     0.00    100.00
-2                 mod    99.98      0.02
-3                tihs     0.00    100.00
-4                  iq   100.00      0.00
-5           iq_memory   100.00      0.00
-6            iq_speed   100.00      0.00
-7  visual_integration   100.00      0.00
-8                 hrt     0.00    100.00
-9  motor_coordination    99.98      0.02
-10                  d     0.00    100.00
-11          omissions     0.00    100.00
-12         comissions     0.00    100.00
-13       perservation     0.00    100.00
-
-
-DIFF ROBUST:
-
-             variable c_bigger c_smaller
-1                  cp     0.12     99.88
-2                 mod   100.00      0.00
-3                tihs     0.03     99.98
-4                  iq   100.00      0.00
-5           iq_memory   100.00      0.00
-6            iq_speed   100.00      0.00
-7  visual_integration   100.00      0.00
-8                 hrt     0.00    100.00
-9  motor_coordination    99.98      0.03
-10                  d     0.00    100.00
-11          omissions     0.00    100.00
-12         comissions     0.00    100.00
-13       perservation     0.00    100.00
+       variable c_bigger c_bigger_se c_smaller c_smaller_se
+1            cp     0.03        0.03     99.98         0.03
+2            cc     0.00        0.00    100.00         0.00
+3           mod   100.00        0.00      0.00         0.00
+4            sw     0.05        0.04     99.95         0.04
+5          tihs     0.05        0.04     99.95         0.04
+6            iq   100.00        0.00      0.00         0.00
+7     iq_memory   100.00        0.00      0.00         0.00  
+8      iq_speed   100.00        0.00      0.00         0.00  
+9  visual_motor   100.00        0.00      0.00         0.00  
+10       visual   100.00        0.00      0.00         0.00
+11        motor    99.90        0.05      0.10         0.05  
+12    omissions     0.00        0.00    100.00         0.00  
+13   comissions     0.00        0.00    100.00         0.00  
+14 perservation     0.00        0.00    100.00         0.00

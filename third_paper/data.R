@@ -43,7 +43,9 @@ demo_vars <- c("id")
 
 neural_vars <- c(
   "cp",
+  "cc",
   "mod",
+  "sw",
   "tihs"
 )
 
@@ -51,10 +53,9 @@ behavior_vars <- c(
   "iq",
   "iq_memory",
   "iq_speed",
-  "visual_integration",
-  "hrt",
-  "motor_coordination",
-  "d",
+  "visual_motor",
+  "visual",
+  "motor",
   "omissions",
   "comissions",
   "perservation"
@@ -69,18 +70,18 @@ df_test <- df_test %>%
   select(all_of(c(demo_vars, all_vars)))
 
 # compute pairwise differences -------------------------------------------------
-# TODO IF DIFF IS NOT USED CAN REMOVE BELOW + DEMO VARS FROM ABOVE
 df_diff <- data.frame(
   cp = numeric(),
+  cc = numeric(),
   mod = numeric(),
+  sw = numeric(),
   tihs = numeric(),
   iq = numeric(),
   iq_memory = numeric(),
   iq_speed = numeric(),
-  visual_integration = numeric(),
-  hrt = numeric(),
-  motor_coordination = numeric(),
-  d = numeric(),
+  visual_motor = numeric(),
+  visual = numeric(),
+  motor = numeric(),
   omissions = numeric(),
   comissions = numeric(),
   perservation = numeric()
@@ -94,15 +95,16 @@ for (i in seq_len(nrow(df_pairs))) {
   if (nrow(c) > 0 && nrow(t) > 0) {
     df_diff <- df_diff %>% add_row(data.frame(
       cp = c$cp - t$cp,
+      cc = c$cc - t$cc,
       mod = c$mod - t$mod,
+      sw = c$sw - t$sw,
       tihs = c$tihs - t$tihs,
       iq = c$iq - t$iq,
       iq_memory = c$iq_memory - t$iq_memory,
       iq_speed = c$iq_speed - t$iq_speed,
-      visual_integration = c$visual_integration - t$visual_integration,
-      hrt = c$hrt - t$hrt,
-      motor_coordination = c$motor_coordination - t$motor_coordination,
-      d = c$d - t$d,
+      visual_motor = c$visual_motor - t$visual_motor,
+      visual = c$visual - t$visual,
+      motor = c$motor - t$motor,
       omissions = c$omissions - t$omissions,
       comissions = c$comissions - t$comissions,
       perservation = c$perservation - t$perservation

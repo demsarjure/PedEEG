@@ -1,137 +1,46 @@
-NORMAL:
-
-   neural           behavior positive negative
-1      cp                 iq    38.82    61.18
-2      cp          iq_memory    45.10    54.90
-3      cp           iq_speed    54.27    45.73
-4      cp visual_integration    41.62    58.38
-5      cp                hrt    38.80    61.20
-6      cp motor_coordination    62.15    37.85
-7      cp                  d    82.88    17.12
-8      cp          omissions    28.27    71.73
-9      cp         comissions    88.42    11.58
-10     cp       perservation    67.80    32.20
-11    mod                 iq    84.10    15.90
-12    mod          iq_memory    48.52    51.48
-13    mod           iq_speed    88.72    11.28
-14    mod visual_integration    68.38    31.62
-15    mod                hrt    41.77    58.23
-16    mod motor_coordination    77.05    22.95
-17    mod                  d    33.80    66.20
-18    mod          omissions    70.90    29.10
-19    mod         comissions    22.10    77.90
-20    mod       perservation    38.85    61.15
-21   tihs                 iq    39.92    60.08
-22   tihs          iq_memory    44.67    55.33
-23   tihs           iq_speed    58.90    41.10
-24   tihs visual_integration    44.75    55.25
-25   tihs                hrt    39.55    60.45
-26   tihs motor_coordination    64.95    35.05
-27   tihs                  d    82.40    17.60
-28   tihs          omissions    29.10    70.90
-29   tihs         comissions    87.85    12.15
-30   tihs       perservation    70.53    29.48
-
-
-ROBUST:
-
-   neural           behavior positive negative
-1      cp                 iq    31.82    68.17
-2      cp          iq_memory    30.95    69.05
-3      cp           iq_speed    36.18    63.82
-4      cp visual_integration    34.65    65.35
-5      cp                hrt    65.95    34.05
-6      cp motor_coordination    40.67    59.33
-7      cp                  d    80.55    19.45
-8      cp          omissions    71.83    28.18
-9      cp         comissions    98.15     1.85
-10     cp       perservation    96.78     3.22
-11    mod                 iq    88.40    11.60
-12    mod          iq_memory    48.95    51.05
-13    mod           iq_speed    80.83    19.18
-14    mod visual_integration    74.17    25.82
-15    mod                hrt    57.03    42.98
-16    mod motor_coordination    94.88     5.12
-17    mod                  d    39.45    60.55
-18    mod          omissions    61.65    38.35
-19    mod         comissions    16.75    83.25
-20    mod       perservation    29.70    70.30
-21   tihs                 iq    33.32    66.67
-22   tihs          iq_memory    30.03    69.97
-23   tihs           iq_speed    41.15    58.85
-24   tihs visual_integration    38.85    61.15
-25   tihs                hrt    68.27    31.72
-26   tihs motor_coordination    44.27    55.73
-27   tihs                  d    81.65    18.35
-28   tihs          omissions    76.38    23.62
-29   tihs         comissions    97.20     2.80
-30   tihs       perservation    97.45     2.55
-
-
-DIFF NORMAL:
-
-   neural           behavior positive negative
-1      cp                 iq    65.18    34.83
-2      cp          iq_memory    62.48    37.52
-3      cp           iq_speed    83.30    16.70
-4      cp visual_integration    53.67    46.33
-5      cp                hrt     9.28    90.72
-6      cp motor_coordination    84.30    15.70
-7      cp                  d    56.43    43.58
-8      cp          omissions     2.65    97.35
-9      cp         comissions    69.53    30.48
-10     cp       perservation    94.23     5.78
-11    mod                 iq    98.00     2.00
-12    mod          iq_memory    57.33    42.68
-13    mod           iq_speed    99.78     0.22
-14    mod visual_integration    68.05    31.95
-15    mod                hrt    29.35    70.65
-16    mod motor_coordination    81.10    18.90
-17    mod                  d    45.52    54.47
-18    mod          omissions    65.55    34.45
-19    mod         comissions    64.80    35.20
-20    mod       perservation     0.98    99.02
-21   tihs                 iq    65.72    34.27
-22   tihs          iq_memory    53.62    46.38
-23   tihs           iq_speed    81.97    18.02
-24   tihs visual_integration    54.60    45.40
-25   tihs                hrt    14.15    85.85
-26   tihs motor_coordination    88.28    11.72
-27   tihs                  d    65.33    34.67
-28   tihs          omissions     5.10    94.90
-29   tihs         comissions    74.38    25.62
-30   tihs       perservation    96.95     3.05
-
-DIFF ROBUST:
-
-   neural           behavior positive negative
-1      cp                 iq    38.22    61.78
-2      cp          iq_memory    32.92    67.07
-3      cp           iq_speed    87.12    12.88
-4      cp visual_integration    32.88    67.12
-5      cp                hrt    68.20    31.80
-6      cp motor_coordination    42.12    57.88
-7      cp                  d    46.95    53.05
-8      cp          omissions    99.52     0.48
-9      cp         comissions    60.22    39.77
-10     cp       perservation   100.00     0.00
-11    mod                 iq   100.00     0.00
-12    mod          iq_memory    98.10     1.90
-13    mod           iq_speed    99.60     0.40
-14    mod visual_integration    66.53    33.48
-15    mod                hrt    14.20    85.80
-16    mod motor_coordination    98.10     1.90
-17    mod                  d    29.40    70.60
-18    mod          omissions     4.68    95.33
-19    mod         comissions    65.12    34.88
-20    mod       perservation     0.03    99.98
-21   tihs                 iq    35.90    64.10
-22   tihs          iq_memory    23.35    76.65
-23   tihs           iq_speed    84.82    15.17
-24   tihs visual_integration    39.50    60.50
-25   tihs                hrt    76.58    23.42
-26   tihs motor_coordination    48.30    51.70
-27   tihs                  d    50.42    49.58
-28   tihs          omissions    99.88     0.12
-29   tihs         comissions    59.70    40.30
-30   tihs       perservation   100.00     0.00
+   neural     behavior positive positive_se negative negative_se
+1      cp           iq    65.55        0.75    34.45        0.75
+2      cp    iq_memory    61.48        0.78    38.52        0.78
+3      cp     iq_speed    84.97        0.60    15.02        0.60
+4      cp visual_motor    53.52        0.75    46.48        0.75
+5      cp       visual     4.20        0.37    95.80        0.37
+6      cp        motor    84.47        0.65    15.53        0.65
+7      cp    omissions     2.80        0.30    97.20        0.30
+8      cp   comissions    70.08        0.72    29.92        0.72
+9      cp perservation    94.20        0.39     5.80        0.39
+10     cc           iq    52.90        0.76    47.10        0.76
+11     cc    iq_memory    49.15        0.79    50.85        0.79
+12     cc     iq_speed    76.80        0.71    23.20        0.71
+13     cc visual_motor    42.80        0.76    57.20        0.76
+14     cc       visual     2.83        0.30    97.17        0.30
+15     cc        motor    79.62        0.69    20.38        0.69
+16     cc    omissions     3.57        0.31    96.43        0.31
+17     cc   comissions    74.75        0.71    25.25        0.71
+18     cc perservation    94.20        0.40     5.80        0.40
+19    mod           iq    98.12        0.28     1.88        0.28
+20    mod    iq_memory    55.12        0.79    44.88        0.79
+21    mod     iq_speed    99.80        0.07     0.20        0.07
+22    mod visual_motor    69.73        0.74    30.28        0.74
+23    mod       visual    11.55        0.55    88.45        0.55
+24    mod        motor    81.47        0.63    18.52        0.63
+25    mod    omissions    65.03        0.75    34.98        0.75
+26    mod   comissions    63.48        0.76    36.52        0.76
+27    mod perservation     1.60        0.23    98.40        0.23
+28     sw           iq    73.80        0.70    26.20        0.70
+29     sw    iq_memory    70.62        0.77    29.38        0.77
+30     sw     iq_speed    88.12        0.58    11.88        0.58
+31     sw visual_motor    58.50        0.75    41.50        0.75
+32     sw       visual     5.08        0.41    94.92        0.41
+33     sw        motor    87.35        0.64    12.65        0.64
+34     sw    omissions     4.12        0.32    95.88        0.32
+35     sw   comissions    67.10        0.74    32.90        0.74
+36     sw perservation    94.12        0.42     5.88        0.42
+37   tihs           iq    65.65        0.75    34.35        0.75
+38   tihs    iq_memory    55.38        0.79    44.62        0.79
+39   tihs     iq_speed    82.95        0.62    17.05        0.62
+40   tihs visual_motor    56.47        0.78    43.53        0.78
+41   tihs       visual     6.62        0.43    93.38        0.43
+42   tihs        motor    87.80        0.55    12.20        0.55
+43   tihs    omissions     5.12        0.41    94.88        0.41
+44   tihs   comissions    74.58        0.71    25.42        0.71
+45   tihs perservation    96.85        0.29     3.15        0.29

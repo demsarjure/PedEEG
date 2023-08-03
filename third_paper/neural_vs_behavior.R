@@ -8,14 +8,14 @@ source("./utils/simple_linear.R")
 # results storage --------------------------------------------------------------
 df_results <- NULL
 plots <- list()
-robust <- TRUE
+robust <- FALSE
 
 # neural vs behavior -----------------------------------------------------------
 for (n_var in neural_vars) {
-    neural <- df_test[[n_var]]
+    neural <- df_diff[[n_var]]
 
     for (b_var in behavior_vars) {
-        behavior <- df_test[[b_var]]
+        behavior <- df_diff[[b_var]]
         scaled_neural <- scale(neural)
         scaled_behavior <- scale(behavior)
 
@@ -41,7 +41,9 @@ for (n_var in neural_vars) {
                 neural = n_var,
                 behavior = b_var,
                 positive = results$positive_prob,
-                negative = results$negative_prob
+                positive_se = results$positive_se,
+                negative = results$negative_prob,
+                negative_se = results$negative_se
             )
         )
     }
