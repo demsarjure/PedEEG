@@ -39,13 +39,139 @@ for (var in all_vars) {
     plots[[var]] <- plot
 }
 
-# plot results -----------------------------------------------------------------
-# plot_grid(plotlist = plots, ncol = 4, scale = 0.90)
-#
-# ggsave("./figs/control_vs_test.pdf",
-#     width = 3840,
-#     height = 2160,
-#     dpi = 450,
-#     units = "px",
-#     bg = "white"
-# )
+# first plot, left panel -------------------------------------------------------
+plots[["mod"]] +
+    xlim(-0.02, 0.02) +
+    ggtitle("Modularity")
+
+ggsave(
+    "./figs/1_left.pdf",
+    width = 1080,
+    height = 1080,
+    dpi = 300,
+    units = "px",
+    bg = "white"
+)
+
+# first plot, middle panel -----------------------------------------------------
+p1 <- plots[["iq"]] +
+    xlim(-30, 30) +
+    ggtitle("IQ")
+
+p2 <- plots[["iq_memory"]] +
+    xlim(-30, 30) +
+    ggtitle("IQ memory")
+
+p3 <- plots[["iq_speed"]] +
+    xlim(-30, 30) +
+    ggtitle("IQ speed")
+
+plot_grid(p1, p2, p3, ncol = 1, scale = 0.95)
+
+ggsave(
+    "./figs/1_mid.pdf",
+    width = 1080,
+    height = 1620,
+    dpi = 300,
+    units = "px",
+    bg = "white"
+)
+
+# second plot, left panel ------------------------------------------------------
+p1 <- plots[["mod"]] +
+    xlim(-0.02, 0.02) +
+    ggtitle("Modularity")
+
+p2 <- plots[["tihs"]] +
+    xlim(-25, 25) +
+    ggtitle("Interhemispheric strength")
+
+p3 <- plots[["cc"]] +
+    xlim(-0.03, 0.03) +
+    ggtitle("Clustering coefficient")
+
+p4 <- plots[["sw"]] +
+    xlim(-0.02, 0.02) +
+    ggtitle("Small-worldness")
+
+plot_grid(p1, p2, p3, p4, ncol = 1, scale = 0.95)
+
+ggsave(
+    "./figs/2_left.pdf",
+    width = 1080,
+    height = 1620,
+    dpi = 300,
+    units = "px",
+    bg = "white"
+)
+
+# second plot, middle panel ----------------------------------------------------
+p1 <- plots[["motor"]] +
+    xlim(-15, 15) +
+    ggtitle("Motor coordination")
+
+p2 <- plots[["visual"]] +
+    xlim(-15, 15) +
+    ggtitle("Visual perception")
+
+plot_grid(p1, p2, ncol = 1, scale = 0.95)
+
+ggsave(
+    "./figs/2_mid.pdf",
+    width = 1080,
+    height = 1620,
+    dpi = 300,
+    units = "px",
+    bg = "white"
+)
+
+# third plot, left panel -------------------------------------------------------
+p1 <- plots[["cp"]] +
+    xlim(-0.04, 0.04) +
+    ggtitle("Characteristic path")
+p1
+
+p2 <- plots[["tihs"]] +
+    xlim(-25, 25) +
+    ggtitle("Interhemispheric strength")
+
+p3 <- plots[["cc"]] +
+    xlim(-0.03, 0.03) +
+    ggtitle("Clustering coefficient")
+
+p4 <- plots[["sw"]] +
+    xlim(-0.02, 0.02) +
+    ggtitle("Small-worldness")
+
+plot_grid(p1, p2, p3, p4, ncol = 1, scale = 0.95)
+
+ggsave(
+    "./figs/3_left.pdf",
+    width = 1080,
+    height = 1620,
+    dpi = 300,
+    units = "px",
+    bg = "white"
+)
+
+# third plot, middle panel -----------------------------------------------------
+p1 <- plots[["omissions"]] +
+    xlim(-8, 8) +
+    ggtitle("Omissions")
+p1
+
+p2 <- plots[["perservation"]] +
+    xlim(-15, 15) +
+    ggtitle("Perservation")
+p2
+
+plot_grid(p1, p2, ncol = 1, scale = 0.95)
+
+ggsave(
+    "./figs/3_mid.pdf",
+    width = 1080,
+    height = 1620,
+    dpi = 300,
+    units = "px",
+    bg = "white"
+)
