@@ -60,12 +60,12 @@ p1 <- plots[["mod_vs_iq"]] +
 
 p2 <- plots[["mod_vs_iq_memory"]] +
     xlab("Modularity") +
-    ylab("IQ memory") +
+    ylab("Working memory") +
     ggtitle("")
 
 p3 <- plots[["mod_vs_iq_speed"]] +
     xlab("Modularity") +
-    ylab("IQ speed") +
+    ylab("Processing speed") +
     ggtitle("")
 
 plot_grid(p1, p2, p3, ncol = 1, scale = 0.9)
@@ -96,7 +96,7 @@ p3 <- plots[["cc_vs_visual"]] +
     ggtitle("")
 
 p4 <- plots[["sw_vs_visual"]] +
-    xlab("Small-worldness") +
+    xlab("Small worldness") +
     ylab("Visual") +
     ggtitle("")
 
@@ -134,22 +134,22 @@ p4 <- plots[["sw_vs_omissions"]] +
 
 p5 <- plots[["cp_vs_perservation"]] +
     xlab("CP") +
-    ylab("Perservation") +
+    ylab("Perservations") +
     ggtitle("")
 
 p6 <- plots[["tihs_vs_perservation"]] +
     xlab("IHS") +
-    ylab("Perservation") +
+    ylab("Perservations") +
     ggtitle("")
 
 p7 <- plots[["cc_vs_perservation"]] +
     xlab("CC") +
-    ylab("Perservation") +
+    ylab("Perservations") +
     ggtitle("")
 
 p8 <- plots[["sw_vs_perservation"]] +
     xlab("SW") +
-    ylab("Perservation") +
+    ylab("Perservations") +
     ggtitle("")
 
 plot_grid(p1, p2, p3, p4, p5, p6, p7, p8, ncol = 2, scale = 0.9)

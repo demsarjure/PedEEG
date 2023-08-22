@@ -60,11 +60,11 @@ p1 <- plots[["iq"]] +
 
 p2 <- plots[["iq_memory"]] +
     xlim(-30, 30) +
-    ggtitle("IQ memory")
+    ggtitle("Working memory")
 
 p3 <- plots[["iq_speed"]] +
     xlim(-30, 30) +
-    ggtitle("IQ speed")
+    ggtitle("Processing speed")
 
 plot_grid(p1, p2, p3, ncol = 1, scale = 0.95)
 
@@ -92,7 +92,7 @@ p3 <- plots[["cc"]] +
 
 p4 <- plots[["sw"]] +
     xlim(-0.02, 0.02) +
-    ggtitle("Small-worldness")
+    ggtitle("Small worldness")
 
 plot_grid(p1, p2, p3, p4, ncol = 1, scale = 0.95)
 
@@ -141,7 +141,7 @@ p3 <- plots[["cc"]] +
 
 p4 <- plots[["sw"]] +
     xlim(-0.02, 0.02) +
-    ggtitle("Small-worldness")
+    ggtitle("Small worldness")
 
 plot_grid(p1, p2, p3, p4, ncol = 1, scale = 0.95)
 
@@ -162,7 +162,7 @@ p1
 
 p2 <- plots[["perservation"]] +
     xlim(-15, 15) +
-    ggtitle("Perservation")
+    ggtitle("Perservations")
 p2
 
 plot_grid(p1, p2, ncol = 1, scale = 0.95)
