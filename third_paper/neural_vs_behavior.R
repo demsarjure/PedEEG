@@ -152,7 +152,7 @@ p8 <- plots[["sw_vs_perservation"]] +
     ylab("Perservation") +
     ggtitle("")
 
-plot_grid(p1, p5, p2, p6, p3, p7, p4, p8, ncol = 2, scale = 0.9)
+plot_grid(p1, p2, p3, p4, p5, p6, p7, p8, ncol = 2, scale = 0.9)
 
 ggsave(
     "./figs/3_right.pdf",
