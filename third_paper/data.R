@@ -34,9 +34,21 @@ df_test <- df_test %>%
   inner_join(df_test_inter) %>%
   inner_join(df_psych)
 
-# filter out PED_T_25 because of additional injuries
+# filter out test participants that do not match the criteria
+remove_ids <- c(
+  "PED_T_02",
+  "PED_T_09",
+  "PED_T_12",
+  "PED_T_13",
+  "PED_T_15",
+  "PED_T_25"
+)
+
+df_pairs <- df_pairs %>%
+  filter(!id_test %in% remove_ids)
+
 df_test <- df_test %>%
-  filter(id != "PED_T_25")
+  filter(!id %in% remove_ids)
 
 # variables of interest
 demo_vars <- c("id")
