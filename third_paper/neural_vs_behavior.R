@@ -58,104 +58,54 @@ p1 <- plots[["mod_vs_iq"]] +
     ylab("IQ") +
     ggtitle("")
 
-p2 <- plots[["mod_vs_iq_memory"]] +
-    xlab("Modularity") +
-    ylab("Working memory") +
-    ggtitle("")
-
-p3 <- plots[["mod_vs_iq_speed"]] +
+p2 <- plots[["mod_vs_iq_speed"]] +
     xlab("Modularity") +
     ylab("Processing speed") +
     ggtitle("")
 
-plot_grid(p1, p2, p3, ncol = 1, scale = 0.9)
+p3 <- plots[["cc_vs_iq"]] +
+    xlab("Clustering coefficient") +
+    ylab("IQ") +
+    ggtitle("")
+
+p4 <- NULL
+
+plot_grid(p1, p2, p3, p4, ncol = 2, scale = 0.9)
 
 ggsave(
     "./figs/1_right.pdf",
     width = 1080,
-    height = 1620,
+    height = 1080,
     dpi = 300,
     units = "px",
     bg = "white"
 )
 
 # second plot, right panel -----------------------------------------------------
-p1 <- plots[["mod_vs_motor"]] +
-    xlab("Modularity") +
-    ylab("Motor") +
+p1 <- plots[["cp_vs_perservation"]] +
+    xlab("CP") +
+    ylab("Perservation") +
     ggtitle("")
 
-p2 <- plots[["tihs_vs_visual"]] +
-    xlab("Interhemispheric strength") +
-    ylab("Visual") +
+p2 <- plots[["tihs_vs_perservation"]] +
+    xlab("IHS") +
+    ylab("Perservation") +
     ggtitle("")
 
-p3 <- plots[["cc_vs_visual"]] +
-    xlab("Clustering coefficient") +
-    ylab("Visual") +
+p3 <- plots[["cc_vs_perservation"]] +
+    xlab("CC") +
+    ylab("Perservation") +
     ggtitle("")
 
-p4 <- plots[["sw_vs_visual"]] +
-    xlab("Small worldness") +
-    ylab("Visual") +
+p4 <- plots[["sw_vs_perservation"]] +
+    xlab("SW") +
+    ylab("Perservation") +
     ggtitle("")
 
 plot_grid(p1, p2, p3, p4, ncol = 1, scale = 0.9)
 
 ggsave(
     "./figs/2_right.pdf",
-    width = 1080,
-    height = 1620,
-    dpi = 300,
-    units = "px",
-    bg = "white"
-)
-
-# third plot, right panel ------------------------------------------------------
-p1 <- plots[["cp_vs_omissions"]] +
-    xlab("CP") +
-    ylab("Omissions") +
-    ggtitle("")
-
-p2 <- plots[["tihs_vs_omissions"]] +
-    xlab("IHS") +
-    ylab("Omissions") +
-    ggtitle("")
-
-p3 <- plots[["cc_vs_omissions"]] +
-    xlab("CC") +
-    ylab("Omissions") +
-    ggtitle("")
-
-p4 <- plots[["sw_vs_omissions"]] +
-    xlab("SW") +
-    ylab("Omissions") +
-    ggtitle("")
-
-p5 <- plots[["cp_vs_perservation"]] +
-    xlab("CP") +
-    ylab("Perservations") +
-    ggtitle("")
-
-p6 <- plots[["tihs_vs_perservation"]] +
-    xlab("IHS") +
-    ylab("Perservations") +
-    ggtitle("")
-
-p7 <- plots[["cc_vs_perservation"]] +
-    xlab("CC") +
-    ylab("Perservations") +
-    ggtitle("")
-
-p8 <- plots[["sw_vs_perservation"]] +
-    xlab("SW") +
-    ylab("Perservations") +
-    ggtitle("")
-
-plot_grid(p1, p2, p3, p4, p5, p6, p7, p8, ncol = 2, scale = 0.9)
-
-ggsave(
-    "./figs/3_right.pdf",
     width = 1080,
     height = 1620,
     dpi = 300,
