@@ -82,24 +82,24 @@ ggsave(
 )
 
 # second plot, right panel -----------------------------------------------------
-p1 <- plots[["cp_vs_perservation"]] +
+p1 <- plots[["cp_vs_preservation"]] +
     xlab("CP") +
-    ylab("Perservation") +
+    ylab("preservation") +
     ggtitle("")
 
-p2 <- plots[["tihs_vs_perservation"]] +
+p2 <- plots[["tihs_vs_preservation"]] +
     xlab("IHS") +
-    ylab("Perservation") +
+    ylab("preservation") +
     ggtitle("")
 
-p3 <- plots[["cc_vs_perservation"]] +
+p3 <- plots[["cc_vs_preservation"]] +
     xlab("CC") +
-    ylab("Perservation") +
+    ylab("preservation") +
     ggtitle("")
 
-p4 <- plots[["sw_vs_perservation"]] +
+p4 <- plots[["sw_vs_preservation"]] +
     xlab("SW") +
-    ylab("Perservation") +
+    ylab("preservation") +
     ggtitle("")
 
 plot_grid(p1, p2, p3, p4, ncol = 1, scale = 0.9)

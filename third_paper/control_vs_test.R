@@ -108,9 +108,9 @@ ggsave(
 )
 
 # second plot, middle panel ----------------------------------------------------
-p1 <- plots[["perservation"]] +
+p1 <- plots[["preservation"]] +
     xlim(-15, 15) +
-    ggtitle("Perservation")
+    ggtitle("preservation")
 
 p1
 

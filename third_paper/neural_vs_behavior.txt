@@ -7,7 +7,7 @@
 6      cp        motor    44.85        0.77    55.15        0.77
 7      cp    omissions    22.10        0.70    77.90        0.70
 8      cp   comissions    50.27        0.79    49.73        0.79
-9      cp perservation    94.32        0.42     5.68        0.42
+9      cp preservation    94.32        0.42     5.68        0.42
 10     cc           iq     8.05        0.51    91.95        0.51
 11     cc    iq_memory    11.62        0.55    88.38        0.55
 12     cc     iq_speed    13.60        0.58    86.40        0.58
@@ -16,7 +16,7 @@
 15     cc        motor    36.00        0.75    64.00        0.75
 16     cc    omissions    23.80        0.70    76.20        0.70
 17     cc   comissions    54.07        0.79    45.93        0.79
-18     cc perservation    93.35        0.43     6.65        0.43
+18     cc preservation    93.35        0.43     6.65        0.43
 19    mod           iq    95.23        0.38     4.77        0.38
 20    mod    iq_memory    40.65        0.78    59.35        0.78
 21    mod     iq_speed    99.68        0.10     0.32        0.10
@@ -25,7 +25,7 @@
 24    mod        motor    82.10        0.67    17.90        0.67
 25    mod    omissions    86.05        0.57    13.95        0.57
 26    mod   comissions    79.72        0.68    20.28        0.68
-27    mod perservation     7.22        0.45    92.78        0.45
+27    mod preservation     7.22        0.45    92.78        0.45
 28     sw           iq    23.28        0.72    76.72        0.72
 29     sw    iq_memory    28.57        0.74    71.43        0.74
 30     sw     iq_speed    24.32        0.70    75.68        0.70
@@ -34,7 +34,7 @@
 33     sw        motor    50.28        0.79    49.72        0.79
 34     sw    omissions    22.05        0.67    77.95        0.67
 35     sw   comissions    47.77        0.79    52.23        0.79
-36     sw perservation    94.55        0.38     5.45        0.38
+36     sw preservation    94.55        0.38     5.45        0.38
 37   tihs           iq    17.60        0.65    82.40        0.65
 38   tihs    iq_memory    15.35        0.67    84.65        0.67
 39   tihs     iq_speed    19.38        0.68    80.62        0.68
@@ -43,4 +43,4 @@
 42   tihs        motor    51.02        0.79    48.98        0.79
 43   tihs    omissions    29.58        0.74    70.42        0.74
 44   tihs   comissions    54.88        0.79    45.12        0.79
-45   tihs perservation    97.03        0.27     2.97        0.27
+45   tihs preservation    97.03        0.27     2.97        0.27
