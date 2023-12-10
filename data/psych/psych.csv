@@ -1,4 +1,4 @@
-id,sex,control,iq,iq_memory,iq_speed,visual_motor,visual,motor,omissions,comissions,perservation
+id,sex,control,iq,iq_memory,iq_speed,visual_motor,visual,motor,omissions,comissions,perservations
 PED_T_01,1,0,79,85,69,83,99,88,53,72,58
 PED_T_03,1,0,112,115,89,103,120,114,47,55,46
 PED_T_04,1,0,91,97,95,82,82,85,90,74,90

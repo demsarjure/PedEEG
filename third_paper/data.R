@@ -70,7 +70,7 @@ behavior_vars <- c(
   "motor",
   "omissions",
   "comissions",
-  "preservation"
+  "perservations"
 )
 
 all_vars <- c(neural_vars, behavior_vars)
@@ -96,7 +96,7 @@ df_diff <- data.frame(
   motor = numeric(),
   omissions = numeric(),
   comissions = numeric(),
-  preservation = numeric()
+  perservations = numeric()
 )
 
 for (i in seq_len(nrow(df_pairs))) {
@@ -119,7 +119,7 @@ for (i in seq_len(nrow(df_pairs))) {
       motor = c$motor - t$motor,
       omissions = c$omissions - t$omissions,
       comissions = c$comissions - t$comissions,
-      preservation = c$preservation - t$preservation
+      perservations = c$perservations - t$perservations
     ))
   }
 }
