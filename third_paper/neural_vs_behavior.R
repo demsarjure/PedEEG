@@ -26,8 +26,8 @@ for (n_var in neural_vars) {
         )
         results <- compare_simple_linear(linear_fit)
 
-        x <- max(scaled_neural)
-        plot <- plot_simple_linear(linear_fit, min_x = -x, max_x = x)
+        data <- data.frame(x = scaled_neural, y = scaled_behavior)
+        plot <- plot_simple_linear(linear_fit, data = data)
 
         plot <- plot +
             xlab(n_var) +
@@ -52,63 +52,49 @@ for (n_var in neural_vars) {
     }
 }
 
-# first plot, right panel ------------------------------------------------------
-p1 <- plots[["mod_vs_iq"]] +
+# comparisons ------------------------------------------------------------------
+plot_comparisons <- list()
+plot_comparisons[["cp_vs_perservations"]] <- plots[["cp_vs_perservations"]] +
+    xlab("Characteristic path") +
+    ylab("Perservations") +
+    ggtitle("")
+
+plot_comparisons[["tihs_vs_perservations"]] <- plots[["tihs_vs_perservations"]] +
+    xlab("Interhemispheric strength") +
+    ylab("Perservations") +
+    ggtitle("")
+
+plot_comparisons[["cc_vs_perservations"]] <- plots[["cc_vs_perservations"]] +
+    xlab("Clustering coefficient") +
+    ylab("Perservations") +
+    ggtitle("")
+
+plot_comparisons[["sw_vs_perservations"]] <- plots[["sw_vs_perservations"]] +
+    xlab("Small world index") +
+    ylab("Perservations") +
+    ggtitle("")
+
+plot_comparisons[["mod_vs_iq"]] <- plots[["mod_vs_iq"]] +
     xlab("Modularity") +
     ylab("IQ") +
     ggtitle("")
 
-p2 <- plots[["mod_vs_iq_speed"]] +
+plot_comparisons[["mod_vs_iq_speed"]] <- plots[["mod_vs_iq_speed"]] +
     xlab("Modularity") +
     ylab("Processing speed") +
     ggtitle("")
 
-p3 <- plots[["cc_vs_iq"]] +
+plot_comparisons[["cc_vs_iq"]] <- plots[["cc_vs_iq"]] +
     xlab("Clustering coefficient") +
     ylab("IQ") +
     ggtitle("")
 
-p4 <- NULL
-
-plot_grid(p1, p2, p3, p4, ncol = 2, scale = 0.9)
-
+plot_grid(plotlist = plot_comparisons, ncol = 4, scale = 0.9)
 ggsave(
-    "./figs/1_right.pdf",
-    width = 1080,
+    "./figs/comparisons.png",
+    width = 1920,
     height = 1080,
-    dpi = 300,
-    units = "px",
-    bg = "white"
-)
-
-# second plot, right panel -----------------------------------------------------
-p1 <- plots[["cp_vs_perservations"]] +
-    xlab("CP") +
-    ylab("perservations") +
-    ggtitle("")
-
-p2 <- plots[["tihs_vs_perservations"]] +
-    xlab("IHS") +
-    ylab("perservations") +
-    ggtitle("")
-
-p3 <- plots[["cc_vs_perservations"]] +
-    xlab("CC") +
-    ylab("perservations") +
-    ggtitle("")
-
-p4 <- plots[["sw_vs_perservations"]] +
-    xlab("SW") +
-    ylab("perservations") +
-    ggtitle("")
-
-plot_grid(p1, p2, p3, p4, ncol = 1, scale = 0.9)
-
-ggsave(
-    "./figs/2_right.pdf",
-    width = 1080,
-    height = 1620,
-    dpi = 300,
+    dpi = 150,
     units = "px",
     bg = "white"
 )

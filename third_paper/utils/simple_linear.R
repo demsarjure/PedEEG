@@ -74,7 +74,7 @@ compare_simple_linear <- function(fit, constant = 0) {
 }
 
 # plot the simple_linear model's fit -------------------------------------------
-plot_simple_linear <- function(fit, min_x, max_x) {
+plot_simple_linear <- function(fit, data) {
   # get samples
   df_samples <- as_draws_df(fit$draws())
 
@@ -87,16 +87,19 @@ plot_simple_linear <- function(fit, min_x, max_x) {
 
   df <- tibble(
     draw = 1:n,
-    x = list(min_x:max_x),
-    y = map2(a, b, ~ .x + .y * min_x:max_x)
+    x = list(-2:2),
+    y = map2(a, b, ~ .x + .y * -2:2)
   ) %>% unnest(c(x, y))
 
   p <- df %>%
     group_by(x) %>%
     median_qi(y, .width = c(.50, .90)) %>%
-    ggplot(aes(x = x, y = y, ymin = .lower, ymax = .upper)) +
-    geom_lineribbon(show.legend = FALSE, linewidth = 0.5) +
+    ggplot() +
+    geom_lineribbon(aes(x = x, y = y, ymin = .lower, ymax = .upper), show.legend = FALSE, linewidth = 0.5) +
+    geom_point(data = data, aes(x = x, y = y), color = "black", alpha=0.2, shape = 16) +
     scale_fill_brewer() +
+    xlim(-2, 2) +
+    ylim(-2, 2) +
     theme_minimal()
 
   return(p)
