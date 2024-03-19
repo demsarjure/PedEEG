@@ -125,8 +125,10 @@ for (i in seq_len(nrow(df_pairs))) {
 }
 
 # remove demographic vars ------------------------------------------------------
+test_ids <- df_test$id
 df_test <- df_test %>%
   select(-all_of(demo_vars))
 
+control_ids <- df_control$id
 df_control <- df_control %>%
   select(-all_of(demo_vars))

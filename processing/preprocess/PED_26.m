@@ -7,7 +7,7 @@ subject = 'PED_26';
 disp(['Subject ', subject])
 
 %% load the data
-raw = pop_fileio(strcat('../../../data/test/eeg/', subject, '/', subject, '.vhdr'), 'dataformat', 'auto');
+raw = pop_fileio(strcat('../../../data/test/eeg/', subject, '/', subject, 'a.vhdr'), 'dataformat', 'auto');
 raw.setname = 'raw';
 
 %% load electrode locations
@@ -19,6 +19,10 @@ raw = pop_editset(raw, 'run', [], 'chanlocs', '../../../64BPMR+ref.ced');
 %rest_raw = eeg_eegrej(raw, [1 start; stop raw.pnts]);
 rest_raw = raw;
 rest_raw.setname = 'rest_raw';
+
+%% downsample to 250hz
+frequency = 250;
+rest_raw = pop_resample(rest_raw, frequency);
 
 %% filtering
 rest_raw = pop_eegfiltnew(rest_raw, 'locutoff', 40, 'hicutoff', 0.5);
@@ -45,10 +49,6 @@ pop_eegplot(rest, 1, 1, 1);
 
 %% plot spectral
 figure; pop_spectopo(rest, 1, [0  360000], 'EEG' , 'percent', 50, 'freqrange', [2 25], 'electrodes', 'off');
-
-%% downsample to 250hz
-frequency = 250;
-rest = pop_resample(rest, frequency);
 
 %% create dummy events
 n_events = 151;

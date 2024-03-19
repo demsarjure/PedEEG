@@ -19,6 +19,10 @@ stop = start + 360000 + 1;
 rest_raw = eeg_eegrej(raw, [1 start; stop raw.pnts]);
 rest_raw.setname = 'rest_raw';
 
+%% downsample to 250hz
+frequency = 250;
+rest_raw = pop_resample(rest_raw, frequency);
+
 %% filtering
 rest_raw = pop_eegfiltnew(rest_raw, 'locutoff', 40, 'hicutoff', 0.5);
 
@@ -44,10 +48,6 @@ pop_eegplot(rest, 1, 1, 1);
 
 %% plot spectral
 figure; pop_spectopo(rest, 1, [0  360000], 'EEG' , 'percent', 50, 'freqrange', [2 25], 'electrodes', 'off');
-
-%% downsample to 250hz
-frequency = 250;
-rest = pop_resample(rest, frequency);
 
 %% create dummy events
 n_events = 250;
