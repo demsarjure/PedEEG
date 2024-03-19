@@ -17,10 +17,10 @@ df_age_validation <- df_validation %>% select(age, sex)
 df_age_validation$dataset <- "validation"
 df_age <- add_row(df_age_test, df_age_validation)
 
-# age to factor
+# sex to factor
 df_age <- df_age %>%
-  mutate(sex = replace(sex, sex == 1, "male")) %>%
-  mutate(sex = replace(sex, sex == 2, "female"))
+  mutate(sex = replace(sex, sex == 0, "male")) %>%
+  mutate(sex = replace(sex, sex == 1, "female"))
 
 ggplot(df_age, aes(x = age, color = sex, fill = sex)) +
   geom_density(size = 1, alpha = 0.25) +
