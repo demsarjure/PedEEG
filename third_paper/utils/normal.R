@@ -130,7 +130,7 @@ compare_normal <- function(fit, constant = 0, label1 = "", label2 = "") {
 }
 
 # plot comparison between a normal fit and a constant --------------------------
-plot_comparison_normal <- function(fit, constant = 0, ci = NULL) {
+plot_comparison_normal <- function(fit, prob = NULL, constant = 0, ci = NULL) {
   # extract
   df_samples <- as_draws_df(fit$draws())
 
@@ -162,6 +162,20 @@ plot_comparison_normal <- function(fit, constant = 0, ci = NULL) {
       color = "grey50", linewidth = 1
     ) +
     theme_minimal()
+
+  if (!is.null(prob)) {
+    mean <- mean(df_samples$mu)
+    p <- p +
+      annotate(
+        "text",
+        x = mean,
+        y = 0.125,
+        label = paste0(prob, "%"),
+        size = 4,
+        color="grey20",
+        hjust = 0.5
+      )
+  }
 
   return(p)
 }

@@ -30,7 +30,13 @@ for (var in all_vars) {
         )
     )
 
-    plot <- plot_comparison_normal(fit = fit_diff)
+    if (results$bigger_prob > results$smaller_prob) {
+        prob <- results$bigger_prob
+    } else {
+        prob <- results$smaller_prob
+    }
+
+    plot <- plot_comparison_normal(fit = fit_diff, prob)
     plot <- plot +
         xlab("") +
         ggtitle(var) +
