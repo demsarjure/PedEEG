@@ -373,33 +373,40 @@ for (dataset in datasets) {
     p1 <- p1 +
       xlab("starost") +
       ylab("vrednost") +
-      ggtitle("Značilna dolžina poti")
+      ggtitle("Značilna dolžina poti") +
+      theme(plot.title = element_text(size = 10))
 
     p2 <- p2 +
       xlab("starost") +
       ylab("vrednost") +
-      ggtitle("Globalna učinkovistost")
+      ggtitle("Globalna učinkovitost") +
+      theme(plot.title = element_text(size = 10))
 
     p3 <- p3 +
       xlab("starost") +
       ylab("vrednost") +
-      ggtitle("Koeficient kopičenja")
+      ggtitle("Koeficient kopičenja") +
+      theme(plot.title = element_text(size = 10))
 
     p4 <- p4 +
       xlab("starost") +
       ylab("vrednost") +
-      ggtitle("Indeks majhnih svetov")
+      ggtitle("Indeks majhnih svetov") +
+      theme(plot.title = element_text(size = 10))
 
     p5 <- p5 +
       xlab("starost") +
       ylab("vrednost") +
-      ggtitle("Interhemisferična moč")
+      ggtitle("IH moč") +
+      theme(plot.title = element_text(size = 10))
 
     if (band == "alpha") {
       p6 <- p6 +
         xlab("starost") +
         ylab("vrednost") +
-        ggtitle("Individualni vrh alfa frekvence")
+        ggtitle("Individualni vrh alfa frekvence") +
+        theme(plot.title = element_text(size = 10))
+
       plot_grid(p1, p2, p3, p4, p5, p6, scale = 0.95)
       ggsave(paste0("figs/by_age_", dataset, "_", band, "_si.png"),
             width = 3840,
