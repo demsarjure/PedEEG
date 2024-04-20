@@ -40,6 +40,7 @@ df_demo_long <- df_demo %>%
   pivot_longer(cols = c(age, sex, education))
 
 # plot age/sex distributions ---------------------------------------------------
+# english plot
 df_demo$Sex <- df_demo$sex
 df_demo <- df_demo %>%
   mutate(Sex = replace(Sex, Sex == 0, "Male")) %>%
@@ -56,13 +57,37 @@ p1 <- ggplot(df_demo, aes(x = age, color = Group, fill = Group)) +
   ylab("") +
   xlab("Age (years)")
 
+# slovenian plot
+df_demo_si <- df_demo
+df_demo_si$Spol <- df_demo_si$Sex
+df_demo_si <- df_demo_si %>%
+  mutate(Spol = replace(Spol, Spol == "Male", "Moški")) %>%
+  mutate(Spol = replace(Spol, Spol == "Female", "Ženski"))
+df_demo_si$Spol <- factor(df_demo_si$Spol , levels = c("Ženski", "Moški"))
+df_demo_si$Skupina <- df_demo_si$group
+df_demo_si <- df_demo_si %>%
+  mutate(Skupina = replace(Skupina, Skupina == "Control", "Kontrolna")) %>%
+  mutate(Skupina = replace(Skupina, Skupina == "Stroke", "Kap"))
+df_demo_si$Skupina <- factor(df_demo_si$Skupina , levels = c("Kontrolna", "Kap"))
+
+p1_si <- ggplot(df_demo_si, aes(x = age, color = Skupina, fill = Skupina)) +
+  geom_density(size = 1, alpha = 0.25) +
+  scale_color_brewer(type = "qual", palette = 1) +
+  scale_fill_brewer(type = "qual", palette = 1) +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+  xlim(5, 18) +
+  facet_grid(. ~ Spol) +
+  ylab("") +
+  xlab("Starost")
+
 # education as factors
-# 1 - Elementary
-# 2 - Vocational
-# 3 - High
-# 4 - Professional
-# 5 - BSc or MSc
-# 6 - PhD
+# 1 - Elementary/Osnovna
+# 2 - Vocational/Poklicna
+# 3 - High/Srednja
+# 4 - Professional/Visoka
+# 5 - BSc or MSc/Univerzitetna ali magisterij
+# 6 - PhD/Doktorat
+# english plot
 df_demo$education <- factor(df_demo$education, levels = c(1, 2, 3, 4, 5, 6),
                             labels = c("Elementary", "Vocational", "High", "Professional", "BSc or MSc", "PhD"))
 df_education <- df_demo %>% drop_na()
@@ -75,9 +100,39 @@ p2 <- ggplot(df_education, aes(x = education)) +
   ylab("") +
   xlab("Education")
 
+# slovenian plot
+df_education_si <- df_education
+df_education_si$Izobrazba <- df_education_si$education
+mapping <- c("Elementary" = "Osnovna",
+             "Vocational" = "Poklicna",
+             "High" = "Srednja",
+             "Professional" = "VSŠ",
+             "BSc or MSc" = "UNI/MAG",
+             "PhD" = "Doktorat")
+df_education_si <- df_education_si %>%
+  mutate(Izobrazba = recode(Izobrazba, !!!mapping))
+
+p2_si <- ggplot(df_education_si, aes(x = Izobrazba)) +
+  geom_histogram(stat = "count") +
+  scale_color_brewer(type = "qual", palette = 1) +
+  scale_fill_brewer(type = "qual", palette = 1) +
+  facet_grid(. ~ group) +
+  ylab("")
+
+# english plot
 plot_grid(p1, p2, labels = "AUTO", ncol = 1, align = "v", scale = 0.95)
 
 ggsave(paste0("figs/demographics.png"),
+        width = 1920,
+        height = 1080,
+        dpi = 150,
+        units = "px",
+        bg = "white")
+
+# slovenian plot
+plot_grid(p1_si, p2_si, labels = "AUTO", ncol = 1, align = "v", scale = 0.95)
+
+ggsave(paste0("figs/demographics_si.png"),
         width = 1920,
         height = 1080,
         dpi = 150,

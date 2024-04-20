@@ -1,5 +1,6 @@
 library(ggplot2)
 library(tidyverse)
+library(cowplot)
 
 # load data and models ---------------------------------------------------------
 source("data.R")
@@ -89,9 +90,49 @@ plot_comparisons[["cc_vs_iq"]] <- plots[["cc_vs_iq"]] +
     ylab("IQ") +
     ggtitle("")
 
+# english plot
 plot_grid(plotlist = plot_comparisons, ncol = 4, scale = 0.9)
 ggsave(
     "./figs/comparisons.png",
+    width = 1920,
+    height = 1080,
+    dpi = 150,
+    units = "px",
+    bg = "white"
+)
+
+# slovenian plot
+plot_comparisons[["cp_vs_perservations"]] <- plot_comparisons[["cp_vs_perservations"]] +
+    xlab("Značilna dolžina poti") +
+    ylab("Perzervacije")
+
+plot_comparisons[["tihs_vs_perservations"]] <- plot_comparisons[["tihs_vs_perservations"]] +
+    xlab("Interhemisferična moč") +
+    ylab("Perzervacije")
+
+plot_comparisons[["cc_vs_perservations"]] <- plot_comparisons[["cc_vs_perservations"]] +
+    xlab("Koeficient kopičenja") +
+    ylab("Perzervacije")
+
+plot_comparisons[["sw_vs_perservations"]] <- plot_comparisons[["sw_vs_perservations"]] +
+    xlab("Indeks majhnih svetov") +
+    ylab("Perzervacije")
+
+plot_comparisons[["mod_vs_iq"]] <- plot_comparisons[["mod_vs_iq"]] +
+    xlab("Modularnost") +
+    ylab("IQ")
+
+plot_comparisons[["mod_vs_iq_speed"]] <- plot_comparisons[["mod_vs_iq_speed"]] +
+    xlab("Modularnost") +
+    ylab("Processing speed")
+
+plot_comparisons[["cc_vs_iq"]] <- plot_comparisons[["cc_vs_iq"]] +
+    xlab("Koeficient kopičenja") +
+    ylab("IQ")
+
+plot_grid(plotlist = plot_comparisons, ncol = 4, scale = 0.9)
+ggsave(
+    "./figs/comparisons_si.png",
     width = 1920,
     height = 1080,
     dpi = 150,
