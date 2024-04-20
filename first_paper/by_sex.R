@@ -32,8 +32,8 @@ for (dataset in datasets) {
     cat(paste0("\n===> Processing: ", dataset, "_", band, "\n\n"))
 
     # split into male and female -----------------------------------------------
-    df_m <- df %>% filter(sex == 1)
-    df_f <- df %>% filter(sex == 2)
+    df_m <- df %>% filter(sex == 0)
+    df_f <- df %>% filter(sex == 1)
 
     # characteristic path ------------------------------------------------------
     # prep the data
@@ -90,7 +90,6 @@ for (dataset in datasets) {
       add_row(data.frame(Value = df_cp_f$mu,
                          sex = "F",
                          Metric = "Characteristic path"))
-
 
     # global efficiency --------------------------------------------------------
     # prep the data
@@ -386,11 +385,11 @@ for (dataset in datasets) {
     df_stats$Metric <-
       factor(df_stats$Metric,
              levels = c("Characteristic path",
-                         "Global efficiency",
-                         "Clustering coefficient",
-                         "Small worldness",
-                         "IH strength",
-                         "Individual alpha frequency"))
+                        "Global efficiency",
+                        "Clustering coefficient",
+                        "Small worldness",
+                        "IH strength",
+                        "Individual alpha frequency"))
 
     if (band == "alpha") {
       n_col <- 3
@@ -398,10 +397,13 @@ for (dataset in datasets) {
       n_col <- 5
     }
 
+    # english plot
     ggplot(data = df_stats, aes(x = Value, y = sex)) +
       stat_pointinterval(fill = "skyblue", alpha = 0.75, .width = c(.5, .95)) +
       facet_wrap(. ~ Metric, scales = "free", ncol = n_col) +
-      theme(panel.spacing = unit(2, "lines"))
+      theme(panel.spacing = unit(2, "lines")) +
+      xlab("value") +
+      ylab("sex")
 
     if (band == "alpha") {
       ggsave(paste0("figs/by_sex_", dataset, "_", band, ".png"),
@@ -411,6 +413,38 @@ for (dataset in datasets) {
             units = "px")
     } else {
       ggsave(paste0("figs/by_sex_", dataset, "_", band, ".png"),
+            width = 3840,
+            height = 1080,
+            dpi = 350,
+            units = "px")
+    }
+
+    # slovenian plot
+    df_stats_si <- df_stats
+    mapping <- c("Characteristic path" = "Značilna dolžina poti",
+                  "Global efficiency" = "Globalna učinkovitost",
+                  "Clustering coefficient" = "Koeficient kopičenja",
+                  "Small worldness" = "Indeks majhnih svetov",
+                  "IH strength" = "Interhemisferična moč",
+                  "Individual alpha frequency" = "Individualni vrh alfa frekvence")
+    df_stats_si <- df_stats %>%
+      mutate(Metric = recode(Metric, !!!mapping))
+
+    ggplot(data = df_stats_si, aes(x = Value, y = sex)) +
+      stat_pointinterval(fill = "skyblue", alpha = 0.75, .width = c(.5, .95)) +
+      facet_wrap(. ~ Metric, scales = "free", ncol = n_col) +
+      theme(panel.spacing = unit(2, "lines")) +
+      xlab("vrednost") +
+      ylab("spol")
+
+    if (band == "alpha") {
+      ggsave(paste0("figs/by_sex_", dataset, "_", band, "_si.png"),
+            width = 3840,
+            height = 2160,
+            dpi = 400,
+            units = "px")
+    } else {
+      ggsave(paste0("figs/by_sex_", dataset, "_", band, "_si.png"),
             width = 3840,
             height = 1080,
             dpi = 350,

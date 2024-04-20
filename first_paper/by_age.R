@@ -81,7 +81,7 @@ for (dataset in datasets) {
       scale_fill_manual(values = c("grey75")) +
       ggtitle("Characteristic path") +
       xlab("age") +
-      ylab("Value") +
+      ylab("value") +
       theme(legend.position = "none")
 
     # global efficiency coefficient --------------------------------------------
@@ -133,7 +133,7 @@ for (dataset in datasets) {
       scale_fill_manual(values = c("grey75")) +
       ggtitle("Global efficiency") +
       xlab("age") +
-      ylab("Value") +
+      ylab("value") +
       theme(legend.position = "none")
 
     # clustering coefficient ---------------------------------------------------
@@ -185,7 +185,7 @@ for (dataset in datasets) {
       scale_fill_manual(values = c("grey75")) +
       ggtitle("Clustering coeff.") +
       xlab("age") +
-      ylab("Value") +
+      ylab("value") +
       theme(legend.position = "none")
 
     # small worldness ----------------------------------------------------------
@@ -237,7 +237,7 @@ for (dataset in datasets) {
       scale_fill_manual(values = c("grey75")) +
       ggtitle("Small worldness") +
       xlab("age") +
-      ylab("Value") +
+      ylab("value") +
       theme(legend.position = "none")
 
     # interhemispheric strength ------------------------------------------------
@@ -289,7 +289,7 @@ for (dataset in datasets) {
       scale_fill_manual(values = c("grey75")) +
       ggtitle("IH strength") +
       xlab("age") +
-      ylab("Value") +
+      ylab("value") +
       theme(legend.position = "none")
 
     # alpha peak ---------------------------------------------------------------
@@ -346,7 +346,7 @@ for (dataset in datasets) {
         scale_fill_manual(values = c("grey75")) +
         ggtitle("Individual alpha frequency") +
         xlab("age") +
-        ylab("Value") +
+        ylab("value") +
         theme(legend.position = "none")
     }
 
@@ -367,6 +367,54 @@ for (dataset in datasets) {
              dpi = 350,
              units = "px",
              bg = "white")
+    }
+
+    # plot slovenian -----------------------------------------------------------
+    p1 <- p1 +
+      xlab("starost") +
+      ylab("vrednost") +
+      ggtitle("Značilna dolžina poti")
+
+    p2 <- p2 +
+      xlab("starost") +
+      ylab("vrednost") +
+      ggtitle("Globalna učinkovistost")
+
+    p3 <- p3 +
+      xlab("starost") +
+      ylab("vrednost") +
+      ggtitle("Koeficient kopičenja")
+
+    p4 <- p4 +
+      xlab("starost") +
+      ylab("vrednost") +
+      ggtitle("Indeks majhnih svetov")
+
+    p5 <- p5 +
+      xlab("starost") +
+      ylab("vrednost") +
+      ggtitle("Interhemisferična moč")
+
+    if (band == "alpha") {
+      p6 <- p6 +
+        xlab("starost") +
+        ylab("vrednost") +
+        ggtitle("Individualni vrh alfa frekvence")
+      plot_grid(p1, p2, p3, p4, p5, p6, scale = 0.95)
+      ggsave(paste0("figs/by_age_", dataset, "_", band, "_si.png"),
+            width = 3840,
+            height = 2160,
+            dpi = 400,
+            units = "px",
+            bg = "white")
+    } else {
+      plot_grid(p1, p2, p3, p4, p5, scale = 0.95, ncol = 5)
+      ggsave(paste0("figs/by_age_", dataset, "_", band, "_si.png"),
+            width = 3840,
+            height = 1080,
+            dpi = 350,
+            units = "px",
+            bg = "white")
     }
   }
 }

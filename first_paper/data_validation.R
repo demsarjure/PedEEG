@@ -22,6 +22,7 @@ if (band == "alpha") {
 df_age <- read.csv("../data/validation/MIPDB_PublicFile.csv")
 df_age <- df_age %>% select(ID, Age, Sex)
 colnames(df_age) <- c("id", "age", "sex")
+df_age$sex <- df_age$sex - 1
 df <- df %>% left_join(df_age)
 
 # drop nas
