@@ -61,9 +61,9 @@ p1 <- ggplot(df_demo, aes(x = age, color = Group, fill = Group)) +
 df_demo_si <- df_demo
 df_demo_si$Spol <- df_demo_si$Sex
 df_demo_si <- df_demo_si %>%
-  mutate(Spol = replace(Spol, Spol == "Male", "Moški")) %>%
-  mutate(Spol = replace(Spol, Spol == "Female", "Ženski"))
-df_demo_si$Spol <- factor(df_demo_si$Spol , levels = c("Ženski", "Moški"))
+  mutate(Spol = replace(Spol, Spol == "Male", "Moški spol")) %>%
+  mutate(Spol = replace(Spol, Spol == "Female", "Ženski spol"))
+df_demo_si$Spol <- factor(df_demo_si$Spol , levels = c("Ženski spol", "Moški spol"))
 df_demo_si$Skupina <- df_demo_si$group
 df_demo_si <- df_demo_si %>%
   mutate(Skupina = replace(Skupina, Skupina == "Control", "Kontrolna skupina")) %>%
@@ -102,6 +102,10 @@ p2 <- ggplot(df_education, aes(x = education)) +
 
 # slovenian plot
 df_education_si <- df_education
+df_education_si$Skupina <- df_education_si$group
+df_education_si <- df_education_si %>%
+  mutate(Skupina = replace(Skupina, Skupina == "Control", "Kontrolna skupina")) %>%
+  mutate(Skupina = replace(Skupina, Skupina == "Stroke", "Perinatalna kap"))
 df_education_si$Izobrazba <- df_education_si$education
 mapping <- c("Elementary" = "Osnovna",
              "Vocational" = "Poklicna",
@@ -116,7 +120,7 @@ p2_si <- ggplot(df_education_si, aes(x = Izobrazba)) +
   geom_histogram(stat = "count") +
   scale_color_brewer(type = "qual", palette = 1) +
   scale_fill_brewer(type = "qual", palette = 1) +
-  facet_grid(. ~ group) +
+  facet_grid(. ~ Skupina) +
   ylab("")
 
 # english plot
