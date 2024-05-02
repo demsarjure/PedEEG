@@ -102,7 +102,7 @@ plots_cognition[["iq_speed"]] <- plots_cognition[["iq_speed"]] +
     ggtitle("Hitrost procesiranja")
 
 plots_cognition[["motor"]] <- plots_cognition[["motor"]] +
-    ggtitle("Motorična koordinacije")
+    ggtitle("Motorična koordinacija")
 
 plots_cognition[["visual"]] <- plots_cognition[["visual"]] +
     ggtitle("Vidna zaznava")
@@ -114,7 +114,7 @@ plots_cognition[["comissions"]] <- plots_cognition[["comissions"]] +
     ggtitle("Komisije")
 
 plots_cognition[["perservations"]] <- plots_cognition[["perservations"]] +
-    ggtitle("Perzervacije")
+    ggtitle("Perservarcije")
 
 plot_grid(plotlist = plots_cognition, ncol = 3, scale = 0.95)
 ggsave(
@@ -173,7 +173,7 @@ plots_neural[["sw"]] <- plots_neural[["sw"]] +
     ggtitle("Indeks majhnih svetov")
 
 plots_neural[["tihs"]] <- plots_neural[["tihs"]] +
-    ggtitle("IHS")
+    ggtitle("IHM")
 
 plot_grid(plotlist = plots_neural, ncol = 5, scale = 0.95)
 ggsave(

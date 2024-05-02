@@ -104,19 +104,19 @@ ggsave(
 # slovenian plot
 plot_comparisons[["cp_vs_perservations"]] <- plot_comparisons[["cp_vs_perservations"]] +
     xlab("Značilna dolžina poti") +
-    ylab("Perzervacije")
+    ylab("Perservarcije")
 
 plot_comparisons[["tihs_vs_perservations"]] <- plot_comparisons[["tihs_vs_perservations"]] +
     xlab("Interhemisferična moč") +
-    ylab("Perzervacije")
+    ylab("Perservarcije")
 
 plot_comparisons[["cc_vs_perservations"]] <- plot_comparisons[["cc_vs_perservations"]] +
     xlab("Koeficient kopičenja") +
-    ylab("Perzervacije")
+    ylab("Perservarcije")
 
 plot_comparisons[["sw_vs_perservations"]] <- plot_comparisons[["sw_vs_perservations"]] +
     xlab("Indeks majhnih svetov") +
-    ylab("Perzervacije")
+    ylab("Perservarcije")
 
 plot_comparisons[["mod_vs_iq"]] <- plot_comparisons[["mod_vs_iq"]] +
     xlab("Modularnost") +

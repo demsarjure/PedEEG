@@ -66,9 +66,9 @@ df_demo_si <- df_demo_si %>%
 df_demo_si$Spol <- factor(df_demo_si$Spol , levels = c("Ženski", "Moški"))
 df_demo_si$Skupina <- df_demo_si$group
 df_demo_si <- df_demo_si %>%
-  mutate(Skupina = replace(Skupina, Skupina == "Control", "Kontrolna")) %>%
-  mutate(Skupina = replace(Skupina, Skupina == "Stroke", "Kap"))
-df_demo_si$Skupina <- factor(df_demo_si$Skupina , levels = c("Kontrolna", "Kap"))
+  mutate(Skupina = replace(Skupina, Skupina == "Control", "Kontrolna skupina")) %>%
+  mutate(Skupina = replace(Skupina, Skupina == "Stroke", "Perinatalna kap"))
+df_demo_si$Skupina <- factor(df_demo_si$Skupina , levels = c("Kontrolna skupina", "Perinatalna kap"))
 
 p1_si <- ggplot(df_demo_si, aes(x = age, color = Skupina, fill = Skupina)) +
   geom_density(size = 1, alpha = 0.25) +
