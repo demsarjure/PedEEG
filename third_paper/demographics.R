@@ -1,5 +1,9 @@
 library(tidyverse)
 library(cowplot)
+library(bayesplot)
+library(cmdstanr)
+library(mcmcse)
+library(posterior)
 
 # load and prep the data -------------------------------------------------------
 # source data
@@ -39,6 +43,18 @@ sum(df_demo_test$sex == 1)
 df_demo_long <- df_demo %>%
   pivot_longer(cols = c(age, sex, education))
 
+# education as factors
+# 1 - Elementary/Osnovna
+# 2 - Vocational/Poklicna
+# 3 - High/Srednja
+# 4 - Professional/Visoka
+# 5 - BSc or MSc/Univerzitetna ali magisterij
+# 6 - PhD/Doktorat
+# english plot
+df_demo$education <- factor(df_demo$education, levels = c(1, 2, 3, 4, 5, 6),
+                            labels = c("Elementary", "Vocational", "High", "Professional", "BSc or MSc", "PhD"))
+df_education <- df_demo %>% drop_na()
+
 # plot age/sex distributions ---------------------------------------------------
 # english plot
 df_demo$Sex <- df_demo$sex
@@ -48,13 +64,12 @@ df_demo <- df_demo %>%
 df_demo$Group <- df_demo$group
 
 p1 <- ggplot(df_demo, aes(x = age, color = Group, fill = Group)) +
-  geom_density(size = 1, alpha = 0.25) +
+  geom_density(linewidth = 1, alpha = 0.25) +
   scale_color_brewer(type = "qual", palette = 1) +
   scale_fill_brewer(type = "qual", palette = 1) +
-  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
   xlim(5, 18) +
   facet_grid(. ~ Sex) +
-  ylab("") +
+  ylab("Density") +
   xlab("Age (years)")
 
 # slovenian plot
@@ -71,33 +86,20 @@ df_demo_si <- df_demo_si %>%
 df_demo_si$Skupina <- factor(df_demo_si$Skupina , levels = c("Kontrolna skupina", "Perinatalna kap"))
 
 p1_si <- ggplot(df_demo_si, aes(x = age, color = Skupina, fill = Skupina)) +
-  geom_density(size = 1, alpha = 0.25) +
+  geom_density(linewidth = 1, alpha = 0.25) +
   scale_color_brewer(type = "qual", palette = 1) +
   scale_fill_brewer(type = "qual", palette = 1) +
-  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
   xlim(5, 18) +
   facet_grid(. ~ Spol) +
-  ylab("") +
+  ylab("Gostota") +
   xlab("Starost")
-
-# education as factors
-# 1 - Elementary/Osnovna
-# 2 - Vocational/Poklicna
-# 3 - High/Srednja
-# 4 - Professional/Visoka
-# 5 - BSc or MSc/Univerzitetna ali magisterij
-# 6 - PhD/Doktorat
-# english plot
-df_demo$education <- factor(df_demo$education, levels = c(1, 2, 3, 4, 5, 6),
-                            labels = c("Elementary", "Vocational", "High", "Professional", "BSc or MSc", "PhD"))
-df_education <- df_demo %>% drop_na()
 
 p2 <- ggplot(df_education, aes(x = education)) +
   geom_histogram(stat = "count") +
   scale_color_brewer(type = "qual", palette = 1) +
   scale_fill_brewer(type = "qual", palette = 1) +
   facet_grid(. ~ group) +
-  ylab("") +
+  ylab("Count") +
   xlab("Education")
 
 # slovenian plot
@@ -121,7 +123,7 @@ p2_si <- ggplot(df_education_si, aes(x = Izobrazba)) +
   scale_color_brewer(type = "qual", palette = 1) +
   scale_fill_brewer(type = "qual", palette = 1) +
   facet_grid(. ~ Skupina) +
-  ylab("")
+  ylab("Število")
 
 # english plot
 plot_grid(p1, p2, labels = "AUTO", ncol = 1, align = "v", scale = 0.95)
@@ -142,3 +144,72 @@ ggsave(paste0("figs/demographics_si.png"),
         dpi = 150,
         units = "px",
         bg = "white")
+
+# analysis ---------------------------------------------------------------------
+# age
+model <- cmdstan_model("./models/poisson.stan")
+
+# control
+stan_data <- list(
+  n = length(df_demo_control$age),
+  y = df_demo_control$age
+)
+fit_control <- model$sample(
+  data = stan_data,
+  parallel_chains = 4
+)
+mcmc_trace(fit_control$draws())
+fit_control$summary()
+
+# test
+stan_data <- list(
+  n = length(df_demo_test$age),
+  y = df_demo_test$age
+)
+fit_test <- model$sample(
+  data = stan_data,
+  parallel_chains = 4
+)
+mcmc_trace(fit_test$draws())
+fit_test$summary()
+
+df_samples_control <- as_draws_df(fit_control$draws())
+df_samples_test <- as_draws_df(fit_test$draws())
+
+mcse(df_samples_control$lambda > df_samples_test$lambda)
+
+# education
+df_education$education_numeric <- as.numeric(df_education$education)
+df_education_control <- df_education %>%
+  filter(group == "Control")
+df_education_test <- df_education %>%
+  filter(group == "Stroke")
+
+# control
+stan_data <- list(
+  n = length(df_education_control$education_numeric),
+  y = df_education_control$education_numeric
+)
+fit_control <- model$sample(
+  data = stan_data,
+  parallel_chains = 4
+)
+mcmc_trace(fit_control$draws())
+fit_control$summary()
+
+# test
+stan_data <- list(
+  n = length(df_education_test$education_numeric),
+  y = df_education_test$education_numeric
+)
+fit_test <- model$sample(
+  data = stan_data,
+  parallel_chains = 4
+)
+mcmc_trace(fit_test$draws())
+fit_test$summary()
+
+df_samples_control <- as_draws_df(fit_control$draws())
+df_samples_test <- as_draws_df(fit_test$draws())
+
+mcse(df_samples_control$lambda > df_samples_test$lambda)

@@ -4,8 +4,8 @@
 source("./utils/normal.R")
 source("data.R")
 
-# repeat 100 times for each metric
-n <- 100
+# repeat 100000 times for each metric
+n <- 1000
 n_data <- nrow(df_diff)
 
 # set var

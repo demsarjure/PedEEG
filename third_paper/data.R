@@ -83,6 +83,8 @@ df_test <- df_test %>%
 
 # compute pairwise differences -------------------------------------------------
 df_diff <- data.frame(
+  age = numeric(),
+  education = numeric(),
   cp = numeric(),
   cc = numeric(),
   mod = numeric(),
@@ -105,7 +107,10 @@ for (i in seq_len(nrow(df_pairs))) {
   t <- df_test %>% filter(id == p$id_test)
 
   if (nrow(c) > 0 && nrow(t) > 0) {
+    new_row <- 
     df_diff <- df_diff %>% add_row(data.frame(
+      age = p$age_diff,
+      education = p$education_diff,
       cp = c$cp - t$cp,
       cc = c$cc - t$cc,
       mod = c$mod - t$mod,
@@ -123,6 +128,21 @@ for (i in seq_len(nrow(df_pairs))) {
     ))
   }
 }
+
+# with demographic vars --------------------------------------------------------
+df_demo_c <- read.csv("../data/test/demographics_control.csv")
+df_demo_t <- read.csv("../data/test/demographics_test.csv")
+df_education <- read.csv("../data/test/education.csv")
+
+df_demo_c <- df_demo_c %>%
+  left_join(df_education, by = "id")
+df_demo_t <- df_demo_t %>%
+  left_join(df_education, by = "id")
+
+df_control_demo <- df_control %>%
+  left_join(df_demo_c, by = "id")
+df_test_demo <- df_test %>%
+  left_join(df_demo_t, by = "id")
 
 # remove demographic vars ------------------------------------------------------
 test_ids <- df_test$id
