@@ -6,7 +6,8 @@ source("./utils/simple_linear.R")
 source("data.R")
 
 # set var
-var <- "omissions"
+var <- "mod"
+df_diff <- drop_na(df_diff)
 diff <- df_diff[[var]]
 
 # set NA education to 0
@@ -25,7 +26,34 @@ results_normal <- compare_normal(
     fit = fit_diff, label1 = "control", label2 = "test"
 )
 
-# complex model ----------------------------------------------------------------
+# regression on diff -----------------------------------------------------------
+# independetent variables
+X <- cbind(
+    df_diff$age,
+    df_diff$education
+)
+
+# fit
+stan_data <- list(
+  n = length(diff),
+  m = ncol(X),
+  X = X,
+  y = diff
+)
+fit <- model$sample(
+  data = stan_data,
+  parallel_chains = 4
+)
+
+mcmc_trace(fit$draws())
+fit$summary()
+df_samples <- as_draws_df(fit$draws())
+colnames(df_samples) <- c("lp__", "a", "b_age", "b_education", "sigma")
+
+# positive alpha means control has a higher metric
+mcse(df_samples$a > 0)
+
+# regression on groups ---------------------------------------------------------
 # predictors: age, education
 model <- cmdstan_model("./models/multiple_linear.stan")
 

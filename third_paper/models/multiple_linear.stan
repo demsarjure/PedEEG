@@ -13,5 +13,5 @@ parameters {
 
 model {
   // model
-  y ~ normal(a + X * b, sigma);
+  y ~ cauchy(a + X * b, sigma);
 }
